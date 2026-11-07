@@ -1,0 +1,19 @@
+# Auto detect text files and perform LF normalization by default
+* text=auto eol=lf
+
+# Force LF line endings for POSIX/Unix shell scripts
+*.sh text eol=lf
+
+# Force CRLF line endings for Windows Batch scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Standard source, data, and documentation files in LF
+*.js text eol=lf
+*.d.ts text eol=lf linguist-vendored
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+LICENSE text eol=lf
+NOTICE text eol=lf
