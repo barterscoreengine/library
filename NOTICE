@@ -1,0 +1,18 @@
+BarterScore Engine
+Copyright 2026 Erisson Marques (https://github.com/erissontech)
+Repository: https://github.com/barterscoreengine/library
+
+This product includes software, mathematical valuation algorithms, and standardized
+survival utility datasets developed for the BarterScore Engine open-source project
+by Erisson Marques (https://github.com/erissontech).
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file or any derivative works except in compliance with the License.
+
+MANDATORY ATTRIBUTION NOTICE (Apache License 2.0, Section 4(d)):
+Any redistribution, derivative work, commercial or non-commercial application,
+embedded firmware, mobile WebView, or printed field manual that incorporates
+any portion of the BarterScore Engine source code, mathematical models, or
+item datasets MUST retain this NOTICE file intact and display clear attribution
+to the original project ("BarterScore Engine") and its author/maintainer:
+Erisson Marques (https://github.com/erissontech).

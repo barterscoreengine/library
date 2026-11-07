@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BarterScore Engine — Offline Field Valuation &amp; Manual Generator</title>
+  <style>
+    /* ==========================================================================
+       BarterScore Engine - Offline Tactical Screen & Print Stylesheet
+       Zero External Font/CSS Dependencies — 100% Local file:// Compatible
+       ========================================================================== */
+    :root {
+      --bg-canvas: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-elevated: #0b1120;
+      --border-hairline: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent-emerald: #16a34a;
+      --accent-emerald-text: #4ade80;
+      --accent-amber: #d97706;
+      --accent-amber-text: #fbbf24;
+      --accent-crimson: #dc2626;
+      --accent-crimson-text: #f87171;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .mono-num {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .app-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px 24px 48px;
+    }
+
+    /* Top Bar Header */
+    .top-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 16px;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background-color: #283548;
+      border-color: #475569;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: #15803d;
+      border-color: #15803d;
+    }
+
+    /* Validator Diagnostic Banner */
+    .validator-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 16px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 12px;
+    }
+
+    .validator-banner.status-ok {
+      border-color: rgba(22, 163, 74, 0.5);
+    }
+
+    .validator-banner.status-error {
+      border-color: var(--accent-crimson);
+      background-color: rgba(220, 38, 38, 0.12);
+    }
+
+    .validator-status-text {
+      font-weight: 600;
+      color: var(--accent-emerald-text);
+    }
+
+    .validator-banner.status-error .validator-status-text {
+      color: var(--accent-crimson-text);
+    }
+
+    .validator-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+    }
+
+    .sep-dot {
+      color: var(--text-muted);
+      margin: 0 4px;
+    }
+
+    /* Global Control Bar (Language & Scenario) */
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .control-panel {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .field-select,
+    .field-input {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .field-select:focus,
+    .field-input:focus {
+      border-color: var(--accent-emerald-text);
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Interactive Trade Simulator Section */
+    .simulator-section {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .sim-columns {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .sim-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sim-box {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sim-box-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .sim-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .sim-swap-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sim-results-panel {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .sim-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .sim-kpi-item {
+      padding: 10px 12px;
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      background-color: var(--bg-surface);
+    }
+
+    .sim-kpi-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .sim-kpi-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .sim-kpi-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .sim-settlement-summary {
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      background-color: rgba(6, 78, 59, 0.22);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .sim-settlement-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-emerald);
+      margin-bottom: 4px;
+    }
+
+    .imbalance-alert {
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .imbalance-alert.balanced {
+      border-color: rgba(22, 163, 74, 0.5);
+      background-color: rgba(22, 163, 74, 0.1);
+      color: #dcfce7;
+    }
+
+    .imbalance-alert.surplus,
+    .imbalance-alert.deficit {
+      border-color: rgba(217, 119, 6, 0.65);
+      background-color: rgba(217, 119, 6, 0.12);
+      color: #fef3c7;
+    }
+
+    .imbalance-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .change-options-block {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(251, 191, 36, 0.25);
+    }
+
+    .change-options-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #fde68a;
+    }
+
+    .change-primary-list {
+      list-style: none;
+      margin: 0 0 8px 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 6px;
+    }
+
+    .change-primary-item {
+      background-color: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 4px;
+      padding: 6px 8px;
+      font-size: 11.5px;
+      line-height: 1.4;
+    }
+
+    .change-qty-badge {
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    .change-details {
+      margin-top: 6px;
+      background-color: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 4px;
+      padding: 6px 10px;
+    }
+
+    .change-details summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 11.5px;
+      color: #e2e8f0;
+      user-select: none;
+    }
+
+    .change-cat-group {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.2);
+    }
+
+    .change-cat-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 4px;
+    }
+
+    .change-cat-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 4px 12px;
+      font-size: 11px;
+      color: #e2e8f0;
+    }
+
+    /* Quotation Schedule Table Section */
+    .catalog-filter-bar {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .catalog-filter-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .category-block {
+      margin-bottom: 28px;
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      background-color: var(--bg-surface);
+      overflow: hidden;
+    }
+
+    .category-header {
+      padding: 12px 16px;
+      background-color: var(--bg-elevated);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .category-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .category-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.quotation-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    table.quotation-table th {
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-hairline);
+      background-color: rgba(15, 23, 42, 0.5);
+      white-space: nowrap;
+    }
+
+    table.quotation-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+      vertical-align: top;
+    }
+
+    table.quotation-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.quotation-table tr:hover td {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .num-col {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .item-name-main {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .item-desc-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .item-meta-line {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .score-highlight {
+      font-weight: 700;
+      color: var(--accent-emerald-text);
+    }
+
+    .sub-unit-rate {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .mec-sub-line {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .print-only-header,
+    .print-only-guide {
+      display: none;
+    }
+
+    /* ==========================================================================
+       @media print — Didactic Book-Grade Black & White Field Manual Layout
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 5mm 6mm;
+      }
+
+      html,
+      body {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        font-size: 8.5pt;
+        line-height: 1.25;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .app-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .no-print,
+      .header-actions,
+      .simulator-section,
+      .catalog-filter-bar,
+      .control-grid {
+        display: none !important;
+      }
+
+      .print-only-header {
+        display: block !important;
+        border-bottom: 1.5px solid #000000;
+        padding-bottom: 3px;
+        margin-bottom: 4px;
+        font-family: var(--font-mono);
+        font-size: 8pt;
+        font-weight: 700;
+      }
+
+      .print-only-guide {
+        display: block !important;
+        border: 1.5px solid #000000;
+        border-radius: 4px;
+        padding: 6px 8px;
+        margin-bottom: 8px;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        break-inside: auto;
+        page-break-inside: auto;
+        break-after: page;
+        page-break-after: always;
+      }
+
+      .print-guide-heading {
+        font-size: 9pt;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        border-bottom: 1px solid #000000;
+        padding-bottom: 3px;
+        margin-bottom: 4px;
+      }
+
+      .print-steps-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+
+      .print-info-grid-2col {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+
+      .print-step-box {
+        border: 1px solid #333333;
+        border-radius: 3px;
+        padding: 4px 6px;
+        font-size: 7pt;
+        line-height: 1.22;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .print-step-title {
+        font-weight: 700;
+        margin-bottom: 1.5px;
+        font-size: 7.5pt;
+      }
+
+      .print-lookup-title {
+        font-size: 8pt;
+        font-weight: 700;
+        margin: 4px 0 3px 0;
+      }
+
+      table.print-lookup-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 6.5pt;
+        font-family: var(--font-mono);
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      table.print-lookup-table th,
+      table.print-lookup-table td {
+        border: 1px solid #333333;
+        padding: 2px 3px;
+        text-align: right;
+      }
+
+      table.print-lookup-table th:first-child,
+      table.print-lookup-table td:first-child {
+        text-align: left;
+        font-family: var(--font-sans);
+        font-weight: 600;
+      }
+
+      table.print-lookup-table thead th {
+        background-color: #efefef !important;
+        font-weight: 700;
+      }
+
+      .top-header {
+        border-bottom: 1.5px solid #000000;
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+      }
+
+      .brand-title {
+        font-size: 11pt !important;
+      }
+
+      .brand-subtitle {
+        font-size: 7.5pt !important;
+        margin-top: 1px !important;
+      }
+
+      .brand-title,
+      .category-name,
+      .item-name-main,
+      .score-highlight,
+      .validator-status-text {
+        color: #000000 !important;
+      }
+
+      .sub-unit-rate {
+        color: #111111 !important;
+        font-size: 7.2pt;
+      }
+
+      .mec-sub-line {
+        color: #222222 !important;
+        font-size: 6.8pt;
+      }
+
+      .brand-subtitle,
+      .category-desc,
+      .item-desc-sub,
+      .item-meta-line,
+      .validator-metrics {
+        color: #222222 !important;
+      }
+
+      .validator-banner {
+        background-color: #ffffff !important;
+        border: 1px solid #000000 !important;
+        margin-bottom: 5px;
+        padding: 3px 6px;
+        font-size: 7.5pt;
+      }
+
+      .category-block {
+        background-color: #ffffff !important;
+        border: 1px solid #000000 !important;
+        margin-bottom: 10px;
+        break-inside: auto;
+        overflow: visible !important;
+        width: 100% !important;
+      }
+
+      .table-wrapper {
+        overflow: visible !important;
+        width: 100% !important;
+      }
+
+      .category-header {
+        background-color: #efefef !important;
+        border-bottom: 1px solid #000000 !important;
+        padding: 5px 7px;
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      table.quotation-table,
+      table.print-lookup-table {
+        width: 100% !important;
+        max-width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+      }
+
+      table.quotation-table thead {
+        display: table-header-group;
+      }
+
+      table.quotation-table th,
+      table.quotation-table td,
+      table.quotation-table .num-col {
+        border: 1px solid #444444 !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 3px 4px !important;
+        font-size: 7.2pt !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+      }
+
+      table.quotation-table thead th {
+        background-color: #f3f4f6 !important;
+        font-weight: 700;
+        font-size: 7pt !important;
+      }
+
+      table.quotation-table tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+
+  <!-- UMD Modules Loaded via Relative Paths for Local file:// Protocol -->
+  <script src="src/validator.js"></script>
+  <script src="src/barter_engine.js"></script>
+  <script src="data/items_core.js"></script>
+  <script src="locales/en-US.js"></script>
+  <script src="locales/pt-BR.js"></script>
+  <script src="locales/es-ES.js"></script>
+  <script src="locales/zh-Hans.js"></script>
+  <script src="audit_sources/offline_sources_registry.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Print-Only Technical Banner -->
+    <div id="printBanner" class="print-only-header"></div>
+
+    <!-- Top Navigation & Action Bar -->
+    <header class="top-header">
+      <div>
+        <h1 id="uiAppTitle" class="brand-title">BarterScore Engine — Offline Field Valuation &amp; Manual Generator</h1>
+        <p id="uiAppSubtitle" class="brand-subtitle">Deterministic Physical Barter Reference &amp; Exchange Calculator (Apache 2.0)</p>
+      </div>
+      <div class="header-actions no-print">
+        <button type="button" id="btnPrintManual" class="btn btn-primary">Print Field Manual</button>
+      </div>
+    </header>
+
+    <!-- Validator Diagnostic Banner -->
+    <section id="validatorBanner" class="validator-banner status-ok" aria-live="polite">
+      <div id="validatorStatusText" class="validator-status-text">Schema Validator Audit: 100% Validated</div>
+      <div id="validatorMetricsText" class="validator-metrics mono-num"></div>
+    </section>
+
+    <!-- Print-Only Didactic Field Operation Guide & Pre-Calculated Change Lookup Table -->
+    <section id="printFieldGuide" class="print-only-guide"></section>
+
+    <!-- Language & Crisis Scenario Controls -->
+    <section class="control-grid no-print">
+      <div class="control-panel">
+        <label for="selectLocale" id="labelLanguage" class="field-label">Interface &amp; Catalog Language (BCP 47)</label>
+        <select id="selectLocale" class="field-select mono-num">
+          <option value="en-US">en-US — English (United States) [WHO-INN / USP / Codex]</option>
+          <option value="pt-BR">pt-BR — Português (Brasil) [DCB-ANVISA / TBCA-TACO]</option>
+          <option value="es-ES">es-ES — Español (España / Internacional) [DOE-AEMPS / Codex]</option>
+          <option value="zh-Hans">zh-Hans — 简体中文 (中华人民共和国药典 / GB)</option>
+        </select>
+        <p id="localeFallbackHint" class="field-hint mono-num">Fallback Chain: Selected Locale → en-US → Technical ID</p>
+      </div>
+
+      <div class="control-panel">
+        <label for="selectScenario" id="labelScenario" class="field-label">Crisis Phase Context (MEC)</label>
+        <select id="selectScenario" class="field-select">
+          <option value="acute_collapse">acute_collapse</option>
+          <option value="economic_reconstruction">economic_reconstruction</option>
+          <option value="baseline">baseline</option>
+        </select>
+        <p id="scenarioDescHint" class="field-hint"></p>
+      </div>
+    </section>
+
+    <!-- Bilateral Barter Exchange & Divisibility Simulator -->
+    <section class="simulator-section no-print">
+      <div class="section-header">
+        <div>
+          <h2 id="simTitle" class="section-title">Bilateral Barter Exchange &amp; Divisibility Simulator</h2>
+          <p id="simSubtitle" class="section-subtitle">Calculates exact parity ratios, real-time shelf-life depreciation, and atomic indivisibility alerts.</p>
+        </div>
+      </div>
+
+      <div class="sim-columns">
+        <!-- Offered Item Column -->
+        <div class="sim-box">
+          <div id="simOfferHeader" class="sim-box-title">Offered Item (Your Inventory)</div>
+          <div>
+            <label for="simOfferItem" id="labelOfferItem" class="field-label">Select Standardized Item</label>
+            <select id="simOfferItem" class="field-select"></select>
+          </div>
+          <div class="sim-row-2col">
+            <div>
+              <label for="simOfferQty" id="labelOfferQty" class="field-label">Offered Quantity (Atomic Units)</label>
+              <input type="number" id="simOfferQty" class="field-input mono-num" value="1" min="0.01" step="1" />
+            </div>
+            <div>
+              <label for="simOfferLifecycle" id="labelOfferLifecycle" class="field-label">Remaining Shelf Life (Days)</label>
+              <input type="number" id="simOfferLifecycle" class="field-input mono-num" value="1825" min="0" step="1" />
+            </div>
+          </div>
+          <div id="offerNominalHint" class="field-hint mono-num"></div>
+        </div>
+
+        <!-- Swap Button Column -->
+        <div class="sim-swap-col">
+          <button type="button" id="btnSwapItems" class="btn mono-num" title="Swap Offered and Requested Items">⇄</button>
+        </div>
+
+        <!-- Requested Item Column -->
+        <div class="sim-box">
+          <div id="simRequestHeader" class="sim-box-title">Requested Item (Counterparty)</div>
+          <div>
+            <label for="simRequestItem" id="labelRequestItem" class="field-label">Select Standardized Item</label>
+            <select id="simRequestItem" class="field-select"></select>
+          </div>
+          <div class="sim-row-2col">
+            <div>
+              <label for="simRequestLifecycle" id="labelRequestLifecycle" class="field-label">Remaining Shelf Life (Days)</label>
+              <input type="number" id="simRequestLifecycle" class="field-input mono-num" value="1095" min="0" step="1" />
+            </div>
+            <div>
+              <label class="field-label" id="labelRequestDivisibility">Atomic Divisibility</label>
+              <input type="text" id="simRequestDivInfo" class="field-input mono-num" readonly />
+            </div>
+          </div>
+          <div id="requestNominalHint" class="field-hint mono-num"></div>
+        </div>
+      </div>
+
+      <!-- Simulator Results & Imbalance Alert -->
+      <div class="sim-results-panel">
+        <div class="sim-settlement-summary">
+          <div id="simSummaryTitle" class="sim-settlement-title">Direct Trade Settlement Summary</div>
+          <div id="simSummaryBody" class="mono-num"></div>
+        </div>
+
+        <div class="sim-kpi-grid">
+          <div class="sim-kpi-item">
+            <div id="kpiLabelRate" class="sim-kpi-label">Unit Parity Ratio (1 Offered : X Requested)</div>
+            <div id="kpiValueRate" class="sim-kpi-value mono-num">—</div>
+            <div id="kpiSubRate" class="sim-kpi-sub"></div>
+          </div>
+          <div class="sim-kpi-item">
+            <div id="kpiLabelOfferTotal" class="sim-kpi-label">Total Offered Value (You Deliver)</div>
+            <div id="kpiValueOfferTotal" class="sim-kpi-value mono-num">—</div>
+            <div id="kpiSubOfferTotal" class="sim-kpi-sub"></div>
+          </div>
+          <div class="sim-kpi-item">
+            <div id="kpiLabelReqUnit" class="sim-kpi-label">1 Unit Value (Requested Item)</div>
+            <div id="kpiValueReqUnit" class="sim-kpi-value mono-num">—</div>
+            <div id="kpiSubReqUnit" class="sim-kpi-sub"></div>
+          </div>
+          <div class="sim-kpi-item">
+            <div id="kpiLabelExactQty" class="sim-kpi-label">Exact Qty to Receive (Requested Item)</div>
+            <div id="kpiValueExactQty" class="sim-kpi-value mono-num">—</div>
+            <div id="kpiSubExactQty" class="sim-kpi-sub"></div>
+          </div>
+          <div class="sim-kpi-item">
+            <div id="kpiLabelRecQty" class="sim-kpi-label">Recommended Qty to Receive (Requested Item)</div>
+            <div id="kpiValueRecQty" class="sim-kpi-value mono-num score-highlight">—</div>
+            <div id="kpiSubRecQty" class="sim-kpi-sub"></div>
+          </div>
+          <div class="sim-kpi-item">
+            <div id="kpiLabelSubUnits" class="sim-kpi-label">Total Portioned Amount to Receive (Requested Item)</div>
+            <div id="kpiValueSubUnits" class="sim-kpi-value mono-num">—</div>
+            <div id="kpiSubSubUnits" class="sim-kpi-sub"></div>
+          </div>
+        </div>
+
+        <div id="imbalanceAlertBox" class="imbalance-alert balanced">
+          <div id="imbalanceAlertTitle" class="imbalance-title"></div>
+          <div id="imbalanceAlertMessage" class="mono-num"></div>
+          <div id="imbalanceChangeHint" style="margin-top: 6px; opacity: 0.9;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete Centennial Catalog Quotation Schedule -->
+    <section>
+      <div class="section-header">
+        <h2 id="tableSectionTitle" class="section-title">Complete Centennial Catalog Quotation Schedule</h2>
+        <span id="tableCountSummary" class="section-subtitle mono-num"></span>
+      </div>
+
+      <div class="catalog-filter-bar no-print">
+        <input
+          type="search"
+          id="inputSearchCatalog"
+          class="field-input"
+          placeholder="Filter by item name, semantic ID, or functional tag..."
+        />
+        <select id="selectCategoryFilter" class="field-select"></select>
+      </div>
+
+      <div id="catalogTablesContainer"></div>
+    </section>
+
+    <!-- Official Scientific & Regulatory Sources Directory (Offline Snapshot + 1-Click Verification) -->
+    <section style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #1e293b; font-size: 11px; color: #94a3b8;">
+      <div style="font-weight: 700; color: #e2e8f0; margin-bottom: 6px;">
+        Offline Audit Dossier (<code>audit_sources/</code>) &amp; Official Document Identifiers (100% Verifiable Offline &amp; Online)
+      </div>
+      <div style="line-height: 1.65;">
+        <strong>Physical Meaning of 1 BarterScore Point (1 pt):</strong> 1 Effective Survival Kilocalorie (<code>E × IN = 1</code>) per unit of Gravimetric-Volumetric Burden (<code>P + Vol + 0.1 = 1.0</code>) across 1 Logarithmic Decade of Shelf Life (<code>log10(V + 1) = 1.0</code> at <code>V = 9 days</code>) with neutral readiness (<code>CP = 1.0, FP = 1.0, Frag = 1.0</code>). Full decimal-step rubric archived locally in <code>audit_sources/OFFLINE_AUDIT_DOSSIER.md</code> and <code>window.BarterCore.AuditSources</code>.<br />
+        <strong>Nutrition &amp; Exact USDA FDC Records (E, IN):</strong>
+        <a href="https://fdc.nal.usda.gov/food-details/169756/nutrients" target="_blank" rel="noopener noreferrer" style="color: #34d399;">USDA FDC ID 169756 / NDB 20444 (White Rice Raw: 365 kcal/100g)</a> ·
+        <a href="https://fdc.nal.usda.gov/food-details/173734/nutrients" target="_blank" rel="noopener noreferrer" style="color: #34d399;">USDA FDC ID 173734 / 175193 (Dry Beans Raw: 329–341 kcal/100g)</a> ·
+        <a href="https://fdc.nal.usda.gov/food-details/169640/nutrients" target="_blank" rel="noopener noreferrer" style="color: #34d399;">FDC ID 169640 (Honey: 304 kcal/100g)</a> ·
+        <a href="https://fdc.nal.usda.gov/food-details/169655/nutrients" target="_blank" rel="noopener noreferrer" style="color: #34d399;">FDC ID 169655 (Sucrose: 387 kcal/100g)</a> ·
+        <a href="https://fdc.nal.usda.gov/food-details/171411/nutrients" target="_blank" rel="noopener noreferrer" style="color: #34d399;">FDC ID 171411 (Vegetable Oil: 884 kcal/100g)</a> ·
+        <a href="https://www.tbca.net.br/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">TBCA/USP</a> ·
+        <a href="https://www.cfn.org.br/wp-content/uploads/2017/03/taco_4_edicao_ampliada_e_revisada.pdf" target="_blank" rel="noopener noreferrer" style="color: #34d399;">TACO/UNICAMP 4th Ed. PDF</a><br />
+        <strong>Pharmaceuticals, ORS &amp; Trauma (Exact WHO / FDA Codes):</strong>
+        <a href="https://iris.who.int/handle/10665/371090" target="_blank" rel="noopener noreferrer" style="color: #34d399;">WHO EML 23rd List (WHO/MHP/HPS/EML/2023.02 — ATC: J01CA04 Amoxicillin 500mg, J01MA02 Ciprofloxacin 500mg, J01FA10 Azithromycin 500mg, N02BE01 Paracetamol 500mg)</a> ·
+        <a href="https://iris.who.int/handle/10665/69227" target="_blank" rel="noopener noreferrer" style="color: #34d399;">WHO/UNICEF ORS (Doc WHO/FCH/CAH/06.1: 20.5g/L, 245 mOsm/L)</a> ·
+        <a href="https://www.who.int/publications/i/item/9789241549950" target="_blank" rel="noopener noreferrer" style="color: #34d399;">WHO GDWQ ISBN 978-92-4-154995-0 (NaDCC 67mg / 20L Jerrycan)</a> ·
+        <a href="https://deployedmedicine.com/market/31" target="_blank" rel="noopener noreferrer" style="color: #34d399;">DoD CoTCCC Trauma Guidelines</a> ·
+        <a href="https://www.fda.gov/drugs/bioterrorism-and-drug-preparedness/frequently-asked-questions-potassium-iodide-ki" target="_blank" rel="noopener noreferrer" style="color: #34d399;">FDA KI Guidance Dec 2001 (130mg Adult Thyroid Blocking)</a><br />
+        <strong>WASH, Pharmacopoeias &amp; Industrial Standards:</strong>
+        <a href="https://spherestandards.org/handbook/editions/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">Sphere Handbook WASH Std 2.1 (15L/day total; 2.5–3L/day survival drinking)</a> ·
+        <a href="https://www.usp.org/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">USP (en-US)</a> ·
+        <a href="https://www.gov.br/anvisa/pt-br/assuntos/farmacopeia/dcb" target="_blank" rel="noopener noreferrer" style="color: #34d399;">DCB/ANVISA (pt-BR)</a> ·
+        <a href="https://cima.aemps.es/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">DOE/AEMPS (es-ES)</a> ·
+        <a href="https://www.chp.org.cn/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">Chinese Pharmacopoeia ChP (zh-Hans)</a> ·
+        <a href="https://webstore.iec.ch/en/publication/603" target="_blank" rel="noopener noreferrer" style="color: #34d399;">IEC 60086-2 / IEC 61960-3 (LR6, LR03, INR18650)</a> ·
+        <a href="https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html" target="_blank" rel="noopener noreferrer" style="color: #34d399;">NIOSH 42 CFR Part 84 (N95)</a> ·
+        <a href="https://www.lbma.org.uk/good-delivery/about-good-delivery" target="_blank" rel="noopener noreferrer" style="color: #34d399;">LBMA 999.0 Fine Bullion</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Pure Vanilla JavaScript Application Controller -->
+  <script>
+    (function () {
+      'use strict';
+
+      var BarterCore = window.BarterCore || {};
+      var Validator = BarterCore.Validator;
+      var BarterEngine = BarterCore.BarterEngine;
+
+      var state = {
+        locale: 'en-US',
+        scenario: 'acute_collapse',
+        searchQuery: '',
+        categoryFilter: 'all',
+        offerItemId: 'rice_white_polished_raw_1000g',
+        offerQty: 1,
+        offerLifecycle: 1825,
+        requestItemId: 'amoxicillin_500mg_capsule',
+        requestLifecycle: 1095
+      };
+
+      function uiText(key, fallbackText) {
+        if (!BarterEngine || typeof BarterEngine.translate !== 'function') {
+          return fallbackText || key;
+        }
+        var translated = BarterEngine.translate(key, 'name', state.locale);
+        return translated && translated !== key ? translated : fallbackText || key;
+      }
+
+      function categoryName(catId) {
+        return BarterEngine.translate(catId, 'name', state.locale);
+      }
+
+      function categoryDesc(catId) {
+        return BarterEngine.translate(catId, 'description', state.locale);
+      }
+
+      function itemName(itemId) {
+        return BarterEngine.translate(itemId, 'name', state.locale);
+      }
+
+      function itemDesc(itemId) {
+        var desc = BarterEngine.translate(itemId, 'description', state.locale);
+        return desc !== itemId ? desc : '';
+      }
+
+      function scenarioName(scenId) {
+        return BarterEngine.translate(scenId, 'name', state.locale);
+      }
+
+      function scenarioDesc(scenId) {
+        var desc = BarterEngine.translate(scenId, 'description', state.locale);
+        return desc !== scenId ? desc : '';
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function updateValidatorBanner() {
+        var currentItems = BarterEngine.getItems();
+        var report = Validator.validateDataset(currentItems);
+        var bannerEl = document.getElementById('validatorBanner');
+        var statusTextEl = document.getElementById('validatorStatusText');
+        var metricsEl = document.getElementById('validatorMetricsText');
+
+        if (report.is_valid) {
+          bannerEl.className = 'validator-banner status-ok';
+          statusTextEl.textContent = uiText('validator_status_ok', 'Schema Validator Audit: 100% Validated');
+        } else {
+          bannerEl.className = 'validator-banner status-error';
+          statusTextEl.textContent =
+            uiText('validator_status_error', 'Schema Validator Audit: Validation Errors Detected') +
+            ' (' +
+            report.errors.slice(0, 2).join(' | ') +
+            ')';
+        }
+
+        var loadedLocales = Object.keys(BarterCore.Locales || {});
+        metricsEl.innerHTML =
+          '<span>' +
+          escapeHtml(uiText('validator_items_loaded', 'Standardized Items Loaded')) +
+          ': <strong>' +
+          report.valid_items +
+          '/' +
+          report.total_items +
+          '</strong></span>' +
+          '<span class="sep-dot">·</span>' +
+          '<span>' +
+          escapeHtml(uiText('validator_warnings', 'Warnings')) +
+          ': <strong>' +
+          report.warnings.length +
+          '</strong></span>' +
+          '<span class="sep-dot">·</span>' +
+          '<span>' +
+          escapeHtml(uiText('validator_errors', 'Errors')) +
+          ': <strong>' +
+          report.errors.length +
+          '</strong></span>' +
+          '<span class="sep-dot">·</span>' +
+          '<span>Locales: <strong>' +
+          escapeHtml(loadedLocales.join(', ')) +
+          '</strong></span>';
+      }
+
+      function updateStaticLabels() {
+        BarterEngine.setLocale(state.locale);
+        document.documentElement.lang = state.locale;
+
+        document.getElementById('uiAppTitle').textContent = uiText(
+          'app_title',
+          'BarterScore Engine — Offline Field Valuation & Manual Generator'
+        );
+        document.getElementById('uiAppSubtitle').textContent = uiText(
+          'app_subtitle',
+          'Deterministic Physical Barter Reference & Exchange Calculator (Apache 2.0)'
+        );
+        document.getElementById('btnPrintManual').textContent = uiText(
+          'btn_print_manual',
+          'Print Field Manual'
+        );
+
+        document.getElementById('labelLanguage').textContent = uiText(
+          'label_language',
+          'Interface & Catalog Language (BCP 47)'
+        );
+        document.getElementById('localeFallbackHint').textContent = uiText(
+          'label_language_hint',
+          'Fallback Chain: Selected Locale → en-US → Technical ID'
+        );
+        document.getElementById('labelScenario').textContent = uiText(
+          'label_scenario',
+          'Crisis Phase Context (MEC)'
+        );
+
+        // Scenario options
+        var scenarioSelect = document.getElementById('selectScenario');
+        var scenarioIds = ['acute_collapse', 'economic_reconstruction', 'baseline'];
+        scenarioSelect.innerHTML = '';
+        for (var i = 0; i < scenarioIds.length; i++) {
+          var sId = scenarioIds[i];
+          var opt = document.createElement('option');
+          opt.value = sId;
+          opt.textContent = scenarioName(sId) + ' [' + sId + ']';
+          if (sId === state.scenario) {
+            opt.selected = true;
+          }
+          scenarioSelect.appendChild(opt);
+        }
+        document.getElementById('scenarioDescHint').textContent = scenarioDesc(state.scenario);
+
+        // Simulator labels
+        document.getElementById('simTitle').textContent = uiText(
+          'sim_title',
+          'Bilateral Barter Exchange & Divisibility Simulator'
+        );
+        document.getElementById('simSubtitle').textContent = uiText(
+          'sim_subtitle',
+          'Calculates exact parity ratios, real-time shelf-life depreciation, and atomic indivisibility alerts.'
+        );
+        document.getElementById('simOfferHeader').textContent = uiText(
+          'sim_offer_header',
+          'Offered Item (Your Inventory)'
+        );
+        document.getElementById('simRequestHeader').textContent = uiText(
+          'sim_request_header',
+          'Requested Item (Counterparty)'
+        );
+        document.getElementById('labelOfferItem').textContent = uiText(
+          'sim_select_item',
+          'Select Standardized Item'
+        );
+        document.getElementById('labelRequestItem').textContent = uiText(
+          'sim_select_item',
+          'Select Standardized Item'
+        );
+        document.getElementById('labelOfferQty').textContent = uiText(
+          'sim_quantity',
+          'Offered Quantity (Atomic Units)'
+        );
+        document.getElementById('labelOfferLifecycle').textContent = uiText(
+          'sim_lifecycle_remaining',
+          'Remaining Shelf Life (Days)'
+        );
+        document.getElementById('labelRequestLifecycle').textContent = uiText(
+          'sim_lifecycle_remaining',
+          'Remaining Shelf Life (Days)'
+        );
+        document.getElementById('labelRequestDivisibility').textContent = uiText(
+          'col_unit',
+          'Atomic Unit & Divisibility'
+        );
+
+        document.getElementById('simSummaryTitle').textContent = uiText(
+          'sim_summary_title',
+          'Direct Trade Settlement Summary'
+        );
+        document.getElementById('kpiLabelRate').textContent = uiText(
+          'sim_exchange_rate',
+          'Unit Parity Ratio (1 Offered : X Requested)'
+        );
+        document.getElementById('kpiLabelOfferTotal').textContent = uiText(
+          'sim_offer_total_score',
+          'Total Offered Value (You Deliver)'
+        );
+        document.getElementById('kpiLabelReqUnit').textContent = uiText(
+          'sim_request_unit_score',
+          '1 Unit Value (Requested Item)'
+        );
+        document.getElementById('kpiLabelExactQty').textContent = uiText(
+          'sim_exact_quantity',
+          'Exact Qty to Receive (Requested Item)'
+        );
+        document.getElementById('kpiLabelRecQty').textContent = uiText(
+          'sim_recommended_quantity',
+          'Recommended Qty to Receive (Requested Item)'
+        );
+        document.getElementById('kpiLabelSubUnits').textContent = uiText(
+          'sim_sub_units_equivalent',
+          'Total Portioned Amount to Receive (Requested Item)'
+        );
+
+        document.getElementById('tableSectionTitle').textContent = uiText(
+          'table_title',
+          'Complete Centennial Catalog Quotation Schedule'
+        );
+        document.getElementById('inputSearchCatalog').placeholder = uiText(
+          'table_search_placeholder',
+          'Filter by item name, semantic ID, or functional tag...'
+        );
+
+        // Print header
+        document.getElementById('printBanner').textContent =
+          uiText('print_header_note', 'OFFLINE PHYSICAL BARTER REFERENCE MANUAL (ALL 3 CRISIS SCENARIOS)') +
+          ' | Locale: ' +
+          state.locale +
+          ' | Col 8: ' +
+          uiText('col_score_base', '1. Pure Baseline (1.0x)') +
+          ' · Col 9: ' +
+          uiText('col_score_acute', '2. Acute Collapse') +
+          ' · Col 10: ' +
+          uiText('col_score_recon', '3. Economic Reconstruction');
+      }
+
+      function populateItemSelects() {
+        var categories = Validator.VALID_CATEGORIES;
+        var offerSelect = document.getElementById('simOfferItem');
+        var requestSelect = document.getElementById('simRequestItem');
+        var catFilterSelect = document.getElementById('selectCategoryFilter');
+
+        offerSelect.innerHTML = '';
+        requestSelect.innerHTML = '';
+        catFilterSelect.innerHTML = '';
+
+        var allCatOpt = document.createElement('option');
+        allCatOpt.value = 'all';
+        allCatOpt.textContent = uiText('table_filter_all_categories', 'All 8 Official Categories');
+        if (state.categoryFilter === 'all') {
+          allCatOpt.selected = true;
+        }
+        catFilterSelect.appendChild(allCatOpt);
+
+        for (var c = 0; c < categories.length; c++) {
+          var catId = categories[c];
+          var catItems = BarterEngine.getItems(catId);
+          if (catItems.length === 0) continue;
+
+          var catOpt = document.createElement('option');
+          catOpt.value = catId;
+          catOpt.textContent = categoryName(catId) + ' (' + catItems.length + ')';
+          if (state.categoryFilter === catId) {
+            catOpt.selected = true;
+          }
+          catFilterSelect.appendChild(catOpt);
+
+          var optGroupOffer = document.createElement('optgroup');
+          optGroupOffer.label = categoryName(catId);
+          var optGroupReq = document.createElement('optgroup');
+          optGroupReq.label = categoryName(catId);
+
+          for (var i = 0; i < catItems.length; i++) {
+            var item = catItems[i];
+            var labelText = itemName(item.id);
+
+            var o1 = document.createElement('option');
+            o1.value = item.id;
+            o1.textContent = labelText;
+            if (item.id === state.offerItemId) o1.selected = true;
+            optGroupOffer.appendChild(o1);
+
+            var o2 = document.createElement('option');
+            o2.value = item.id;
+            o2.textContent = labelText;
+            if (item.id === state.requestItemId) o2.selected = true;
+            optGroupReq.appendChild(o2);
+          }
+
+          offerSelect.appendChild(optGroupOffer);
+          requestSelect.appendChild(optGroupReq);
+        }
+      }
+
+      function updateSimulator() {
+        var offerItem = BarterEngine.getItemById(state.offerItemId) || BarterEngine.getItems()[0];
+        var requestItem = BarterEngine.getItemById(state.requestItemId) || BarterEngine.getItems()[1] || offerItem;
+
+        if (!offerItem || !requestItem) return;
+
+        state.offerItemId = offerItem.id;
+        state.requestItemId = requestItem.id;
+
+        var daysLabel = uiText('sim_unit_days', 'days');
+        var nomHintPrefix = uiText('sim_lifecycle_nominal_hint', 'Nominal fresh shelf life:');
+        var unitValPrefix = uiText('sim_hint_unit_value', 'Current Unit Value:');
+        var deprPrefix = uiText('sim_hint_depreciation', 'Shelf-life loss:');
+
+        var offerEval = BarterEngine.evaluateItem(offerItem, {
+          scenario: state.scenario,
+          current_lifecycle_remaining: state.offerLifecycle
+        });
+        var reqEval = BarterEngine.evaluateItem(requestItem, {
+          scenario: state.scenario,
+          current_lifecycle_remaining: state.requestLifecycle
+        });
+
+        document.getElementById('offerNominalHint').textContent =
+          unitValPrefix +
+          ' ' +
+          offerEval.final_score.toFixed(2) +
+          ' pts · ' +
+          nomHintPrefix +
+          ' ' +
+          offerItem.lifecycle_units +
+          ' ' +
+          daysLabel +
+          ' · IN: ' +
+          offerEval.nutritional_index.toFixed(2) +
+          ' · MEC: ' +
+          offerEval.context_modifier.toFixed(2) +
+          'x · ' +
+          deprPrefix +
+          ' -' +
+          offerEval.depreciation_pct.toFixed(1) +
+          '%';
+
+        document.getElementById('requestNominalHint').textContent =
+          unitValPrefix +
+          ' ' +
+          reqEval.final_score.toFixed(2) +
+          ' pts · ' +
+          nomHintPrefix +
+          ' ' +
+          requestItem.lifecycle_units +
+          ' ' +
+          daysLabel +
+          ' · IN: ' +
+          reqEval.nutritional_index.toFixed(2) +
+          ' · MEC: ' +
+          reqEval.context_modifier.toFixed(2) +
+          'x · ' +
+          deprPrefix +
+          ' -' +
+          reqEval.depreciation_pct.toFixed(1) +
+          '%';
+
+        var divLabel = requestItem.is_divisible
+          ? uiText('unit_divisible', 'Divisible') + ' (' + requestItem.sub_units + ' ' + requestItem.unit_measure + ')'
+          : uiText('unit_indivisible', 'Indivisible') + ' (1 ' + requestItem.unit_measure + ')';
+        document.getElementById('simRequestDivInfo').value = divLabel;
+
+        var trade = BarterEngine.calculateTrade(offerItem, state.offerQty, requestItem, {
+          scenario: state.scenario,
+          offer_lifecycle_remaining: state.offerLifecycle,
+          request_lifecycle_remaining: state.requestLifecycle
+        });
+
+        var offerDisplayName = itemName(offerItem.id);
+        var reqDisplayName = itemName(requestItem.id);
+
+        // Direct Settlement Summary Banner
+        var deliverLabel = uiText('sim_summary_deliver', 'You Deliver (Offer):');
+        var receiveLabel = uiText('sim_summary_receive', 'You Receive (Recommended Settlement):');
+        var offerSubTotal = trade.offer.sub_units_total || trade.offer.quantity * (offerItem.sub_units || 1);
+        var reqRecSub = trade.request.recommended_sub_units || 0;
+        var reqMeasure = trade.request.unit_measure || requestItem.unit_measure || 'un';
+        var offerMeasure = trade.offer.unit_measure || offerItem.unit_measure || 'un';
+
+        document.getElementById('simSummaryBody').innerHTML =
+          '<div><span style="color:#94a3b8;">' +
+          escapeHtml(deliverLabel) +
+          '</span> <strong style="color:#f8fafc;">' +
+          trade.offer.quantity +
+          ' un (' +
+          offerSubTotal +
+          ' ' +
+          escapeHtml(offerMeasure) +
+          ')</strong> — <span style="color:#e2e8f0;">' +
+          escapeHtml(offerDisplayName) +
+          '</span> <span style="color:#34d399;">(' +
+          trade.offer.total_score.toFixed(2) +
+          ' pts)</span></div>' +
+          '<div style="margin-top:4px;"><span style="color:#94a3b8;">' +
+          escapeHtml(receiveLabel) +
+          '</span> <strong style="color:#34d399;">' +
+          trade.request.recommended_quantity +
+          ' un (' +
+          reqRecSub +
+          ' ' +
+          escapeHtml(reqMeasure) +
+          ')</strong> — <span style="color:#ffffff;font-weight:600;">' +
+          escapeHtml(reqDisplayName) +
+          '</span> <span style="color:#cbd5e1;">(' +
+          (trade.request.executed_total_score || 0).toFixed(2) +
+          ' pts)</span></div>';
+
+        // 6 KPI Cards + Explicit Item Sub-labels
+        document.getElementById('kpiValueRate').textContent = trade.is_executable
+          ? '1 : ' + trade.exchange_rate_1_to_x.toFixed(4)
+          : '0';
+        document.getElementById('kpiSubRate').textContent =
+          '1 un [' + offerDisplayName + '] = ' + (trade.is_executable ? trade.exchange_rate_1_to_x.toFixed(4) : '0') + ' un [' + reqDisplayName + ']';
+
+        document.getElementById('kpiValueOfferTotal').textContent =
+          trade.offer.total_score.toFixed(2) + ' pts (' + trade.offer.quantity + ' un)';
+        document.getElementById('kpiSubOfferTotal').textContent =
+          offerSubTotal + ' ' + offerMeasure + ' · ' + offerDisplayName;
+
+        document.getElementById('kpiValueReqUnit').textContent = trade.request.unit_score.toFixed(2) + ' pts';
+        document.getElementById('kpiSubReqUnit').textContent =
+          '1 un (' + requestItem.sub_units + ' ' + requestItem.unit_measure + ') · ' + reqDisplayName;
+
+        document.getElementById('kpiValueExactQty').textContent = Number.isFinite(trade.request.exact_quantity)
+          ? trade.request.exact_quantity.toFixed(4) + ' un'
+          : '∞';
+        document.getElementById('kpiSubExactQty').textContent = reqDisplayName;
+
+        document.getElementById('kpiValueRecQty').textContent =
+          trade.request.recommended_quantity + ' un';
+        document.getElementById('kpiSubRecQty').textContent = reqDisplayName;
+
+        document.getElementById('kpiValueSubUnits').textContent =
+          reqRecSub + ' ' + reqMeasure;
+        document.getElementById('kpiSubSubUnits').textContent = reqDisplayName;
+
+        var alertBox = document.getElementById('imbalanceAlertBox');
+        var alertTitle = document.getElementById('imbalanceAlertTitle');
+        var alertMsg = document.getElementById('imbalanceAlertMessage');
+        var changeHint = document.getElementById('imbalanceChangeHint');
+
+        var imb = trade.trade_imbalance;
+        if (!imb.has_imbalance) {
+          alertBox.className = 'imbalance-alert balanced';
+          alertTitle.textContent = uiText(
+            'sim_imbalance_balanced',
+            'Balanced Settlement: Zero indivisibility loss.'
+          );
+          var balTpl = uiText(
+            'sim_msg_balanced',
+            'Mathematically balanced trade: receiving {rec} un ({sub} {measure}) of "{item}" matches your offered value with zero indivisibility loss.'
+          );
+          alertMsg.textContent = balTpl
+            .replace('{rec}', String(trade.request.recommended_quantity))
+            .replace('{sub}', String(reqRecSub))
+            .replace('{measure}', String(reqMeasure))
+            .replace('{item}', reqDisplayName);
+          changeHint.textContent = '';
+        } else {
+          alertBox.className = 'imbalance-alert ' + imb.imbalance_direction;
+          var sign = imb.imbalance_percentage > 0 ? '+' : '';
+          var dirTitle =
+            imb.imbalance_direction === 'surplus'
+              ? uiText('sim_imbalance_surplus', 'Indivisibility Surplus')
+              : uiText('sim_imbalance_deficit', 'Indivisibility Deficit');
+          alertTitle.textContent =
+            dirTitle +
+            ' (' +
+            sign +
+            imb.imbalance_percentage.toFixed(2) +
+            '% / ' +
+            sign +
+            imb.value_delta_points.toFixed(2) +
+            ' pts)';
+
+          var absPctStr = Math.abs(imb.imbalance_percentage).toFixed(2);
+          var absDeltaStr = Math.abs(imb.value_delta_points).toFixed(2);
+          var exactStr = Number.isFinite(trade.request.exact_quantity)
+            ? trade.request.exact_quantity.toFixed(3)
+            : '0';
+
+          if (!requestItem.is_divisible) {
+            var indivTpl =
+              imb.imbalance_direction === 'surplus'
+                ? uiText(
+                    'sim_msg_surplus_indivisible',
+                    'Requested item "{item}" is indivisible (cannot be split). Rounding from {exact} un to {rec} whole unit(s) creates a +{pct}% value surplus ({delta} pts above your offer).'
+                  )
+                : uiText(
+                    'sim_msg_deficit_indivisible',
+                    'Requested item "{item}" is indivisible (cannot be split). Rounding from {exact} un to {rec} whole unit(s) results in a -{pct}% value deficit ({delta} pts of uncompensated change owed to you).'
+                  );
+            alertMsg.textContent = indivTpl
+              .replace('{item}', reqDisplayName)
+              .replace('{exact}', exactStr)
+              .replace('{rec}', String(trade.request.recommended_quantity))
+              .replace('{pct}', absPctStr)
+              .replace('{delta}', absDeltaStr);
+          } else {
+            var subTpl = uiText(
+              'sim_msg_sub_unit_rounding',
+              'Portioning "{item}" to {sub} {measure} ({rec} un) introduces a minor {sign}{pct}% rounding difference ({delta} pts).'
+            );
+            alertMsg.textContent = subTpl
+              .replace('{item}', reqDisplayName)
+              .replace('{sub}', String(reqRecSub))
+              .replace('{measure}', String(reqMeasure))
+              .replace('{rec}', String(trade.request.recommended_quantity))
+              .replace('{sign}', sign)
+              .replace('{pct}', absPctStr)
+              .replace('{delta}', sign + absDeltaStr);
+          }
+
+          var changeReport = BarterEngine.calculateChangeOptions(imb.value_delta_points, {
+            scenario: state.scenario
+          });
+
+          function formatChangeAmount(opt) {
+            if (opt.is_divisible && opt.sub_units_per_pack > 1) {
+              return (
+                opt.recommended_sub_units.toLocaleString('en-US') +
+                ' ' +
+                opt.unit_measure +
+                ' (' +
+                opt.recommended_units +
+                ' un)'
+              );
+            }
+            return opt.recommended_units + ' ' + opt.unit_measure;
+          }
+
+          var headerTpl = uiText(
+            'sim_change_suggestion',
+            'Immediate Change Options (Pick 1 option below to settle {delta} pts):'
+          );
+          var headerHtml =
+            '<div class="change-options-block">' +
+            '<div class="change-options-title">' +
+            escapeHtml(headerTpl.replace('{delta}', absDeltaStr)) +
+            '</div>';
+
+          if (changeReport.primary_options.length > 0) {
+            headerHtml += '<ul class="change-primary-list">';
+            for (var p = 0; p < changeReport.primary_options.length; p++) {
+              var pOpt = changeReport.primary_options[p];
+              headerHtml +=
+                '<li class="change-primary-item">' +
+                '<span class="change-qty-badge mono-num">' +
+                escapeHtml(formatChangeAmount(pOpt)) +
+                '</span> — ' +
+                '<span>' +
+                escapeHtml(itemName(pOpt.item_id)) +
+                '</span>' +
+                '</li>';
+            }
+            headerHtml += '</ul>';
+          }
+
+          if (changeReport.all_viable_options.length > 0) {
+            var toggleTpl = uiText(
+              'sim_change_all_toggle',
+              'View all {count} physically viable change options across the catalog ({div} divisible in g/ml/un + {indiv} whole small units)'
+            );
+            var toggleText = toggleTpl
+              .replace('{count}', String(changeReport.all_viable_options.length))
+              .replace('{div}', String(changeReport.divisible_count))
+              .replace('{indiv}', String(changeReport.indivisible_unit_count));
+
+            headerHtml +=
+              '<details class="change-details">' +
+              '<summary>' +
+              escapeHtml(toggleText) +
+              '</summary>';
+
+            var validCats = Validator.VALID_CATEGORIES;
+            for (var c = 0; c < validCats.length; c++) {
+              var catSlug = validCats[c];
+              var catOpts = changeReport.all_viable_options.filter(function (o) {
+                return o.category === catSlug;
+              });
+              if (catOpts.length === 0) continue;
+
+              headerHtml +=
+                '<div class="change-cat-group">' +
+                '<div class="change-cat-title">' +
+                escapeHtml(categoryName(catSlug)) +
+                ' (' +
+                catOpts.length +
+                ')</div>' +
+                '<div class="change-cat-items">';
+
+              for (var k = 0; k < catOpts.length; k++) {
+                var cOpt = catOpts[k];
+                headerHtml +=
+                  '<div>• <strong class="change-qty-badge mono-num">' +
+                  escapeHtml(formatChangeAmount(cOpt)) +
+                  '</strong> — ' +
+                  escapeHtml(itemName(cOpt.item_id)) +
+                  '</div>';
+              }
+
+              headerHtml += '</div></div>';
+            }
+
+            headerHtml += '</details>';
+          }
+
+          headerHtml += '</div>';
+          changeHint.innerHTML = headerHtml;
+        }
+      }
+
+      function renderCatalogTables() {
+        var container = document.getElementById('catalogTablesContainer');
+        var categories = Validator.VALID_CATEGORIES;
+        var query = state.searchQuery.trim().toLowerCase();
+        var htmlParts = [];
+        var totalRendered = 0;
+
+        for (var c = 0; c < categories.length; c++) {
+          var catId = categories[c];
+          if (state.categoryFilter !== 'all' && state.categoryFilter !== catId) {
+            continue;
+          }
+
+          var items = BarterEngine.getItems(catId);
+          var filteredItems = [];
+
+          for (var i = 0; i < items.length; i++) {
+            var it = items[i];
+            var locName = itemName(it.id).toLowerCase();
+            var locDesc = itemDesc(it.id).toLowerCase();
+            var tagsJoined = (it.tags || []).join(' ').toLowerCase();
+
+            if (
+              !query ||
+              it.id.toLowerCase().indexOf(query) !== -1 ||
+              locName.indexOf(query) !== -1 ||
+              locDesc.indexOf(query) !== -1 ||
+              tagsJoined.indexOf(query) !== -1
+            ) {
+              filteredItems.push(it);
+            }
+          }
+
+          if (filteredItems.length === 0) {
+            continue;
+          }
+
+          totalRendered += filteredItems.length;
+
+          htmlParts.push('<div class="category-block">');
+          htmlParts.push('<div class="category-header">');
+          htmlParts.push(
+            '<div><span class="category-name">' +
+              escapeHtml(categoryName(catId)) +
+              '</span> <span class="mono-num" style="font-size:11px;color:var(--text-muted);">[' +
+              escapeHtml(catId) +
+              ' · ' +
+              filteredItems.length +
+              ']</span></div>'
+          );
+          htmlParts.push('<div class="category-desc">' + escapeHtml(categoryDesc(catId)) + '</div>');
+          htmlParts.push('</div>');
+
+          htmlParts.push('<div class="table-wrapper"><table class="quotation-table">');
+          htmlParts.push(
+            '<colgroup>' +
+              '<col style="width:3%"/>' +
+              '<col style="width:28%"/>' +
+              '<col style="width:11%"/>' +
+              '<col style="width:6%"/>' +
+              '<col style="width:6%"/>' +
+              '<col style="width:5%"/>' +
+              '<col style="width:4%"/>' +
+              '<col style="width:11%"/>' +
+              '<col style="width:13%"/>' +
+              '<col style="width:13%"/>' +
+            '</colgroup>'
+          );
+          htmlParts.push('<thead><tr>');
+          htmlParts.push('<th>#</th>');
+          htmlParts.push('<th>' + escapeHtml(uiText('col_item', 'Technical Item Name & Specification')) + '</th>');
+          htmlParts.push('<th>' + escapeHtml(uiText('col_unit', 'Atomic Unit & Divisibility')) + '</th>');
+          htmlParts.push('<th class="num-col">' + escapeHtml(uiText('col_energy', 'Energy / EEB (E)')) + '</th>');
+          htmlParts.push('<th class="num-col">' + escapeHtml(uiText('col_mass_vol', 'Mass / Vol (P / Vol)')) + '</th>');
+          htmlParts.push('<th class="num-col">' + escapeHtml(uiText('col_lifecycle', 'Shelf Life (V)')) + '</th>');
+          htmlParts.push('<th class="num-col">' + escapeHtml(uiText('col_in', 'Nutr. Index (IN)')) + '</th>');
+          htmlParts.push(
+            '<th class="num-col">' +
+              (state.scenario === 'baseline' ? '★ ' : '') +
+              escapeHtml(uiText('col_score_baseline', '1. Pure Baseline (1.0x)')) +
+              '</th>'
+          );
+          htmlParts.push(
+            '<th class="num-col">' +
+              (state.scenario === 'acute_collapse' ? '★ ' : '') +
+              escapeHtml(uiText('col_score_acute', '2. Acute Collapse')) +
+              '</th>'
+          );
+          htmlParts.push(
+            '<th class="num-col">' +
+              (state.scenario === 'economic_reconstruction' ? '★ ' : '') +
+              escapeHtml(uiText('col_score_recon', '3. Reconstruction')) +
+              '</th>'
+          );
+          htmlParts.push('</tr></thead><tbody>');
+
+          function buildScenarioCellHtml(evObj, currentItem, isActive) {
+            var subRate = '';
+            if (currentItem.is_divisible && Number(currentItem.sub_units) > 1) {
+              var perSubVal = evObj.final_score / Number(currentItem.sub_units);
+              var decs = perSubVal < 1 ? 3 : 2;
+              subRate =
+                '<div class="sub-unit-rate mono-num">1 ' +
+                escapeHtml(currentItem.unit_measure) +
+                ' = ' +
+                perSubVal.toFixed(decs) +
+                ' pts</div>';
+            }
+            var mainScoreClass = isActive ? 'score-highlight' : '';
+            return (
+              '<td class="num-col mono-num">' +
+              '<div class="' +
+              mainScoreClass +
+              '">' +
+              evObj.final_score.toFixed(2) +
+              ' pts</div>' +
+              '<div class="mec-sub-line">MEC: ' +
+              evObj.context_modifier.toFixed(2) +
+              'x</div>' +
+              subRate +
+              '</td>'
+            );
+          }
+
+          for (var r = 0; r < filteredItems.length; r++) {
+            var item = filteredItems[r];
+            var evBase = BarterEngine.evaluateItem(item, { scenario: 'baseline' });
+            var evAcute = BarterEngine.evaluateItem(item, { scenario: 'acute_collapse' });
+            var evRecon = BarterEngine.evaluateItem(item, { scenario: 'economic_reconstruction' });
+            var divText = item.is_divisible
+              ? uiText('unit_divisible', 'Divisible') + ' · ' + item.sub_units + ' ' + item.unit_measure
+              : uiText('unit_indivisible', 'Indivisible') + ' · 1 ' + item.unit_measure;
+            var typeText = item.is_food
+              ? uiText('unit_food', 'Caloric Food')
+              : uiText('unit_non_food', 'Utility / Non-Food');
+
+            htmlParts.push('<tr>');
+            htmlParts.push('<td class="mono-num">' + (r + 1) + '</td>');
+            htmlParts.push(
+              '<td>' +
+                '<div class="item-name-main">' +
+                escapeHtml(itemName(item.id)) +
+                '</div>' +
+                '<div class="item-desc-sub">' +
+                escapeHtml(itemDesc(item.id)) +
+                '</div>' +
+                '<div class="item-meta-line">ID: ' +
+                escapeHtml(item.id) +
+                ' · Tags: ' +
+                escapeHtml((item.tags || []).join(', ')) +
+                '</div>' +
+                '</td>'
+            );
+            htmlParts.push(
+              '<td class="mono-num">' +
+                '<div>' +
+                escapeHtml(divText) +
+                '</div>' +
+                '<div style="font-size:11px;color:var(--text-muted);">' +
+                escapeHtml(typeText) +
+                ' · CP:' +
+                item.cost_of_prep +
+                ' · FP:' +
+                item.psychological_factor +
+                ' · Frag:' +
+                item.fragility_index +
+                '</div>' +
+                '</td>'
+            );
+            htmlParts.push(
+              '<td class="num-col mono-num">' +
+                item.energy_or_utility_base +
+                (item.is_food ? ' kcal' : ' EEB') +
+                '</td>'
+            );
+            htmlParts.push(
+              '<td class="num-col mono-num">' + item.weight_kg + ' kg<br/>' + item.volume_liters + ' L</td>'
+            );
+            htmlParts.push(
+              '<td class="num-col mono-num">' +
+                item.lifecycle_units +
+                ' ' +
+                escapeHtml(uiText('sim_unit_days', 'days')) +
+                '</td>'
+            );
+            htmlParts.push('<td class="num-col mono-num">' + evBase.nutritional_index.toFixed(2) + '</td>');
+            htmlParts.push(buildScenarioCellHtml(evBase, item, state.scenario === 'baseline'));
+            htmlParts.push(buildScenarioCellHtml(evAcute, item, state.scenario === 'acute_collapse'));
+            htmlParts.push(buildScenarioCellHtml(evRecon, item, state.scenario === 'economic_reconstruction'));
+            htmlParts.push('</tr>');
+          }
+
+          htmlParts.push('</tbody></table></div></div>');
+        }
+
+        container.innerHTML = htmlParts.join('');
+        document.getElementById('tableCountSummary').textContent =
+          totalRendered + ' / ' + BarterEngine.getItems().length + ' items';
+      }
+
+      function renderPrintFieldGuide() {
+        var guideEl = document.getElementById('printFieldGuide');
+        if (!guideEl) return;
+
+        var bulkRefIds = [
+          'salt_sodium_chloride_iodized_1000g',
+          'sugar_sucrose_crystal_1000g',
+          'rice_white_polished_raw_1000g',
+          'water_potable_sealed_1000ml',
+          'ethanol_antiseptic_70pct_100ml'
+        ];
+        var unitRefIds = [
+          'paracetamol_500mg_tablet',
+          'water_purification_nadcc_tablet_unit'
+        ];
+        var bulkQtys = [1, 10, 50, 100, 250, 500, 1000];
+
+        function fmtTriplet(vBase, vAcute, vRecon) {
+          function f(n) {
+            return n >= 100 ? n.toFixed(0) : n.toFixed(1);
+          }
+          return f(vBase) + ' | ' + f(vAcute) + ' | ' + f(vRecon);
+        }
+
+        var milkItem = BarterEngine.getItemById('milk_powder_whole_400g');
+        var toolItem = BarterEngine.getItemById('multitool_pliers_stainless_folding_unit');
+        var saltItem = BarterEngine.getItemById('salt_sodium_chloride_iodized_1000g');
+        var sugarItem = BarterEngine.getItemById('sugar_sucrose_crystal_1000g');
+
+        var milkScore = milkItem
+          ? BarterEngine.evaluateItem(milkItem, { scenario: 'acute_collapse' }).final_score
+          : 33564.72;
+        var toolScore = toolItem
+          ? BarterEngine.evaluateItem(toolItem, { scenario: 'acute_collapse' }).final_score
+          : 672683.44;
+        var saltRate = saltItem
+          ? BarterEngine.evaluateItem(saltItem, { scenario: 'acute_collapse' }).final_score /
+            Number(saltItem.sub_units || 1000)
+          : 158.935;
+        var sugarRate = sugarItem
+          ? BarterEngine.evaluateItem(sugarItem, { scenario: 'acute_collapse' }).final_score /
+            Number(sugarItem.sub_units || 1000)
+          : 15.525;
+
+        var milkCredit50 = milkScore * 50;
+        var pliersExact50 = milkCredit50 / toolScore;
+        var pliersTwoScore = toolScore * 2;
+        var changePts50 = Math.max(0, milkCredit50 - pliersTwoScore);
+        var saltGrams50 = changePts50 / saltRate;
+        var sugarGrams50 = changePts50 / sugarRate;
+
+        var rawExampleBody = uiText(
+          'print_example_box_body',
+          'Trade 50 packs of Whole Milk Powder (400 g) for Foldable Stainless Multitool Pliers (1 un, Indivisible): 1) Your Credit: 50 × {milk_pts} pts = {milk_total} pts. 2) Target Score: {pliers_pts} pts/unit. 3) Division: {milk_total} ÷ {pliers_pts} = {pliers_exact} units → Receive 2 whole Multitool Pliers ({pliers_two} pts). 4) Change Owed to You: {milk_total} − {pliers_two} = {change_pts} pts → Divide by Iodized Salt rate ({salt_rate} pts/g) = {salt_g} g of Iodized Salt (or {sugar_g} g of Crystal Sugar at {sugar_rate} pts/g).'
+        );
+        var formattedExampleBody = rawExampleBody
+          .replace(/\{milk_pts\}/g, milkScore.toFixed(2))
+          .replace(/\{milk_total\}/g, milkCredit50.toFixed(2))
+          .replace(/\{pliers_pts\}/g, toolScore.toFixed(2))
+          .replace(/\{pliers_exact\}/g, pliersExact50.toFixed(3))
+          .replace(/\{pliers_two\}/g, pliersTwoScore.toFixed(2))
+          .replace(/\{change_pts\}/g, changePts50.toFixed(2))
+          .replace(/\{salt_g\}/g, saltGrams50.toFixed(0))
+          .replace(/\{salt_rate\}/g, saltRate.toFixed(3))
+          .replace(/\{sugar_g\}/g, sugarGrams50.toFixed(0))
+          .replace(/\{sugar_rate\}/g, sugarRate.toFixed(3));
+
+        var html =
+          '<div class="print-guide-heading">' +
+          escapeHtml(
+            uiText(
+              'print_guide_title',
+              'FIELD BARTER OPERATION GUIDE & PRE-CALCULATED FRACTIONAL CHANGE TABLE'
+            )
+          ) +
+          '</div>' +
+          '<div class="print-steps-grid">' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(uiText('print_step1_title', '1. Calculate Your Credit (Points You Deliver)')) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_step1_body',
+              'Locate your offered item in the catalog. Multiply its Final Score by the number of units (or multiply its pts/g or pts/ml rate by the weight/volume delivered).'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(uiText('print_step2_title', '2. Calculate Quantity to Receive')) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_step2_body',
+              'Divide your Total Points by the Final Score of the requested item (Your Points ÷ Requested Item Score). If divisible, divide by its pts/g or pts/ml rate for exact portioning.'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(uiText('print_step3_title', '3. Settle Indivisible Change (Divisible Sub-Units)')) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_step3_body',
+              'For indivisible items, subtract the points of whole units from your credit (Change Points = Your Points − Received Points) and settle the remainder using the Quick Change Table below or any divisible item (1 g / 1 ml rate).'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(uiText('print_step4_title', '4. Manual Shelf-Life Adjustment (Near-Expiration Rule)')) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_step4_body',
+              'If an item is nearing expiration on paper: >90 days = 100% score; 31–90 days = 75% (−25%); 8–30 days = 50% (reduce value by half); 1–7 days = 25% (−75%); 0 days (expired) = 0 pts.'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="print-info-grid-2col">' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(
+            uiText(
+              'print_scenarios_box_title',
+              'How to Choose Among the 3 Crisis Scenario Columns (Cols 8, 9 & 10)'
+            )
+          ) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_scenarios_box_body',
+              'All 3 scenarios are printed side-by-side in the catalog: Col 8 (1. Pure Baseline 1.0x) = unadjusted intrinsic utility; Col 9 (2. Acute Collapse) = Days 1–90 grid-down blackout (water, trauma, antibiotics & ready-to-eat rations surge; bullion drops to 0.01x); Col 10 (3. Economic Reconstruction) = Post-stabilization (tools, seeds, solar energy & store-of-value metals surge to 5.0x).'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(
+            uiText(
+              'print_example_box_title',
+              'Worked Field Example (Indivisible Item + Fractional Change)'
+            )
+          ) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(formattedExampleBody) +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="print-info-grid-2col">' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(
+            uiText(
+              'print_expiry_box_title',
+              'Shelf-Life Protocols A & B (Mental Bracket vs. Exact Log10)'
+            )
+          ) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_expiry_box_body',
+              'Protocol A (Mental Bracket): >90d = 100% (1.0x); 31–90d = 75% (0.75x); 8–30d = 50% (0.50x); 1–7d = 25% (0.25x); 0d = 0 pts. Protocol B (Exact Scientific Calculator): Adjusted Score = Printed Score × [ log10(Remaining Days + 1) ÷ log10(Catalog V + 1) ]. Never trade swollen cans, broken seals, or wet powders.'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '<div class="print-step-box">' +
+          '<div class="print-step-title">' +
+          escapeHtml(
+            uiText(
+              'print_checklist_box_title',
+              'Analog Blackout Kit & Sanitary Trade Post Checklist'
+            )
+          ) +
+          '</div>' +
+          '<div>' +
+          escapeHtml(
+            uiText(
+              'print_checklist_box_body',
+              'Required Field Kit: (1) This A4 Landscape Manual; (2) Solar/battery pocket calculator + pencil/ledger; (3) Straightedge ruler; (4) Mechanical gram scale (1g–5000g) & graduated cylinder (10ml–1000ml). Inspect all hermetically sealed pouches, blister packs, and expiration dates before crediting points.'
+            )
+          ) +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+        html +=
+          '<div class="print-lookup-title">' +
+          escapeHtml(
+            uiText(
+              'print_change_table_title',
+              'Pre-Calculated Fractional Change Lookup Table — All 3 Crisis Scenarios (Col 8 Base | Col 9 Acute | Col 10 Recon)'
+            )
+          ) +
+          '</div>';
+
+        html +=
+          '<table class="print-lookup-table">' +
+          '<thead><tr>' +
+          '<th>' +
+          escapeHtml(uiText('col_item', 'Technical Item Name & Specification')) +
+          '</th>' +
+          '<th>1 g / 1 ml / 1 un (Col 8 | 9 | 10)</th>' +
+          '<th>10 g / 10 ml (Col 8 | 9 | 10)</th>' +
+          '<th>50 g / 50 ml (Col 8 | 9 | 10)</th>' +
+          '<th>100 g / 100 ml (Col 8 | 9 | 10)</th>' +
+          '<th>250 g / 250 ml (Col 8 | 9 | 10)</th>' +
+          '<th>500 g / 500 ml (Col 8 | 9 | 10)</th>' +
+          '<th>1000 g / 1000 ml (Col 8 | 9 | 10)</th>' +
+          '</tr></thead><tbody>';
+
+        for (var b = 0; b < bulkRefIds.length; b++) {
+          var bItem = BarterEngine.getItemById(bulkRefIds[b]);
+          if (!bItem) continue;
+          var subDiv = Number(bItem.sub_units || 1000);
+          var bEvalBase = BarterEngine.evaluateItem(bItem, { scenario: 'baseline' });
+          var bEvalAcute = BarterEngine.evaluateItem(bItem, { scenario: 'acute_collapse' });
+          var bEvalRecon = BarterEngine.evaluateItem(bItem, { scenario: 'economic_reconstruction' });
+          var perSubBase = bEvalBase.final_score / subDiv;
+          var perSubAcute = bEvalAcute.final_score / subDiv;
+          var perSubRecon = bEvalRecon.final_score / subDiv;
+
+          html += '<tr><td>' + escapeHtml(itemName(bItem.id)) + '</td>';
+          for (var q = 0; q < bulkQtys.length; q++) {
+            var mult = bulkQtys[q];
+            var cellText = fmtTriplet(perSubBase * mult, perSubAcute * mult, perSubRecon * mult);
+            html += '<td>' + (q === 0 ? '<strong>' + cellText + '</strong>' : cellText) + '</td>';
+          }
+          html += '</tr>';
+        }
+
+        for (var u = 0; u < unitRefIds.length; u++) {
+          var uItem = BarterEngine.getItemById(unitRefIds[u]);
+          if (!uItem) continue;
+          var uEvalBase = BarterEngine.evaluateItem(uItem, { scenario: 'baseline' });
+          var uEvalAcute = BarterEngine.evaluateItem(uItem, { scenario: 'acute_collapse' });
+          var uEvalRecon = BarterEngine.evaluateItem(uItem, { scenario: 'economic_reconstruction' });
+          var uB = uEvalBase.final_score;
+          var uA = uEvalAcute.final_score;
+          var uR = uEvalRecon.final_score;
+          html += '<tr><td>' + escapeHtml(itemName(uItem.id)) + '</td>';
+          html += '<td><strong>1 un: ' + fmtTriplet(uB, uA, uR) + '</strong></td>';
+          html += '<td>2 un: ' + fmtTriplet(uB * 2, uA * 2, uR * 2) + '</td>';
+          html += '<td>3 un: ' + fmtTriplet(uB * 3, uA * 3, uR * 3) + '</td>';
+          html += '<td>5 un: ' + fmtTriplet(uB * 5, uA * 5, uR * 5) + '</td>';
+          html += '<td colspan="3">10 un: ' + fmtTriplet(uB * 10, uA * 10, uR * 10) + '</td>';
+          html += '</tr>';
+        }
+
+        html += '</tbody></table>';
+        guideEl.innerHTML = html;
+      }
+
+      function renderAll() {
+        updateStaticLabels();
+        updateValidatorBanner();
+        populateItemSelects();
+        updateSimulator();
+        renderPrintFieldGuide();
+        renderCatalogTables();
+      }
+
+      function bindEvents() {
+        document.getElementById('selectLocale').value = state.locale;
+        document.getElementById('selectLocale').addEventListener('change', function (e) {
+          state.locale = e.target.value;
+          renderAll();
+        });
+
+        document.getElementById('selectScenario').addEventListener('change', function (e) {
+          state.scenario = e.target.value;
+          document.getElementById('scenarioDescHint').textContent = scenarioDesc(state.scenario);
+          updateStaticLabels();
+          updateSimulator();
+          renderPrintFieldGuide();
+          renderCatalogTables();
+        });
+
+        document.getElementById('simOfferItem').addEventListener('change', function (e) {
+          state.offerItemId = e.target.value;
+          var item = BarterEngine.getItemById(state.offerItemId);
+          if (item) {
+            state.offerLifecycle = item.lifecycle_units;
+            document.getElementById('simOfferLifecycle').value = String(item.lifecycle_units);
+          }
+          updateSimulator();
+        });
+
+        document.getElementById('simRequestItem').addEventListener('change', function (e) {
+          state.requestItemId = e.target.value;
+          var item = BarterEngine.getItemById(state.requestItemId);
+          if (item) {
+            state.requestLifecycle = item.lifecycle_units;
+            document.getElementById('simRequestLifecycle').value = String(item.lifecycle_units);
+          }
+          updateSimulator();
+        });
+
+        document.getElementById('simOfferQty').addEventListener('input', function (e) {
+          var v = parseFloat(e.target.value);
+          state.offerQty = Number.isFinite(v) && v > 0 ? v : 1;
+          updateSimulator();
+        });
+
+        document.getElementById('simOfferLifecycle').addEventListener('input', function (e) {
+          var v = parseFloat(e.target.value);
+          state.offerLifecycle = Number.isFinite(v) && v >= 0 ? v : 0;
+          updateSimulator();
+        });
+
+        document.getElementById('simRequestLifecycle').addEventListener('input', function (e) {
+          var v = parseFloat(e.target.value);
+          state.requestLifecycle = Number.isFinite(v) && v >= 0 ? v : 0;
+          updateSimulator();
+        });
+
+        document.getElementById('btnSwapItems').addEventListener('click', function () {
+          var tmpId = state.offerItemId;
+          var tmpLife = state.offerLifecycle;
+          state.offerItemId = state.requestItemId;
+          state.offerLifecycle = state.requestLifecycle;
+          state.requestItemId = tmpId;
+          state.requestLifecycle = tmpLife;
+
+          document.getElementById('simOfferItem').value = state.offerItemId;
+          document.getElementById('simRequestItem').value = state.requestItemId;
+          document.getElementById('simOfferLifecycle').value = String(state.offerLifecycle);
+          document.getElementById('simRequestLifecycle').value = String(state.requestLifecycle);
+          updateSimulator();
+        });
+
+        document.getElementById('inputSearchCatalog').addEventListener('input', function (e) {
+          state.searchQuery = e.target.value || '';
+          renderCatalogTables();
+        });
+
+        document.getElementById('selectCategoryFilter').addEventListener('change', function (e) {
+          state.categoryFilter = e.target.value;
+          renderCatalogTables();
+        });
+
+        document.getElementById('btnPrintManual').addEventListener('click', function () {
+          window.print();
+        });
+      }
+
+      // Initialize application on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          bindEvents();
+          renderAll();
+        });
+      } else {
+        bindEvents();
+        renderAll();
+      }
+    })();
+  </script>
+</body>
+</html>

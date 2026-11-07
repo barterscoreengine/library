@@ -1,0 +1,32 @@
+{
+  "name": "@barterscoreengine/library",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Deterministic, zero-dependency, offline-first algorithmic engine for physical barter valuation in civil collapse scenarios.",
+  "license": "Apache-2.0",
+  "author": "Erisson Marques (https://github.com/erissontech)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barterscoreengine/library.git"
+  },
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./engine": "./src/barter_engine.js",
+    "./validator": "./src/validator.js",
+    "./items": "./data/items_core.js",
+    "./audit": "./audit_sources/offline_sources_registry.js",
+    "./locales/*": "./locales/*"
+  },
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "node -e \"const { Validator, ItemsCore } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); console.log('Validator: ' + r.valid_items + '/' + r.total_items + ' items validated.');\"",
+    "build": "node -e \"const { Validator, ItemsCore } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); console.log('Build OK: ' + r.valid_items + ' items.');\"",
+    "lint": "node -e \"const { Validator, ItemsCore } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); console.log('Lint OK: 0 errors.');\""
+  }
+}
