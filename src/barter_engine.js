@@ -175,7 +175,8 @@
   function roundTo(value, decimals) {
     var places = typeof decimals === 'number' ? decimals : 4;
     var factor = Math.pow(10, places);
-    return Math.round((value + Number.EPSILON) * factor) / factor;
+    var result = Math.round((value + Number.EPSILON) * factor) / factor;
+    return result === 0 ? 0 : result;
   }
 
   /**
