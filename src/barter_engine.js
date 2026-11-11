@@ -910,54 +910,100 @@
             ? opts.locale.trim()
             : activeLocaleCode;
 
+        function fmtLocaleNum(val, decs, locCode) {
+          var num = Number(val);
+          if (!Number.isFinite(num)) return String(val);
+          var useComma = locCode === 'pt-BR' || locCode === 'es-ES';
+          var tSep = useComma ? '.' : ',';
+          var dSep = useComma ? ',' : '.';
+          var d = typeof decs === 'number' && decs >= 0 ? decs : 2;
+          var sgn = num < 0 ? '-' : '';
+          var absFixed = Math.abs(num).toFixed(d);
+          var pts = absFixed.split('.');
+          var iPart = pts[0].replace(/\B(?=(\d{3})+(?!\d))/g, tSep);
+          var fPart = pts.length > 1 ? pts[1] : '';
+          return sgn + iPart + (fPart ? dSep + fPart : '');
+        }
+
+        var neededOfferUnits =
+          offerEval.final_score > 0 ? requestEval.final_score / offerEval.final_score : 0;
+
         if (imbalancePercentage > 0) {
           imbalanceMessage =
             'Requested item "' +
             requestItem.id +
-            '" is indivisible. Rounding from ' +
-            roundTo(exactRequestQty, 3) +
+            '" is indivisible (' +
+            fmtLocaleNum(requestEval.final_score, 2, 'en-US') +
+            ' pts/un) and is worth more than your offer (' +
+            fmtLocaleNum(totalOfferScore, 2, 'en-US') +
+            ' pts; it would take ' +
+            fmtLocaleNum(neededOfferUnits, 2, 'en-US') +
+            ' un of your offered item to cover 1 whole unit). Rounding from ' +
+            fmtLocaleNum(exactRequestQty, 3, 'en-US') +
             ' to ' +
-            recommendedRequestQty +
+            fmtLocaleNum(recommendedRequestQty, 0, 'en-US') +
             ' whole unit(s) creates a +' +
-            absPct.toFixed(2) +
+            fmtLocaleNum(absPct, 2, 'en-US') +
             '% value surplus (' +
-            Math.abs(valueDeltaPoints).toFixed(2) +
-            ' pts above your offer). Consider adding divisible small-unit items to balance the trade.';
+            fmtLocaleNum(Math.abs(valueDeltaPoints), 2, 'en-US') +
+            ' pts above your offer). To receive ' +
+            fmtLocaleNum(recommendedRequestQty, 0, 'en-US') +
+            ' un now, YOU owe ' +
+            fmtLocaleNum(Math.abs(valueDeltaPoints), 2, 'en-US') +
+            ' pts of change to the counterparty.';
 
-          if (targetLocale !== 'en-US' && opts.localizeWarnings !== false) {
+          if (opts.localizeWarnings !== false) {
             var tplSurplus = translate('sim_msg_surplus_indivisible', 'name', targetLocale);
             if (tplSurplus && tplSurplus !== 'sim_msg_surplus_indivisible') {
               imbalanceMessage = tplSurplus
                 .replace(/\{item\}/g, translate(requestItem.id, 'name', targetLocale))
-                .replace(/\{exact\}/g, String(roundTo(exactRequestQty, 3)))
-                .replace(/\{rec\}/g, String(recommendedRequestQty))
-                .replace(/\{pct\}/g, absPct.toFixed(2))
-                .replace(/\{delta\}/g, Math.abs(valueDeltaPoints).toFixed(2));
+                .replace(/\{req_unit_pts\}/g, fmtLocaleNum(requestEval.final_score, 2, targetLocale))
+                .replace(/\{req_total_pts\}/g, fmtLocaleNum(executedRequestScore, 2, targetLocale))
+                .replace(/\{offer_pts\}/g, fmtLocaleNum(totalOfferScore, 2, targetLocale))
+                .replace(/\{needed_offer\}/g, fmtLocaleNum(neededOfferUnits, 2, targetLocale))
+                .replace(/\{exact\}/g, fmtLocaleNum(exactRequestQty, 3, targetLocale))
+                .replace(/\{rec\}/g, fmtLocaleNum(recommendedRequestQty, 0, targetLocale))
+                .replace(/\{pct\}/g, fmtLocaleNum(absPct, 2, targetLocale))
+                .replace(/\{delta\}/g, fmtLocaleNum(Math.abs(valueDeltaPoints), 2, targetLocale));
             }
           }
         } else {
           imbalanceMessage =
             'Requested item "' +
             requestItem.id +
-            '" is indivisible. Rounding from ' +
-            roundTo(exactRequestQty, 3) +
+            '" is indivisible (' +
+            fmtLocaleNum(requestEval.final_score, 2, 'en-US') +
+            ' pts/un). Your offer (' +
+            fmtLocaleNum(totalOfferScore, 2, 'en-US') +
+            ' pts) is worth more than ' +
+            fmtLocaleNum(recommendedRequestQty, 0, 'en-US') +
+            ' whole unit(s) received (' +
+            fmtLocaleNum(executedRequestScore, 2, 'en-US') +
+            ' pts). Rounding from ' +
+            fmtLocaleNum(exactRequestQty, 3, 'en-US') +
             ' to ' +
-            recommendedRequestQty +
+            fmtLocaleNum(recommendedRequestQty, 0, 'en-US') +
             ' whole unit(s) results in a -' +
-            absPct.toFixed(2) +
-            '% value loss (' +
-            Math.abs(valueDeltaPoints).toFixed(2) +
-            ' pts of uncompensated change owed to you). Request divisible change (e.g., salt, tablets, or sub-units).';
+            fmtLocaleNum(absPct, 2, 'en-US') +
+            '% value deficit (' +
+            fmtLocaleNum(Math.abs(valueDeltaPoints), 2, 'en-US') +
+            ' pts of uncompensated change owed to you). THE COUNTERPARTY owes ' +
+            fmtLocaleNum(Math.abs(valueDeltaPoints), 2, 'en-US') +
+            ' pts of change to you.';
 
-          if (targetLocale !== 'en-US' && opts.localizeWarnings !== false) {
+          if (opts.localizeWarnings !== false) {
             var tplDeficit = translate('sim_msg_deficit_indivisible', 'name', targetLocale);
             if (tplDeficit && tplDeficit !== 'sim_msg_deficit_indivisible') {
               imbalanceMessage = tplDeficit
                 .replace(/\{item\}/g, translate(requestItem.id, 'name', targetLocale))
-                .replace(/\{exact\}/g, String(roundTo(exactRequestQty, 3)))
-                .replace(/\{rec\}/g, String(recommendedRequestQty))
-                .replace(/\{pct\}/g, absPct.toFixed(2))
-                .replace(/\{delta\}/g, Math.abs(valueDeltaPoints).toFixed(2));
+                .replace(/\{req_unit_pts\}/g, fmtLocaleNum(requestEval.final_score, 2, targetLocale))
+                .replace(/\{req_total_pts\}/g, fmtLocaleNum(executedRequestScore, 2, targetLocale))
+                .replace(/\{offer_pts\}/g, fmtLocaleNum(totalOfferScore, 2, targetLocale))
+                .replace(/\{needed_offer\}/g, fmtLocaleNum(neededOfferUnits, 2, targetLocale))
+                .replace(/\{exact\}/g, fmtLocaleNum(exactRequestQty, 3, targetLocale))
+                .replace(/\{rec\}/g, fmtLocaleNum(recommendedRequestQty, 0, targetLocale))
+                .replace(/\{pct\}/g, fmtLocaleNum(absPct, 2, targetLocale))
+                .replace(/\{delta\}/g, fmtLocaleNum(Math.abs(valueDeltaPoints), 2, targetLocale));
             }
           }
         }

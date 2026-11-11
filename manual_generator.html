@@ -1101,6 +1101,46 @@
           .replace(/"/g, '&quot;');
       }
 
+      /**
+       * Formats a numeric value using the exact thousand and decimal separators of the active locale:
+       * - pt-BR and es-ES: '.' for thousands and ',' for decimals (e.g. 58.622,42)
+       * - en-US and zh-Hans: ',' for thousands and '.' for decimals (e.g. 58,622.42)
+       */
+      function formatNum(value, decimals, localeOverride) {
+        var num = Number(value);
+        if (!Number.isFinite(num)) {
+          return String(value);
+        }
+        var loc = localeOverride || state.locale || 'en-US';
+        var useCommaDecimal = loc === 'pt-BR' || loc === 'es-ES';
+        var thousandSep = useCommaDecimal ? '.' : ',';
+        var decimalSep = useCommaDecimal ? ',' : '.';
+        var decs = typeof decimals === 'number' && decimals >= 0 ? decimals : 2;
+        var sign = num < 0 ? '-' : '';
+        var absFixed = Math.abs(num).toFixed(decs);
+        var parts = absFixed.split('.');
+        var intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandSep);
+        var decPart = parts.length > 1 ? parts[1] : '';
+        return sign + intPart + (decPart ? decimalSep + decPart : '');
+      }
+
+      /**
+       * Formats a numeric value with up to maxDecimals (stripping trailing decimal zeros)
+       * while preserving locale-specific thousand and decimal separators.
+       */
+      function formatFlexNum(value, maxDecimals, localeOverride) {
+        var num = Number(value);
+        if (!Number.isFinite(num)) {
+          return String(value);
+        }
+        var maxDec = typeof maxDecimals === 'number' && maxDecimals >= 0 ? maxDecimals : 4;
+        var rounded = Number(num.toFixed(maxDec));
+        var str = String(rounded);
+        var dotIdx = str.indexOf('.');
+        var actualDecimals = dotIdx === -1 ? 0 : str.length - dotIdx - 1;
+        return formatNum(rounded, actualDecimals, localeOverride);
+      }
+
       function updateValidatorBanner() {
         var currentItems = BarterEngine.getItems();
         var report = Validator.validateDataset(currentItems);
@@ -1385,45 +1425,50 @@
         document.getElementById('offerNominalHint').textContent =
           unitValPrefix +
           ' ' +
-          offerEval.final_score.toFixed(2) +
+          formatNum(offerEval.final_score, 2) +
           ' pts · ' +
           (isOfferService ? srvNomHintPrefix : nomHintPrefix) +
           ' ' +
-          offerItem.lifecycle_units +
+          formatNum(offerItem.lifecycle_units, 0) +
           ' ' +
           daysLabel +
           ' · IN: ' +
-          offerEval.nutritional_index.toFixed(2) +
+          formatNum(offerEval.nutritional_index, 2) +
           ' · MEC: ' +
-          offerEval.context_modifier.toFixed(2) +
+          formatNum(offerEval.context_modifier, 2) +
           'x · ' +
           (isOfferService ? srvDeprPrefix : deprPrefix) +
           ' -' +
-          offerEval.depreciation_pct.toFixed(1) +
+          formatNum(offerEval.depreciation_pct, 1) +
           '%';
 
         document.getElementById('requestNominalHint').textContent =
           unitValPrefix +
           ' ' +
-          reqEval.final_score.toFixed(2) +
+          formatNum(reqEval.final_score, 2) +
           ' pts · ' +
           (isReqService ? srvNomHintPrefix : nomHintPrefix) +
           ' ' +
-          requestItem.lifecycle_units +
+          formatNum(requestItem.lifecycle_units, 0) +
           ' ' +
           daysLabel +
           ' · IN: ' +
-          reqEval.nutritional_index.toFixed(2) +
+          formatNum(reqEval.nutritional_index, 2) +
           ' · MEC: ' +
-          reqEval.context_modifier.toFixed(2) +
+          formatNum(reqEval.context_modifier, 2) +
           'x · ' +
           (isReqService ? srvDeprPrefix : deprPrefix) +
           ' -' +
-          reqEval.depreciation_pct.toFixed(1) +
+          formatNum(reqEval.depreciation_pct, 1) +
           '%';
 
         var divLabel = requestItem.is_divisible
-          ? uiText('unit_divisible', 'Divisible') + ' (' + requestItem.sub_units + ' ' + requestItem.unit_measure + ')'
+          ? uiText('unit_divisible', 'Divisible') +
+            ' (' +
+            formatNum(requestItem.sub_units, 0) +
+            ' ' +
+            requestItem.unit_measure +
+            ')'
           : uiText('unit_indivisible', 'Indivisible') + ' (1 ' + requestItem.unit_measure + ')';
         document.getElementById('simRequestDivInfo').value = divLabel;
 
@@ -1448,57 +1493,63 @@
           '<div><span style="color:#94a3b8;">' +
           escapeHtml(deliverLabel) +
           '</span> <strong style="color:#f8fafc;">' +
-          trade.offer.quantity +
+          formatFlexNum(trade.offer.quantity, 4) +
           ' un (' +
-          offerSubTotal +
+          formatFlexNum(offerSubTotal, 2) +
           ' ' +
           escapeHtml(offerMeasure) +
           ')</strong> — <span style="color:#e2e8f0;">' +
           escapeHtml(offerDisplayName) +
           '</span> <span style="color:#34d399;">(' +
-          trade.offer.total_score.toFixed(2) +
+          formatNum(trade.offer.total_score, 2) +
           ' pts)</span></div>' +
           '<div style="margin-top:4px;"><span style="color:#94a3b8;">' +
           escapeHtml(receiveLabel) +
           '</span> <strong style="color:#34d399;">' +
-          trade.request.recommended_quantity +
+          formatFlexNum(trade.request.recommended_quantity, 4) +
           ' un (' +
-          reqRecSub +
+          formatFlexNum(reqRecSub, 2) +
           ' ' +
           escapeHtml(reqMeasure) +
           ')</strong> — <span style="color:#ffffff;font-weight:600;">' +
           escapeHtml(reqDisplayName) +
           '</span> <span style="color:#cbd5e1;">(' +
-          (trade.request.executed_total_score || 0).toFixed(2) +
+          formatNum(trade.request.executed_total_score || 0, 2) +
           ' pts)</span></div>';
 
         // 6 KPI Cards + Explicit Item Sub-labels
         document.getElementById('kpiValueRate').textContent = trade.is_executable
-          ? '1 : ' + trade.exchange_rate_1_to_x.toFixed(4)
+          ? '1 : ' + formatNum(trade.exchange_rate_1_to_x, 4)
           : '0';
         document.getElementById('kpiSubRate').textContent =
-          '1 un [' + offerDisplayName + '] = ' + (trade.is_executable ? trade.exchange_rate_1_to_x.toFixed(4) : '0') + ' un [' + reqDisplayName + ']';
+          '1 un [' +
+          offerDisplayName +
+          '] = ' +
+          (trade.is_executable ? formatNum(trade.exchange_rate_1_to_x, 4) : '0') +
+          ' un [' +
+          reqDisplayName +
+          ']';
 
         document.getElementById('kpiValueOfferTotal').textContent =
-          trade.offer.total_score.toFixed(2) + ' pts (' + trade.offer.quantity + ' un)';
+          formatNum(trade.offer.total_score, 2) + ' pts (' + formatFlexNum(trade.offer.quantity, 4) + ' un)';
         document.getElementById('kpiSubOfferTotal').textContent =
-          offerSubTotal + ' ' + offerMeasure + ' · ' + offerDisplayName;
+          formatFlexNum(offerSubTotal, 2) + ' ' + offerMeasure + ' · ' + offerDisplayName;
 
-        document.getElementById('kpiValueReqUnit').textContent = trade.request.unit_score.toFixed(2) + ' pts';
+        document.getElementById('kpiValueReqUnit').textContent = formatNum(trade.request.unit_score, 2) + ' pts';
         document.getElementById('kpiSubReqUnit').textContent =
-          '1 un (' + requestItem.sub_units + ' ' + requestItem.unit_measure + ') · ' + reqDisplayName;
+          '1 un (' + formatNum(requestItem.sub_units, 0) + ' ' + requestItem.unit_measure + ') · ' + reqDisplayName;
 
         document.getElementById('kpiValueExactQty').textContent = Number.isFinite(trade.request.exact_quantity)
-          ? trade.request.exact_quantity.toFixed(4) + ' un'
+          ? formatNum(trade.request.exact_quantity, 4) + ' un'
           : '∞';
         document.getElementById('kpiSubExactQty').textContent = reqDisplayName;
 
         document.getElementById('kpiValueRecQty').textContent =
-          trade.request.recommended_quantity + ' un';
+          formatFlexNum(trade.request.recommended_quantity, 4) + ' un';
         document.getElementById('kpiSubRecQty').textContent = reqDisplayName;
 
         document.getElementById('kpiValueSubUnits').textContent =
-          reqRecSub + ' ' + reqMeasure;
+          formatFlexNum(reqRecSub, 2) + ' ' + reqMeasure;
         document.getElementById('kpiSubSubUnits').textContent = reqDisplayName;
 
         var alertBox = document.getElementById('imbalanceAlertBox');
@@ -1518,64 +1569,77 @@
             'Mathematically balanced trade: receiving {rec} un ({sub} {measure}) of "{item}" matches your offered value with zero indivisibility loss.'
           );
           alertMsg.textContent = balTpl
-            .replace('{rec}', String(trade.request.recommended_quantity))
-            .replace('{sub}', String(reqRecSub))
-            .replace('{measure}', String(reqMeasure))
-            .replace('{item}', reqDisplayName);
+            .replace(/\{rec\}/g, formatFlexNum(trade.request.recommended_quantity, 4))
+            .replace(/\{sub\}/g, formatFlexNum(reqRecSub, 2))
+            .replace(/\{measure\}/g, String(reqMeasure))
+            .replace(/\{item\}/g, reqDisplayName);
           changeHint.textContent = '';
         } else {
           alertBox.className = 'imbalance-alert ' + imb.imbalance_direction;
-          var sign = imb.imbalance_percentage > 0 ? '+' : '';
+          var sign = imb.imbalance_percentage > 0 ? '+' : '-';
+          var absPctVal = Math.abs(imb.imbalance_percentage);
+          var absDeltaVal = Math.abs(imb.value_delta_points);
+          var absPctStr = formatNum(absPctVal, 2);
+          var absDeltaStr = formatNum(absDeltaVal, 2);
           var dirTitle =
             imb.imbalance_direction === 'surplus'
-              ? uiText('sim_imbalance_surplus', 'Indivisibility Surplus')
-              : uiText('sim_imbalance_deficit', 'Indivisibility Deficit');
+              ? uiText('sim_imbalance_surplus', 'YOU OWE CHANGE TO THE COUNTERPARTY')
+              : uiText('sim_imbalance_deficit', 'THE COUNTERPARTY OWES CHANGE TO YOU');
           alertTitle.textContent =
             dirTitle +
             ' (' +
             sign +
-            imb.imbalance_percentage.toFixed(2) +
+            absPctStr +
             '% / ' +
             sign +
-            imb.value_delta_points.toFixed(2) +
+            absDeltaStr +
             ' pts)';
 
-          var absPctStr = Math.abs(imb.imbalance_percentage).toFixed(2);
-          var absDeltaStr = Math.abs(imb.value_delta_points).toFixed(2);
           var exactStr = Number.isFinite(trade.request.exact_quantity)
-            ? trade.request.exact_quantity.toFixed(3)
+            ? formatNum(trade.request.exact_quantity, 3)
             : '0';
+          var recStr = formatFlexNum(trade.request.recommended_quantity, 4);
+          var offerPtsStr = formatNum(trade.offer.total_score, 2);
+          var reqUnitPtsStr = formatNum(trade.request.unit_score, 2);
+          var reqTotalPtsStr = formatNum(trade.request.executed_total_score || 0, 2);
+          var neededOfferUnits =
+            trade.offer.unit_score > 0 ? trade.request.unit_score / trade.offer.unit_score : 0;
+          var neededOfferStr = formatNum(neededOfferUnits, 2);
 
           if (!requestItem.is_divisible) {
             var indivTpl =
               imb.imbalance_direction === 'surplus'
                 ? uiText(
                     'sim_msg_surplus_indivisible',
-                    'Requested item "{item}" is indivisible (cannot be split). Rounding from {exact} un to {rec} whole unit(s) creates a +{pct}% value surplus ({delta} pts above your offer).'
+                    'Requested item "{item}" is indivisible ({req_unit_pts} pts/un) and is worth more than your current offer ({offer_pts} pts; it would take {needed_offer} un of your offered item to cover 1 whole unit with zero change). Rounding from {exact} un to {rec} whole unit(s) creates a +{pct}% difference ({delta} pts above your offer). To receive {rec} un now, YOU owe {delta} pts of change to the counterparty.'
                   )
                 : uiText(
                     'sim_msg_deficit_indivisible',
-                    'Requested item "{item}" is indivisible (cannot be split). Rounding from {exact} un to {rec} whole unit(s) results in a -{pct}% value deficit ({delta} pts of uncompensated change owed to you).'
+                    'Requested item "{item}" is indivisible ({req_unit_pts} pts/un). Your offer ({offer_pts} pts) is worth more than the {rec} whole unit(s) received ({req_total_pts} pts). Rounding from {exact} un to {rec} whole unit(s) leaves a -{pct}% balance in your favor ({delta} pts). THE COUNTERPARTY owes {delta} pts of change to you.'
                   );
             alertMsg.textContent = indivTpl
-              .replace('{item}', reqDisplayName)
-              .replace('{exact}', exactStr)
-              .replace('{rec}', String(trade.request.recommended_quantity))
-              .replace('{pct}', absPctStr)
-              .replace('{delta}', absDeltaStr);
+              .replace(/\{item\}/g, reqDisplayName)
+              .replace(/\{req_unit_pts\}/g, reqUnitPtsStr)
+              .replace(/\{req_total_pts\}/g, reqTotalPtsStr)
+              .replace(/\{offer_pts\}/g, offerPtsStr)
+              .replace(/\{needed_offer\}/g, neededOfferStr)
+              .replace(/\{exact\}/g, exactStr)
+              .replace(/\{rec\}/g, recStr)
+              .replace(/\{pct\}/g, absPctStr)
+              .replace(/\{delta\}/g, absDeltaStr);
           } else {
             var subTpl = uiText(
               'sim_msg_sub_unit_rounding',
               'Portioning "{item}" to {sub} {measure} ({rec} un) introduces a minor {sign}{pct}% rounding difference ({delta} pts).'
             );
             alertMsg.textContent = subTpl
-              .replace('{item}', reqDisplayName)
-              .replace('{sub}', String(reqRecSub))
-              .replace('{measure}', String(reqMeasure))
-              .replace('{rec}', String(trade.request.recommended_quantity))
-              .replace('{sign}', sign)
-              .replace('{pct}', absPctStr)
-              .replace('{delta}', sign + absDeltaStr);
+              .replace(/\{item\}/g, reqDisplayName)
+              .replace(/\{sub\}/g, formatFlexNum(reqRecSub, 2))
+              .replace(/\{measure\}/g, String(reqMeasure))
+              .replace(/\{rec\}/g, recStr)
+              .replace(/\{sign\}/g, sign)
+              .replace(/\{pct\}/g, absPctStr)
+              .replace(/\{delta\}/g, sign + absDeltaStr);
           }
 
           var changeReport = BarterEngine.calculateChangeOptions(imb.value_delta_points, {
@@ -1585,25 +1649,31 @@
           function formatChangeAmount(opt) {
             if (opt.is_divisible && opt.sub_units_per_pack > 1) {
               return (
-                opt.recommended_sub_units.toLocaleString('en-US') +
+                formatNum(opt.recommended_sub_units, 0) +
                 ' ' +
                 opt.unit_measure +
                 ' (' +
-                opt.recommended_units +
+                formatFlexNum(opt.recommended_units, 4) +
                 ' un)'
               );
             }
-            return opt.recommended_units + ' ' + opt.unit_measure;
+            return formatFlexNum(opt.recommended_units, 4) + ' ' + opt.unit_measure;
           }
 
-          var headerTpl = uiText(
-            'sim_change_suggestion',
-            'Immediate Change Options (Pick 1 option below to settle {delta} pts):'
-          );
+          var headerKey =
+            imb.imbalance_direction === 'surplus'
+              ? 'sim_change_suggestion_you_pay'
+              : 'sim_change_suggestion_counterparty_pays';
+          var headerFallback =
+            imb.imbalance_direction === 'surplus'
+              ? 'Change YOU Must Pay to the Counterparty (Pick 1 option below for you to pay {delta} pts):'
+              : 'Change the COUNTERPARTY Must Pay to YOU (Pick 1 option below for you to receive {delta} pts):';
+          var headerTpl = uiText(headerKey, uiText('sim_change_suggestion', headerFallback));
+
           var headerHtml =
             '<div class="change-options-block">' +
             '<div class="change-options-title">' +
-            escapeHtml(headerTpl.replace('{delta}', absDeltaStr)) +
+            escapeHtml(headerTpl.replace(/\{delta\}/g, absDeltaStr)) +
             '</div>';
 
           if (changeReport.primary_options.length > 0) {
@@ -1629,9 +1699,9 @@
               'View all {count} physically viable change options across the catalog ({div} divisible in g/ml/un + {indiv} whole small units)'
             );
             var toggleText = toggleTpl
-              .replace('{count}', String(changeReport.all_viable_options.length))
-              .replace('{div}', String(changeReport.divisible_count))
-              .replace('{indiv}', String(changeReport.indivisible_unit_count));
+              .replace(/\{count\}/g, formatNum(changeReport.all_viable_options.length, 0))
+              .replace(/\{div\}/g, formatNum(changeReport.divisible_count, 0))
+              .replace(/\{indiv\}/g, formatNum(changeReport.indivisible_unit_count, 0));
 
             headerHtml +=
               '<details class="change-details">' +
@@ -1782,7 +1852,7 @@
                 '<div class="sub-unit-rate mono-num">1 ' +
                 escapeHtml(currentItem.unit_measure) +
                 ' = ' +
-                perSubVal.toFixed(decs) +
+                formatNum(perSubVal, decs) +
                 ' pts</div>';
             }
             var mainScoreClass = isActive ? 'score-highlight' : '';
@@ -1791,10 +1861,10 @@
               '<div class="' +
               mainScoreClass +
               '">' +
-              evObj.final_score.toFixed(2) +
+              formatNum(evObj.final_score, 2) +
               ' pts</div>' +
               '<div class="mec-sub-line">MEC: ' +
-              evObj.context_modifier.toFixed(2) +
+              formatNum(evObj.context_modifier, 2) +
               'x</div>' +
               subRate +
               '</td>'
@@ -1807,7 +1877,11 @@
             var evAcute = BarterEngine.evaluateItem(item, { scenario: 'acute_collapse' });
             var evRecon = BarterEngine.evaluateItem(item, { scenario: 'economic_reconstruction' });
             var divText = item.is_divisible
-              ? uiText('unit_divisible', 'Divisible') + ' · ' + item.sub_units + ' ' + item.unit_measure
+              ? uiText('unit_divisible', 'Divisible') +
+                ' · ' +
+                formatNum(item.sub_units, 0) +
+                ' ' +
+                item.unit_measure
               : uiText('unit_indivisible', 'Indivisible') + ' · 1 ' + item.unit_measure;
             var typeText = item.is_food
               ? uiText('unit_food', 'Caloric Food')
@@ -1838,31 +1912,35 @@
                 '<div style="font-size:11px;color:var(--text-muted);">' +
                 escapeHtml(typeText) +
                 ' · CP:' +
-                item.cost_of_prep +
+                formatFlexNum(item.cost_of_prep, 2) +
                 ' · FP:' +
-                item.psychological_factor +
+                formatFlexNum(item.psychological_factor, 2) +
                 ' · Frag:' +
-                item.fragility_index +
+                formatFlexNum(item.fragility_index, 2) +
                 '</div>' +
                 '</td>'
             );
             htmlParts.push(
               '<td class="num-col mono-num">' +
-                item.energy_or_utility_base +
+                formatNum(item.energy_or_utility_base, 0) +
                 (item.is_food ? ' kcal' : ' EEB') +
                 '</td>'
             );
             htmlParts.push(
-              '<td class="num-col mono-num">' + item.weight_kg + ' kg<br/>' + item.volume_liters + ' L</td>'
+              '<td class="num-col mono-num">' +
+                formatFlexNum(item.weight_kg, 4) +
+                ' kg<br/>' +
+                formatFlexNum(item.volume_liters, 4) +
+                ' L</td>'
             );
             htmlParts.push(
               '<td class="num-col mono-num">' +
-                item.lifecycle_units +
+                formatNum(item.lifecycle_units, 0) +
                 ' ' +
                 escapeHtml(uiText('sim_unit_days', 'days')) +
                 '</td>'
             );
-            htmlParts.push('<td class="num-col mono-num">' + evBase.nutritional_index.toFixed(2) + '</td>');
+            htmlParts.push('<td class="num-col mono-num">' + formatNum(evBase.nutritional_index, 2) + '</td>');
             htmlParts.push(buildScenarioCellHtml(evBase, item, state.scenario === 'baseline'));
             htmlParts.push(buildScenarioCellHtml(evAcute, item, state.scenario === 'acute_collapse'));
             htmlParts.push(buildScenarioCellHtml(evRecon, item, state.scenario === 'economic_reconstruction'));
@@ -1896,7 +1974,7 @@
 
         function fmtTriplet(vBase, vAcute, vRecon) {
           function f(n) {
-            return n >= 100 ? n.toFixed(0) : n.toFixed(1);
+            return n >= 100 ? formatNum(n, 0) : formatNum(n, 1);
           }
           return f(vBase) + ' | ' + f(vAcute) + ' | ' + f(vRecon);
         }
@@ -1933,16 +2011,16 @@
           'Trade 50 packs of Whole Milk Powder (400 g) for Foldable Stainless Multitool Pliers (1 un, Indivisible): 1) Your Credit: 50 × {milk_pts} pts = {milk_total} pts. 2) Target Score: {pliers_pts} pts/unit. 3) Division: {milk_total} ÷ {pliers_pts} = {pliers_exact} units → Receive 2 whole Multitool Pliers ({pliers_two} pts). 4) Change Owed to You: {milk_total} − {pliers_two} = {change_pts} pts → Divide by Iodized Salt rate ({salt_rate} pts/g) = {salt_g} g of Iodized Salt (or {sugar_g} g of Crystal Sugar at {sugar_rate} pts/g).'
         );
         var formattedExampleBody = rawExampleBody
-          .replace(/\{milk_pts\}/g, milkScore.toFixed(2))
-          .replace(/\{milk_total\}/g, milkCredit50.toFixed(2))
-          .replace(/\{pliers_pts\}/g, toolScore.toFixed(2))
-          .replace(/\{pliers_exact\}/g, pliersExact50.toFixed(3))
-          .replace(/\{pliers_two\}/g, pliersTwoScore.toFixed(2))
-          .replace(/\{change_pts\}/g, changePts50.toFixed(2))
-          .replace(/\{salt_g\}/g, saltGrams50.toFixed(0))
-          .replace(/\{salt_rate\}/g, saltRate.toFixed(3))
-          .replace(/\{sugar_g\}/g, sugarGrams50.toFixed(0))
-          .replace(/\{sugar_rate\}/g, sugarRate.toFixed(3));
+          .replace(/\{milk_pts\}/g, formatNum(milkScore, 2))
+          .replace(/\{milk_total\}/g, formatNum(milkCredit50, 2))
+          .replace(/\{pliers_pts\}/g, formatNum(toolScore, 2))
+          .replace(/\{pliers_exact\}/g, formatNum(pliersExact50, 3))
+          .replace(/\{pliers_two\}/g, formatNum(pliersTwoScore, 2))
+          .replace(/\{change_pts\}/g, formatNum(changePts50, 2))
+          .replace(/\{salt_g\}/g, formatNum(saltGrams50, 0))
+          .replace(/\{salt_rate\}/g, formatNum(saltRate, 3))
+          .replace(/\{sugar_g\}/g, formatNum(sugarGrams50, 0))
+          .replace(/\{sugar_rate\}/g, formatNum(sugarRate, 3));
 
         var html =
           '<div class="print-guide-heading">' +
