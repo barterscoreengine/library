@@ -2,7 +2,7 @@
  * @fileoverview BarterScore Engine - Core Mathematical & Trade Engine (UMD Module)
  * @author Erisson Marques (https://github.com/erissontech)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  *
  * Pure Vanilla JavaScript (ES6+) implementation of the BarterScore mathematical
  * valuation formulas, real-time shelf-life depreciation, External Context Modifiers (MEC),
@@ -87,6 +87,7 @@
         cat_water_fire_shelter: 1.5,
         cat_trauma_hygiene: 1.45,
         cat_pharma_essential: 1.4,
+        cat_essential_services: 1.4,
         cat_critical_nutrition: 1.35,
         cat_staple_foods: 1.25,
         cat_spices_morale: 1.15,
@@ -107,7 +108,19 @@
         high_calorie_density: 1.3,
         electrolytes: 1.4,
         precious_metal: 0.01,
-        numismatic_bullion: 0.01
+        numismatic_bullion: 0.01,
+        service_medical_trauma: 1.75,
+        service_obstetrics: 1.75,
+        service_dental: 1.55,
+        service_wash_sanitation: 1.65,
+        service_security_tactical: 1.6,
+        service_comms_rf: 1.3,
+        service_power_electronics: 1.25,
+        service_shelter_construction: 1.25,
+        service_mechanical_metallurgy: 1.15,
+        service_agrarian_vet: 1.1,
+        service_it_cybernetics: 1.1,
+        service_instruction_pedagogy: 1.05
       })
     }),
     economic_reconstruction: Object.freeze({
@@ -115,6 +128,7 @@
       category_multipliers: Object.freeze({
         cat_store_of_value: MATH_CONSTANTS.RECONSTRUCTION_STORE_OF_VALUE_MULT,
         cat_tools_energy_comms: 1.5,
+        cat_essential_services: 1.45,
         cat_spices_morale: 1.35,
         cat_staple_foods: 1.15,
         cat_pharma_essential: 1.2,
@@ -133,7 +147,19 @@
         radio_communications: 1.4,
         food_preservation: 1.45,
         agricultural_seed: 1.6,
-        morale_stimulant: 1.3
+        morale_stimulant: 1.3,
+        service_power_electronics: 1.6,
+        service_it_cybernetics: 1.6,
+        service_instruction_pedagogy: 1.55,
+        service_mechanical_metallurgy: 1.55,
+        service_agrarian_vet: 1.6,
+        service_shelter_construction: 1.5,
+        service_comms_rf: 1.45,
+        service_wash_sanitation: 1.35,
+        service_obstetrics: 1.3,
+        service_medical_trauma: 1.25,
+        service_dental: 1.25,
+        service_security_tactical: 1.1
       })
     })
   });
@@ -1067,6 +1093,11 @@
       var item = internalItemsList[i];
       if (!item || typeof item.id !== 'string') continue;
 
+      // Exclude intangible human labor/services from physical counter-change recommendations unless explicitly requested
+      if (item.category === 'cat_essential_services' && opts.includeServicesInChange !== true) {
+        continue;
+      }
+
       var evalReport = evaluateItem(item, {
         scenario: scenarioToUse,
         contextModifiers: opts.contextModifiers
@@ -1732,7 +1763,7 @@
   };
 
   // Attach all static properties and methods for direct namespace usage
-  BarterEngine.VERSION = '1.0.0';
+  BarterEngine.VERSION = '1.1.0';
   BarterEngine.MATH_CONSTANTS = MATH_CONSTANTS;
   BarterEngine.DEFAULT_CONTEXT_SCENARIOS = DEFAULT_CONTEXT_SCENARIOS;
   BarterEngine.clamp = clamp;

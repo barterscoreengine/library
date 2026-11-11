@@ -2,7 +2,7 @@
  * @fileoverview Official TypeScript Type Declarations for BarterScore Engine (@barterscoreengine/library)
  * @author Erisson Marques (https://github.com/erissontech)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 export type CategorySlug =
@@ -13,7 +13,8 @@ export type CategorySlug =
   | 'cat_trauma_hygiene'
   | 'cat_water_fire_shelter'
   | 'cat_tools_energy_comms'
-  | 'cat_store_of_value';
+  | 'cat_store_of_value'
+  | 'cat_essential_services';
 
 export type UnitMeasure = 'g' | 'ml' | 'un';
 
@@ -69,6 +70,7 @@ export interface EvaluationOptions {
   scenario?: CrisisScenarioId;
   crisisPhase?: CrisisScenarioId;
   contextModifiers?: Record<string, number>;
+  includeServicesInChange?: boolean;
 }
 
 export interface EvaluationReport {
@@ -340,14 +342,20 @@ export interface CustomAuditSourceEntry {
 }
 
 export interface AuditSourcesNamespace {
-  REGISTRY_VERSION: string;
-  LINK_ROT_PROTOCOL: Readonly<Record<string, unknown>>;
-  OFFICIAL_SOURCES: Readonly<Record<string, unknown>>;
+  VERSION: string;
+  REGISTRY_VERSION?: string;
+  LINK_ROT_PROTOCOL?: Readonly<Record<string, unknown>>;
+  LINK_ROT_RESILIENCE_PROTOCOL: Readonly<Record<string, unknown>>;
+  FUNDAMENTAL_UNIT_DEFINITION: Readonly<Record<string, unknown>>;
+  GRANULAR_DECIMAL_RUBRIC: Readonly<Record<string, unknown>>;
+  VERIFIED_EMPIRICAL_RECORDS: Readonly<Record<string, unknown>>;
   COMPLETE_100_ITEM_TRACEABILITY_MATRIX: ReadonlyArray<Record<string, unknown>>;
+  ESSENTIAL_SERVICES_TRACEABILITY_MATRIX: ReadonlyArray<Record<string, unknown>>;
+  COMPLETE_120_ITEM_TRACEABILITY_MATRIX: ReadonlyArray<Record<string, unknown>>;
+  COMPLETE_128_ITEM_TRACEABILITY_MATRIX: ReadonlyArray<Record<string, unknown>>;
+  CUSTOM_USER_AUDIT_SOURCES: CustomAuditSourceEntry[];
   registerCustomAuditSource(entry: CustomAuditSourceEntry): CustomAuditSourceEntry;
   getCustomAuditSources(): CustomAuditSourceEntry[];
-  clearCustomAuditSources(): void;
-  getAuditRecordByItemId(itemId: string): Record<string, unknown> | null;
 }
 
 export declare const VERSION: string;

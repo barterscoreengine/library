@@ -1,7 +1,7 @@
 /**
  * @fileoverview BarterScore Engine - Schema & Dataset Validator (UMD Module)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  *
  * Zero-dependency, cross-platform schema validation module compatible with
  * local file:// protocol (window.BarterCore.Validator), CommonJS (Node.js),
@@ -38,7 +38,8 @@
     'cat_trauma_hygiene',
     'cat_water_fire_shelter',
     'cat_tools_energy_comms',
-    'cat_store_of_value'
+    'cat_store_of_value',
+    'cat_essential_services'
   ]);
 
   /**
@@ -720,7 +721,7 @@
   }
 
   var validatorApi = {
-    VERSION: '1.0.0',
+    VERSION: '1.1.0',
     VALID_CATEGORIES: VALID_CATEGORIES,
     VALID_UNIT_MEASURES: VALID_UNIT_MEASURES,
     SUPPORTED_LOCALES: SUPPORTED_LOCALES,

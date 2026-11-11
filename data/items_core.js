@@ -1,13 +1,15 @@
 /**
- * @fileoverview BarterScore Engine - Complete Centennial Catalog Dataset (100 Items)
+ * @fileoverview BarterScore Engine - Complete Reference Catalog Dataset (128 Items: 100 Commodities + 28 Essential Services)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  *
- * Scientific, brand-free physical and nutritional item specifications normalized to
- * atomic units of consumption using Codex Alimentarius (FAO/WHO), USDA/TBCA food
- * composition data, IEC/ANSI battery standards, and WHO International Nonproprietary Names (INN).
+ * Scientific, brand-free physical, nutritional, and occupational labor specifications normalized
+ * to atomic units of consumption/procedure using Codex Alimentarius (FAO/WHO), USDA/TBCA food
+ * composition data, IEC/ANSI battery standards, WHO International Nonproprietary Names (INN),
+ * WHO IMEESC/IMPAC emergency clinical procedures, Sphere WASH/Health, IEEE/IPC/NIST off-grid IT,
+ * UNESCO/ISCO-08 technical instruction, and ILO ISCO-08 / ISO 8996.
  *
- * Categories included in this module (100 items total across all 8 official categories):
+ * Categories included in this module (128 items total across all 9 official categories):
  * - cat_staple_foods (20 items)
  * - cat_critical_nutrition (5 items)
  * - cat_spices_morale (15 items)
@@ -16,6 +18,7 @@
  * - cat_water_fire_shelter (10 items)
  * - cat_tools_energy_comms (14 items)
  * - cat_store_of_value (6 items)
+ * - cat_essential_services (28 items)
  *
  * Compatible with offline local file:// protocol (window.BarterCore.ItemsCore),
  * CommonJS (Node.js), and ES Module environments.
@@ -51,9 +54,9 @@
   'use strict';
 
   /**
-   * Complete 100 standardized items of the BarterScore Centennial Catalog.
+   * Complete 128 standardized items of the BarterScore Reference Catalog (100 Commodities + 28 Essential Services).
    * All caloric values (kcal) and macronutrient ratios follow TBCA / USDA reference tables.
-   * Lifecycle units (V) are standardized in days under sealed ambient storage.
+   * Lifecycle units (V) are standardized in days under sealed ambient storage or service outcome durability.
    *
    * @type {ReadonlyArray<Object>}
    */
@@ -3092,18 +3095,862 @@
         high_calcium_iron: false
       },
       tags: ['precious_metal', 'numismatic_bullion', 'store_of_value', 'high_density_wealth_transfer']
+    },
+
+    // =========================================================================
+    // CATEGORY 9: cat_essential_services (28 Items — Items 101 to 128)
+    // =========================================================================
+    {
+      id: 'service_trauma_wound_debridement_suturing_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 42000,
+      weight_kg: 0.45,
+      volume_liters: 0.55,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.82,
+      psychological_factor: 2.45,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_medical_trauma', 'surgical_debridement', 'primary_suture_closure', 'who_imeesc_procedure']
+    },
+    {
+      id: 'service_fracture_closed_reduction_splinting_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 38000,
+      weight_kg: 0.65,
+      volume_liters: 0.85,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.85,
+      psychological_factor: 2.4,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_medical_trauma', 'orthopedic_reduction', 'limb_immobilization', 'who_imeesc_procedure']
+    },
+    {
+      id: 'service_dental_extraction_infection_drainage_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 34000,
+      weight_kg: 0.4,
+      volume_liters: 0.45,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.85,
+      psychological_factor: 2.35,
+      fragility_index: 1.1,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_dental', 'exodontia_extraction', 'odontogenic_abscess_drainage', 'who_oral_urgent_care']
+    },
+    {
+      id: 'service_obstetric_delivery_midwifery_care_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 48000,
+      weight_kg: 0.55,
+      volume_liters: 0.65,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.8,
+      psychological_factor: 2.5,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_obstetrics', 'midwifery_parturition', 'neonatal_resuscitation', 'who_impac_standard']
+    },
+    {
+      id: 'service_clinical_triage_nursing_care_shift_4hr',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 14000,
+      weight_kg: 0.5,
+      volume_liters: 0.6,
+      lifecycle_units: 14,
+      cost_of_prep: 0.9,
+      psychological_factor: 2.15,
+      fragility_index: 1.0,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_medical_trauma', 'clinical_nursing_shift', 'rehydration_monitoring', 'sphere_health_standard']
+    },
+    {
+      id: 'service_water_well_pump_filtration_repair_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 36000,
+      weight_kg: 2.2,
+      volume_liters: 2.4,
+      lifecycle_units: 365,
+      cost_of_prep: 0.75,
+      psychological_factor: 2.35,
+      fragility_index: 1.1,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_wash_sanitation', 'borehole_pump_overhaul', 'community_filtration_maintenance', 'sphere_wash_standard']
+    },
+    {
+      id: 'service_sanitation_latrine_vector_control_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 28000,
+      weight_kg: 2.5,
+      volume_liters: 2.6,
+      lifecycle_units: 180,
+      cost_of_prep: 0.72,
+      psychological_factor: 2.1,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_wash_sanitation', 'excreta_containment_engineering', 'vector_biohazard_control', 'sphere_wash_standard']
+    },
+    {
+      id: 'service_solar_pv_battery_dc_diagnostics_repair_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 35000,
+      weight_kg: 1.1,
+      volume_liters: 1.3,
+      lifecycle_units: 365,
+      cost_of_prep: 0.82,
+      psychological_factor: 2.25,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_power_electronics', 'offgrid_pv_diagnostics', 'dc_battery_bank_restoration', 'iec_62446_maintenance']
+    },
+    {
+      id: 'service_generator_internal_combustion_overhaul_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 38000,
+      weight_kg: 2.8,
+      volume_liters: 3.0,
+      lifecycle_units: 365,
+      cost_of_prep: 0.72,
+      psychological_factor: 2.2,
+      fragility_index: 1.1,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_power_electronics', 'internal_combustion_overhaul', 'carburetor_magneto_calibration', 'isco_7233_mechanic']
+    },
+    {
+      id: 'service_radio_vhf_uhf_antenna_calibration_repair_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 32000,
+      weight_kg: 0.85,
+      volume_liters: 1.05,
+      lifecycle_units: 365,
+      cost_of_prep: 0.85,
+      psychological_factor: 2.25,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_comms_rf', 'rf_transceiver_repair', 'antenna_vswr_tuning', 'itu_etsi_telecom_service']
+    },
+    {
+      id: 'service_metallurgy_blade_tool_forging_sharpening_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 26000,
+      weight_kg: 2.4,
+      volume_liters: 2.2,
+      lifecycle_units: 730,
+      cost_of_prep: 0.75,
+      psychological_factor: 2.1,
+      fragility_index: 1.15,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_mechanical_metallurgy', 'blacksmith_forging_tempering', 'edge_tool_reprofiling', 'isco_7221_blacksmith']
+    },
+    {
+      id: 'service_mechanical_bicycle_cart_drivetrain_repair_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 24000,
+      weight_kg: 1.6,
+      volume_liters: 1.8,
+      lifecycle_units: 180,
+      cost_of_prep: 0.8,
+      psychological_factor: 2.05,
+      fragility_index: 1.1,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_mechanical_metallurgy', 'non_motorized_transport_overhaul', 'bearing_drivetrain_truing', 'isco_7234_bicycle_mechanic']
+    },
+    {
+      id: 'service_shelter_roofing_structural_carpentry_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 34000,
+      weight_kg: 2.6,
+      volume_liters: 2.8,
+      lifecycle_units: 1095,
+      cost_of_prep: 0.72,
+      psychological_factor: 2.2,
+      fragility_index: 1.1,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_shelter_construction', 'structural_timber_carpentry', 'weatherproof_roof_sealing', 'sphere_shelter_standard']
+    },
+    {
+      id: 'service_masonry_thermal_stove_chimney_build_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 36000,
+      weight_kg: 3.5,
+      volume_liters: 3.8,
+      lifecycle_units: 1825,
+      cost_of_prep: 0.68,
+      psychological_factor: 2.25,
+      fragility_index: 1.15,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_shelter_construction', 'rocket_stove_masonry', 'thermal_flue_engineering', 'iso_19867_clean_cookstove']
+    },
+    {
+      id: 'service_footwear_cobbling_heavy_textile_repair_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 18000,
+      weight_kg: 0.75,
+      volume_liters: 0.85,
+      lifecycle_units: 365,
+      cost_of_prep: 0.85,
+      psychological_factor: 1.95,
+      fragility_index: 1.1,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_mechanical_metallurgy', 'footwear_sole_cobbling', 'load_bearing_canvas_stitching', 'isco_7536_shoemaker']
+    },
+    {
+      id: 'service_veterinary_livestock_obstetrics_wound_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 30000,
+      weight_kg: 1.2,
+      volume_liters: 1.4,
+      lifecycle_units: 365,
+      cost_of_prep: 0.8,
+      psychological_factor: 2.15,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_agrarian_vet', 'livestock_trauma_obstetrics', 'working_animal_clinical_care', 'fao_leban_veterinary_std']
+    },
+    {
+      id: 'service_agrarian_crop_grafting_seed_preservation_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 28000,
+      weight_kg: 0.9,
+      volume_liters: 1.1,
+      lifecycle_units: 730,
+      cost_of_prep: 0.78,
+      psychological_factor: 2.1,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_agrarian_vet', 'horticultural_tree_grafting', 'heirloom_seed_selection', 'fao_seed_security_std']
+    },
+    {
+      id: 'service_food_preservation_smoking_fermentation_batch',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 25000,
+      weight_kg: 1.8,
+      volume_liters: 2.1,
+      lifecycle_units: 180,
+      cost_of_prep: 0.75,
+      psychological_factor: 2.05,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_agrarian_vet', 'thermal_meat_fish_smoking', 'lacto_fermentation_curing', 'codex_food_hygiene_curing']
+    },
+    {
+      id: 'service_security_perimeter_watch_patrol_shift_4hr',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 9500,
+      weight_kg: 1.2,
+      volume_liters: 1.3,
+      lifecycle_units: 7,
+      cost_of_prep: 0.95,
+      psychological_factor: 2.1,
+      fragility_index: 1.0,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_security_tactical', 'perimeter_sentry_watch', 'early_warning_access_control', 'isco_5414_security_guard']
+    },
+    {
+      id: 'service_logistics_heavy_cargo_portage_5km_25kg',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 11000,
+      weight_kg: 1.5,
+      volume_liters: 1.8,
+      lifecycle_units: 7,
+      cost_of_prep: 0.92,
+      psychological_factor: 1.95,
+      fragility_index: 1.0,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_security_tactical', 'offroad_pack_frame_portage', 'heavy_supply_transport', 'iso_8996_metabolic_load']
+    },
+    {
+      id: 'service_it_mesh_network_intranet_deployment_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 26000,
+      weight_kg: 1.6,
+      volume_liters: 1.8,
+      lifecycle_units: 1095,
+      cost_of_prep: 0.78,
+      psychological_factor: 1.75,
+      fragility_index: 0.98,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_it_cybernetics', 'offline_wlan_mesh_intranet', 'lora_local_archive_sharing', 'ieee_802_11s_emergency_net']
+    },
+    {
+      id: 'service_it_data_recovery_extraction_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 24000,
+      weight_kg: 1.4,
+      volume_liters: 1.5,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.76,
+      psychological_factor: 1.85,
+      fragility_index: 0.95,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_it_cybernetics', 'forensic_storage_data_extraction', 'salvaged_drive_recovery', 'iso_27037_digital_recovery']
+    },
+    {
+      id: 'service_it_pcb_microsoldering_salvage_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 25000,
+      weight_kg: 1.5,
+      volume_liters: 1.6,
+      lifecycle_units: 730,
+      cost_of_prep: 0.75,
+      psychological_factor: 1.8,
+      fragility_index: 0.96,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_it_cybernetics', 'pcb_component_cannibalization', 'smd_tht_microsoldering_rework', 'ipc_7711_7721_electronics_repair']
+    },
+    {
+      id: 'service_it_microcontroller_low_power_automation_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 27000,
+      weight_kg: 1.45,
+      volume_liters: 1.55,
+      lifecycle_units: 1095,
+      cost_of_prep: 0.76,
+      psychological_factor: 1.7,
+      fragility_index: 0.98,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_it_cybernetics', 'embedded_mcu_pump_irrigation_control', 'low_power_sensor_automation', 'iec_61131_embedded_control']
+    },
+    {
+      id: 'service_instruction_technical_literacy_class',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 22000,
+      weight_kg: 0.8,
+      volume_liters: 0.9,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.88,
+      psychological_factor: 1.85,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_instruction_pedagogy', 'adult_functional_technical_literacy', 'posology_manual_comprehension', 'unesco_isced_technical_literacy']
+    },
+    {
+      id: 'service_instruction_applied_mathematics_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 21000,
+      weight_kg: 0.8,
+      volume_liters: 0.9,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.88,
+      psychological_factor: 1.8,
+      fragility_index: 1.05,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_instruction_pedagogy', 'structural_geometry_carpentry_math', 'barter_parity_logistics_arithmetic', 'isco_2320_vocational_numeracy']
+    },
+    {
+      id: 'service_instruction_combat_medicine_triage_class',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 28000,
+      weight_kg: 1.8,
+      volume_liters: 2.1,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.82,
+      psychological_factor: 2.15,
+      fragility_index: 1.02,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_instruction_pedagogy', 'first_responder_triage_hemorrhage_training', 'wash_sanitation_field_workshop', 'who_bec_icrc_first_aid_training']
+    },
+    {
+      id: 'service_instruction_technical_translation_proc',
+      category: 'cat_essential_services',
+      is_food: false,
+      is_divisible: false,
+      sub_units: 1,
+      unit_measure: 'un',
+      energy_or_utility_base: 20000,
+      weight_kg: 0.95,
+      volume_liters: 1.1,
+      lifecycle_units: 3650,
+      cost_of_prep: 0.86,
+      psychological_factor: 1.75,
+      fragility_index: 1.04,
+      pct_kcal_protein: 0.0,
+      pct_kcal_fat: 0.0,
+      pct_kcal_added_sugar: 0.0,
+      high_vit_c: false,
+      high_sodium_potassium: false,
+      high_calcium_iron: false,
+      nutrition: {
+        pct_kcal_protein: 0.0,
+        pct_kcal_fat: 0.0,
+        pct_kcal_added_sugar: 0.0,
+        high_vit_c: false,
+        high_sodium_potassium: false,
+        high_calcium_iron: false
+      },
+      tags: ['service_instruction_pedagogy', 'multilingual_manual_decoding', 'reverse_engineering_lexicon_translation', 'iso_17100_technical_translation']
     }
 
     /* =========================================================================
-     * TEMPLATE FOR ADDING ITEM 101+ (EXTENSIBILITY & DATA SWAPPING GUIDE)
+     * TEMPLATE FOR ADDING ITEM 129+ (EXTENSIBILITY & DATA SWAPPING GUIDE)
      * =========================================================================
-     * To add new items (101+) directly to this catalog or inject them dynamically
+     * To add new items (129+) directly to this catalog or inject them dynamically
      * at runtime via `window.BarterCore.BarterEngine.registerCustomItems([...])`,
      * copy the structure below and verify it with `window.BarterCore.Validator.validateItem(obj)`:
      *
      * ,{
      *   id: 'doxycycline_hyclate_100mg_capsule',     // Lowercase snake_case semantic slug (WHO/INN, IEC, or Codex; NO brand names)
-     *   category: 'cat_pharma_essential',            // Must be one of the 8 official VALID_CATEGORIES
+     *   category: 'cat_pharma_essential',            // Must be one of the 9 official VALID_CATEGORIES
      *   is_food: false,                              // true = calculates Nutritional Index (IN); false = locks IN at 1.0
      *   is_divisible: false,                         // true = can be split into sub_units; false = traded only in integer units
      *   sub_units: 1,                                // Integer >= 1 (use 1 for indivisible atomic units; grams/ml/count for divisible)
@@ -3111,10 +3958,10 @@
      *   energy_or_utility_base: 4600,                // E: Real total kcal for foods, or Equivalent Energy Base [500, 50000] for non-foods
      *   weight_kg: 0.001,                            // P: Physical mass in kilograms (> 0)
      *   volume_liters: 0.002,                        // Vol: Physical displacement volume in liters (>= 0)
-     *   lifecycle_units: 1460,                       // V: Nominal shelf life in days (> 0)
+     *   lifecycle_units: 1460,                       // V: Nominal shelf life or service durability in days (> 0)
      *   cost_of_prep: 1.0,                           // CP: Preparation ease factor in [0.5, 1.0] (1.0 = ready to use immediately)
      *   psychological_factor: 2.35,                  // FP: Morale / critical demand multiplier in [1.0, 2.5]
-     *   fragility_index: 1.1,                        // Frag: Physical packaging resilience in [0.7, 1.2]
+     *   fragility_index: 1.1,                        // Frag: Physical packaging / execution resilience in [0.7, 1.2]
      *   pct_kcal_protein: 0.0,                       // Protein caloric ratio in [0.0, 1.0] (0.0 for non-foods)
      *   pct_kcal_fat: 0.0,                           // Fat caloric ratio in [0.0, 1.0] (0.0 for non-foods)
      *   pct_kcal_added_sugar: 0.0,                   // Added sugar caloric ratio in [0.0, 1.0] (0.0 for non-foods)
@@ -3132,10 +3979,10 @@
      *   tags: ['antibiotic_systemic', 'tetracycline_broad_spectrum', 'who_essential_medicine'] // Non-empty array of snake_case tags
      * }
      *
-     * AUDIT TRACEABILITY FOR ITEM 101+ (SEPARATE FROM CORE 001–100 LEDGER):
+     * AUDIT TRACEABILITY FOR ITEM 129+ (SEPARATE FROM CORE 001–128 LEDGER):
      * Document your custom item's scientific/regulatory source in Section 4 of
      * `audit_sources/OFFLINE_AUDIT_DOSSIER.md` and/or register it programmatically via:
-     * `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 101, id: '...', category: '...', source_code: '...', baseline_note: '...' })`
+     * `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 129, id: '...', category: '...', source_code: '...', baseline_note: '...' })`
      * ========================================================================= */
   ];
 

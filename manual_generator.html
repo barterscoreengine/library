@@ -980,10 +980,10 @@
       </div>
     </section>
 
-    <!-- Complete Centennial Catalog Quotation Schedule -->
+    <!-- Complete Reference Catalog Quotation Schedule (128 Items) -->
     <section>
       <div class="section-header">
-        <h2 id="tableSectionTitle" class="section-title">Complete Centennial Catalog Quotation Schedule</h2>
+        <h2 id="tableSectionTitle" class="section-title">Complete Reference Catalog Quotation Schedule (128 Items)</h2>
         <span id="tableCountSummary" class="section-subtitle mono-num"></span>
       </div>
 
@@ -1029,7 +1029,11 @@
         <a href="https://www.chp.org.cn/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">Chinese Pharmacopoeia ChP (zh-Hans)</a> ·
         <a href="https://webstore.iec.ch/en/publication/603" target="_blank" rel="noopener noreferrer" style="color: #34d399;">IEC 60086-2 / IEC 61960-3 (LR6, LR03, INR18650)</a> ·
         <a href="https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html" target="_blank" rel="noopener noreferrer" style="color: #34d399;">NIOSH 42 CFR Part 84 (N95)</a> ·
-        <a href="https://www.lbma.org.uk/good-delivery/about-good-delivery" target="_blank" rel="noopener noreferrer" style="color: #34d399;">LBMA 999.0 Fine Bullion</a>
+        <a href="https://www.lbma.org.uk/good-delivery/about-good-delivery" target="_blank" rel="noopener noreferrer" style="color: #34d399;">LBMA 999.0 Fine Bullion</a> ·
+        <a href="https://www.who.int/Specify/emergencies/surgical-care" target="_blank" rel="noopener noreferrer" style="color: #34d399;">WHO IMEESC / IMPAC Surgical &amp; Obstetric Care</a> ·
+        <a href="https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">ILO ISCO-08 / ISO 8996 Occupational Ergonomics</a> ·
+        <a href="https://standards.ieee.org/ieee/802.11s/4570/" target="_blank" rel="noopener noreferrer" style="color: #34d399;">IEEE 802.11s / ISO/IEC 27037 / IPC-7711/7721 (Off-Grid IT &amp; PCB Rework)</a> ·
+        <a href="https://uis.unesco.org/en/topic/international-standard-classification-education-isced" target="_blank" rel="noopener noreferrer" style="color: #34d399;">UNESCO ISCED / WHO-ICRC BEC / ISO 17100 (Technical Instruction &amp; Translation)</a>
       </div>
     </section>
   </div>
@@ -1262,7 +1266,7 @@
 
         document.getElementById('tableSectionTitle').textContent = uiText(
           'table_title',
-          'Complete Centennial Catalog Quotation Schedule'
+          'Complete Reference Catalog Quotation Schedule (128 Items)'
         );
         document.getElementById('inputSearchCatalog').placeholder = uiText(
           'table_search_placeholder',
@@ -1294,7 +1298,7 @@
 
         var allCatOpt = document.createElement('option');
         allCatOpt.value = 'all';
-        allCatOpt.textContent = uiText('table_filter_all_categories', 'All 8 Official Categories');
+        allCatOpt.textContent = uiText('table_filter_all_categories', 'All 9 Official Categories');
         if (state.categoryFilter === 'all') {
           allCatOpt.selected = true;
         }
@@ -1351,8 +1355,23 @@
 
         var daysLabel = uiText('sim_unit_days', 'days');
         var nomHintPrefix = uiText('sim_lifecycle_nominal_hint', 'Nominal fresh shelf life:');
+        var srvNomHintPrefix = uiText(
+          'sim_service_durability_hint',
+          'Nominal service outcome durability (keep default for full service; reduce only if temporary/palliative):'
+        );
         var unitValPrefix = uiText('sim_hint_unit_value', 'Current Unit Value:');
         var deprPrefix = uiText('sim_hint_depreciation', 'Shelf-life loss:');
+        var srvDeprPrefix = uiText('sim_hint_service_depreciation', 'Palliative reduction:');
+
+        var isOfferService = offerItem.category === 'cat_essential_services';
+        var isReqService = requestItem.category === 'cat_essential_services';
+
+        document.getElementById('labelOfferLifecycle').textContent = isOfferService
+          ? uiText('sim_service_durability_label', 'Service Outcome Durability (Days)')
+          : uiText('sim_lifecycle_remaining', 'Remaining Shelf Life (Days)');
+        document.getElementById('labelRequestLifecycle').textContent = isReqService
+          ? uiText('sim_service_durability_label', 'Service Outcome Durability (Days)')
+          : uiText('sim_lifecycle_remaining', 'Remaining Shelf Life (Days)');
 
         var offerEval = BarterEngine.evaluateItem(offerItem, {
           scenario: state.scenario,
@@ -1368,7 +1387,7 @@
           ' ' +
           offerEval.final_score.toFixed(2) +
           ' pts · ' +
-          nomHintPrefix +
+          (isOfferService ? srvNomHintPrefix : nomHintPrefix) +
           ' ' +
           offerItem.lifecycle_units +
           ' ' +
@@ -1378,7 +1397,7 @@
           ' · MEC: ' +
           offerEval.context_modifier.toFixed(2) +
           'x · ' +
-          deprPrefix +
+          (isOfferService ? srvDeprPrefix : deprPrefix) +
           ' -' +
           offerEval.depreciation_pct.toFixed(1) +
           '%';
@@ -1388,7 +1407,7 @@
           ' ' +
           reqEval.final_score.toFixed(2) +
           ' pts · ' +
-          nomHintPrefix +
+          (isReqService ? srvNomHintPrefix : nomHintPrefix) +
           ' ' +
           requestItem.lifecycle_units +
           ' ' +
@@ -1398,7 +1417,7 @@
           ' · MEC: ' +
           reqEval.context_modifier.toFixed(2) +
           'x · ' +
-          deprPrefix +
+          (isReqService ? srvDeprPrefix : deprPrefix) +
           ' -' +
           reqEval.depreciation_pct.toFixed(1) +
           '%';
@@ -2035,7 +2054,7 @@
           escapeHtml(
             uiText(
               'print_expiry_box_body',
-              'Protocol A (Mental Bracket): >90d = 100% (1.0x); 31–90d = 75% (0.75x); 8–30d = 50% (0.50x); 1–7d = 25% (0.25x); 0d = 0 pts. Protocol B (Exact Scientific Calculator): Adjusted Score = Printed Score × [ log10(Remaining Days + 1) ÷ log10(Catalog V + 1) ]. Never trade swollen cans, broken seals, or wet powders.'
+              'Protocol A (Mental Bracket): >90d = 100% (1.0x); 31–90d = 75% (0.75x); 8–30d = 50% (0.50x); 1–7d = 25% (0.25x); 0d = 0 pts. Protocol B (Exact Scientific Calculator): Adjusted Score = Printed Score × [ log10(Remaining Days + 1) ÷ log10(Catalog V + 1) ]. Essential Services (101–128): V is outcome durability; always use 100% (1.0x) of printed score for full standard services.'
             )
           ) +
           '</div>' +

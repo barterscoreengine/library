@@ -1,7 +1,7 @@
 # Offline Scientific & Calibration Audit Dossier (`audit_sources/`)
 
 > **Offline Verification Guarantee (`file://` Compatible):**
-> This dossier and its companion UMD data module (`audit_sources/offline_sources_registry.js` -> `window.BarterCore.AuditSources`) store the exact empirical queries, official document identifiers, nutrient compositions, pharmaceutical posologies, decimal-step calibration rules, and the **complete 100-item traceability matrix (`001` to `100`)** locally inside the repository. Auditors, developers, and field operators can verify the mathematical basis of every item **100% offline without internet access**.
+> This dossier and its companion UMD data module (`audit_sources/offline_sources_registry.js` -> `window.BarterCore.AuditSources`) store the exact empirical queries, official document identifiers, nutrient compositions, pharmaceutical posologies, occupational/clinical labor metrics, decimal-step calibration rules, and the **complete 128-item traceability matrix (`001` to `128`)** locally inside the repository. Auditors, developers, and field operators can verify the mathematical basis of every item **100% offline without internet access**.
 
 ---
 
@@ -249,35 +249,71 @@ Every item in `data/items_core.js` is audited below with its permanent regulator
 | **099** | `silver_bullion_999_fine_1_troy_oz_31_1g` | `LBMA Good Delivery / ISO 4217: XAG` (`999.0 Fine` Silver `1 Troy Oz = 31.1035 g` Sovereign/Bullion Coin) | `E: 22000 EEB` (medium-denomination post-collapse hard currency & oligodynamic water silver), `P: 0.0311 kg`, `Vol: 0.003 L`, `V: 36500 d`, `CP: 1.00`, `FP: 2.30`, `Frag: 1.20` |
 | **100** | `gold_bullion_999_fine_fractional_1g` | `LBMA Good Delivery / ISO 4217: XAU` (`999.9 Fine` Gold `1.0 g` Assayed Fractional Bullion Bar) | `E: 50000 EEB` (highest-density cross-border capital store in `economic_reconstruction`), `P: 0.001 kg`, `Vol: 0.001 L`, `V: 36500 d`, `CP: 1.00`, `FP: 2.50`, `Frag: 1.20` |
 
+### 3.9. Category 9: `cat_essential_services` (Items `101` to `128`)
+
+For intangible human services, clinical procedures, off-grid IT/microelectronics, technical instruction, and specialized technical labor (`is_food: false`, `IN = 1.0`, `is_divisible: false`, `sub_units: 1`, `unit_measure: 'un'`), physical parameters map deterministically to the **Operator's Portable Tool/Kit Burden (`P`, `Vol`)**, **Biological Caloric Loss Prevented + Skill/Metabolic Expenditure Saved (`E` in `EEB`)**, and **Effective Outcome Durability / Recurrence Interval in Days (`V`)**:
+
+| # | Semantic Service ID (`data/items_core.js`) | Permanent Official Record / Standard Code | Offline Verified Snapshot Metrics (`E`, `P`, `Vol`, `V`, `CP`, `FP`, `Frag` & Clinical/Technical Scope) |
+| :---: | :--- | :--- | :--- |
+| **101** | `service_trauma_wound_debridement_suturing_proc` | `WHO IMEESC` (*Surgical Care at the District Hospital*, `ISBN 92-4-154575-5`) · `ICRC War Surgery` | `E: 42000 EEB` (prevents septic gangrene & hemorrhage), `P: 0.45 kg`, `Vol: 0.55 L` (surgical kit burden), `V: 3650 d`, `CP: 0.82`, `FP: 2.45`, `Frag: 1.05` |
+| **102** | `service_fracture_closed_reduction_splinting_proc` | `WHO IMEESC Orthopedic Trauma Protocol` · `AO Alliance Fracture Management` | `E: 38000 EEB` (restores limb mobility & prevents malunion disability), `P: 0.65 kg`, `Vol: 0.85 L`, `V: 3650 d`, `CP: 0.85`, `FP: 2.40`, `Frag: 1.05` |
+| **103** | `service_dental_extraction_infection_drainage_proc` | `WHO Basic Package of Oral Care (BPOC)` — *Urgent Oral Treatment (UOT)* | `E: 34000 EEB` (exodontia & drainage of acute odontogenic abscess), `P: 0.40 kg`, `Vol: 0.45 L`, `V: 3650 d`, `CP: 0.85`, `FP: 2.35`, `Frag: 1.10` |
+| **104** | `service_obstetric_delivery_midwifery_care_proc` | `WHO / UNFPA / UNICEF IMPAC` (*Managing Complications in Pregnancy and Childbirth*, `ISBN 978-92-4-156549-3`) | `E: 48000 EEB` (AMTSL postpartum hemorrhage control & neonatal resuscitation), `P: 0.55 kg`, `Vol: 0.65 L`, `V: 3650 d`, `CP: 0.80`, `FP: 2.50`, `Frag: 1.05` |
+| **105** | `service_clinical_triage_nursing_care_shift_4hr` | `Sphere Handbook Health Systems Std 1.1` & `WHO ETAT` (*Emergency Triage Assessment and Treatment*) | `E: 14000 EEB` (4-hour clinical nursing shift, IV/ORS titration & sterile dressings), `P: 0.50 kg`, `Vol: 0.60 L`, `V: 14 d`, `CP: 0.90`, `FP: 2.15`, `Frag: 1.00` |
+| **106** | `service_water_well_pump_filtration_repair_proc` | `Sphere WASH Water Supply Std 2.1` · `RWSN` (*Rural Water Supply Network* Afridev/India Mark II Spec) | `E: 36000 EEB` (borehole hand-pump seal/valve overhaul & slow-sand filter restoration), `P: 2.20 kg`, `Vol: 2.40 L`, `V: 365 d`, `CP: 0.75`, `FP: 2.35`, `Frag: 1.10` |
+| **107** | `service_sanitation_latrine_vector_control_proc` | `Sphere WASH Excreta Management Std 3.1` & `Vector Control Std 4.1` | `E: 28000 EEB` (groundwater-safe trench/pit latrine engineering & vector sanitization), `P: 2.50 kg`, `Vol: 2.60 L`, `V: 180 d`, `CP: 0.72`, `FP: 2.10`, `Frag: 1.05` |
+| **108** | `service_solar_pv_battery_dc_diagnostics_repair_proc` | `IEC 62446-1` (PV Systems Testing & Maintenance) · `IEEE Std 450 / 1188` (Battery Bank Maintenance) | `E: 35000 EEB` (off-grid PV array, MPPT/PWM controller & DC battery bank restoration), `P: 1.10 kg`, `Vol: 1.30 L`, `V: 365 d`, `CP: 0.82`, `FP: 2.25`, `Frag: 1.05` |
+| **109** | `service_generator_internal_combustion_overhaul_proc` | `ILO ISCO-08 Code 7233` (Machinery Mechanics) · `ISO 8528` (Reciprocating IC Generators) | `E: 38000 EEB` (diesel/gasoline carburetor, magneto ignition & valve lash overhaul), `P: 2.80 kg`, `Vol: 3.00 L`, `V: 365 d`, `CP: 0.72`, `FP: 2.20`, `Frag: 1.10` |
+| **110** | `service_radio_vhf_uhf_antenna_calibration_repair_proc` | `ITU-R Handbook on Emergency Telecommunications` · `ETSI EN 300 086` · `ILO ISCO-08 Code 7422` | `E: 32000 EEB` (RF transceiver repair, coaxial termination & dipole/Yagi VSWR < 1.5 tuning), `P: 0.85 kg`, `Vol: 1.05 L`, `V: 365 d`, `CP: 0.85`, `FP: 2.25`, `Frag: 1.05` |
+| **111** | `service_metallurgy_blade_tool_forging_sharpening_proc` | `ILO ISCO-08 Code 7221` (Blacksmiths & Forging Workers) · `ASM Heat Treater's Guide` | `E: 26000 EEB` (high-carbon steel forging, quenching/tempering & edge reprofiling), `P: 2.40 kg`, `Vol: 2.20 L`, `V: 730 d`, `CP: 0.75`, `FP: 2.10`, `Frag: 1.15` |
+| **112** | `service_mechanical_bicycle_cart_drivetrain_repair_proc` | `ILO ISCO-08 Code 7234` (Bicycle & Related Repairers) · `ISO 4210` (Cycles Safety Requirements) | `E: 24000 EEB` (non-motorized cargo bicycle/handcart bearing, spoke & drivetrain overhaul), `P: 1.60 kg`, `Vol: 1.80 L`, `V: 180 d`, `CP: 0.80`, `FP: 2.05`, `Frag: 1.10` |
+| **113** | `service_shelter_roofing_structural_carpentry_proc` | `Sphere Shelter and Settlement Std 3 & 4` · `ILO ISCO-08 Code 7115` (Carpenters and Joiners) | `E: 34000 EEB` (load-bearing timber framing, truss stabilization & weatherproof roofing), `P: 2.60 kg`, `Vol: 2.80 L`, `V: 1095 d`, `CP: 0.72`, `FP: 2.20`, `Frag: 1.10` |
+| **114** | `service_masonry_thermal_stove_chimney_build_proc` | `ISO 19867-1:2018` (Clean Cookstoves & Cooking Solutions) · `ILO ISCO-08 Code 7112` (Bricklayers/Masons) | `E: 36000 EEB` (high-efficiency rocket stove/oven & chimney saving 50–70% firewood), `P: 3.50 kg`, `Vol: 3.80 L`, `V: 1825 d`, `CP: 0.68`, `FP: 2.25`, `Frag: 1.15` |
+| **115** | `service_footwear_cobbling_heavy_textile_repair_proc` | `ILO ISCO-08 Code 7536` (Shoemakers & Leather Goods) · `ISO 20345` (Protective Footwear Spec) | `E: 18000 EEB` (boot sole resoling, awl saddle-stitching & load-bearing pack/canvas repair), `P: 0.75 kg`, `Vol: 0.85 L`, `V: 365 d`, `CP: 0.85`, `FP: 1.95`, `Frag: 1.10` |
+| **116** | `service_veterinary_livestock_obstetrics_wound_proc` | `FAO LEGS` (*Livestock Emergency Guidelines and Standards*, 2nd Ed.) · `ILO ISCO-08 Code 2250 / 3240` | `E: 30000 EEB` (livestock/draft animal trauma treatment, dystocia obstetrics & anthelmintics), `P: 1.20 kg`, `Vol: 1.40 L`, `V: 365 d`, `CP: 0.80`, `FP: 2.15`, `Frag: 1.05` |
+| **117** | `service_agrarian_crop_grafting_seed_preservation_proc` | `FAO Seed Security Assessment` & `Quality Declared Seed (QDS)` · `ILO ISCO-08 Code 6112` | `E: 28000 EEB` (fruit tree grafting, soil remineralization & open-pollinated seed drying), `P: 0.90 kg`, `Vol: 1.10 L`, `V: 730 d`, `CP: 0.78`, `FP: 2.10`, `Frag: 1.05` |
+| **118** | `service_food_preservation_smoking_fermentation_batch` | `FAO/WHO Codex Alimentarius CAC/RCP 52-2003` (Salting/Smoking) · `ILO ISCO-08 Code 7511` | `E: 25000 EEB` (batch osmotic salt-curing, wood-smoking or lacto-fermentation of 15 kg food), `P: 1.80 kg`, `Vol: 2.10 L`, `V: 180 d`, `CP: 0.75`, `FP: 2.05`, `Frag: 1.05` |
+| **119** | `service_security_perimeter_watch_patrol_shift_4hr` | `ILO ISCO-08 Code 5414` (Security Guards) · `ISO 8996` (Vigilance & Patrol Metabolic Rate) | `E: 9500 EEB` (4-hour tactical night/day perimeter watch, access control & early warning), `P: 1.20 kg`, `Vol: 1.30 L`, `V: 7 d`, `CP: 0.95`, `FP: 2.10`, `Frag: 1.00` |
+| **120** | `service_logistics_heavy_cargo_portage_5km_25kg` | `ISO 8996:2021` (Ergonomics — Metabolic Rate of Load Carriage) · `NIOSH Lifting Equation` | `E: 11000 EEB` (pack-frame human portage of 25 kg essential cargo across 5 km off-road), `P: 1.50 kg`, `Vol: 1.80 L`, `V: 7 d`, `CP: 0.92`, `FP: 1.95`, `Frag: 1.00` |
+| **121** | `service_it_mesh_network_intranet_deployment_proc` | `IEEE 802.11s` (Mesh Networking) · `ITU-T Emergency Telecom` · `ILO ISCO-08 Code 2523 / 3513` | `E: 26000 EEB` (local WLAN/LoRa mesh intranet sharing 64 GB MicroSD offline library), `P: 1.60 kg`, `Vol: 1.80 L`, `V: 1095 d`, `CP: 0.78`, `FP: 1.75`, `Frag: 0.98` |
+| **122** | `service_it_data_recovery_extraction_proc` | `ISO/IEC 27037` (Digital Media Extraction) · `NIST SP 800-86` · `ILO ISCO-08 Code 3512` | `E: 24000 EEB` (forensic extraction of engineering/WASH/medical PDFs from dead HDDs/SSDs/phones), `P: 1.40 kg`, `Vol: 1.50 L`, `V: 3650 d`, `CP: 0.76`, `FP: 1.85`, `Frag: 0.95` |
+| **123** | `service_it_pcb_microsoldering_salvage_proc` | `IPC-7711/7721` (Rework & Repair of Electronic Assemblies) · `ILO ISCO-08 Code 7421` | `E: 25000 EEB` (PCB microsoldering & component cannibalization for VHF/UHF radios & solar controllers), `P: 1.50 kg`, `Vol: 1.60 L`, `V: 730 d`, `CP: 0.75`, `FP: 1.80`, `Frag: 0.96` |
+| **124** | `service_it_microcontroller_low_power_automation_proc` | `IEC 61131-3` (Programmable Controllers) · `FAO Irrigation Automation` · `ILO ISCO-08 Code 2152` | `E: 27000 EEB` (low-power MCU programming for borehole water pump & seed irrigation automation), `P: 1.45 kg`, `Vol: 1.55 L`, `V: 1095 d`, `CP: 0.76`, `FP: 1.70`, `Frag: 0.98` |
+| **125** | `service_instruction_technical_literacy_class` | `UNESCO ISCED` (Adult Functional Literacy) · `WHO Health Literacy` · `ILO ISCO-08 Code 2359` | `E: 22000 EEB` (functional technical literacy class for antibiotic dosage & WASH manual reading), `P: 0.80 kg`, `Vol: 0.90 L`, `V: 3650 d`, `CP: 0.88`, `FP: 1.85`, `Frag: 1.05` |
+| **126** | `service_instruction_applied_mathematics_proc` | `UNESCO Adult Numeracy Framework` · `ILO ISCO-08 Code 2320` (Vocational Education Teachers) | `E: 21000 EEB` (applied carpentry/masonry geometry & BarterScore exchange parity arithmetic), `P: 0.80 kg`, `Vol: 0.90 L`, `V: 3650 d`, `CP: 0.88`, `FP: 1.80`, `Frag: 1.05` |
+| **127** | `service_instruction_combat_medicine_triage_class` | `WHO / ICRC Basic Emergency Care (BEC)` · `CoTCCC First Responder` · `Sphere WASH Training` | `E: 28000 EEB` (practical workshop multiplying triage, arterial tourniquet & WASH responders), `P: 1.80 kg`, `Vol: 2.10 L`, `V: 3650 d`, `CP: 0.82`, `FP: 2.15`, `Frag: 1.02` |
+| **128** | `service_instruction_technical_translation_proc` | `ISO 17100:2015` (Translation Services) · `ITU Technical Terminology` · `ILO ISCO-08 Code 2643` | `E: 20000 EEB` (multilingual technical translation & decoding of salvaged manuals/radios), `P: 0.95 kg`, `Vol: 1.10 L`, `V: 3650 d`, `CP: 0.86`, `FP: 1.75`, `Frag: 1.04` |
+
 ---
 
-## 4. Custom & Regional User Audit Ledger (`Items 101+`) — Governance Separation & Template
+## 4. Custom & Regional User Audit Ledger (`Items 129+`) — Governance Separation & Template
 
-To preserve the mathematical integrity of the canonical Centennial Catalog (`Items 001 to 100`) while empowering external developers, humanitarian teams, and community forks to add regional items (`Items 101+`), the **BarterScore Engine** enforces a strict **Two-Tier Audit Separation**:
+To preserve the mathematical integrity of the canonical Reference Catalog (`Items 001 to 128`: `001–100` Physical Commodities + `101–128` Standardized Essential Services) while empowering external developers, humanitarian teams, and community forks to add regional items (`Items 129+`), the **BarterScore Engine** enforces a strict **Two-Tier Audit Separation**:
 
-1. **Tier 1 — Canonical Core Ledger (`Items 001 to 100`):**
-   - Locked in Section 3 above and in `window.BarterCore.AuditSources.COMPLETE_100_ITEM_TRACEABILITY_MATRIX`. Never overwrite or renumber items `001` to `100`.
-2. **Tier 2 — Custom / Regional User Audit Ledger (`Items 101+`):**
-   - When you add `Item 101+` to your fork or runtime instance (via `data/items_core.js` or `engine.registerCustomItems([...])`), document its empirical source in the table below **and/or** register it programmatically via `window.BarterCore.AuditSources.registerCustomAuditSource({...})` in `audit_sources/offline_sources_registry.js`.
+1. **Tier 1 — Canonical Core Ledger (`Items 001 to 128`):**
+   - Locked in Section 3 above and in `window.BarterCore.AuditSources.COMPLETE_100_ITEM_TRACEABILITY_MATRIX` (`001–100`), `ESSENTIAL_SERVICES_TRACEABILITY_MATRIX` (`101–128`), and `COMPLETE_128_ITEM_TRACEABILITY_MATRIX` (`001–128`). Never overwrite or renumber items `001` to `128`.
+2. **Tier 2 — Custom / Regional User Audit Ledger (`Items 129+`):**
+   - When you add `Item 129+` to your fork or runtime instance (via `data/items_core.js` or `engine.registerCustomItems([...])`), document its empirical source in the table below **and/or** register it programmatically via `window.BarterCore.AuditSources.registerCustomAuditSource({...})` in `audit_sources/offline_sources_registry.js`.
 
-### 4.1. Markdown Table Template for User-Added Items (`101+`)
+### 4.1. Markdown Table Template for User-Added Items (`129+`)
 
 | # | Custom Semantic Item ID | Regional / Empirical Source Code (Pillar 1) | Offline Verified Snapshot Metrics (Pillar 2) & Maintainer / Fork Author |
 | :---: | :--- | :--- | :--- |
-| **101** | `doxycycline_hyclate_100mg_capsule` *(Example)* | `WHO EML 23rd List` · `ATC: J01AA02` (`Access Group` Tetracycline) | `E: 4600 EEB`, `P: 0.001 kg`, `Vol: 0.002 L`, `V: 1460 d`, `CP: 1.00`, `FP: 2.35`, `Frag: 1.10` · *Maintainer: Custom Regional Pack* |
+| **129** | `doxycycline_hyclate_100mg_capsule` *(Example)* | `WHO EML 23rd List` · `ATC: J01AA02` (`Access Group` Tetracycline) | `E: 4600 EEB`, `P: 0.001 kg`, `Vol: 0.002 L`, `V: 1460 d`, `CP: 1.00`, `FP: 2.35`, `Frag: 1.10` · *Maintainer: Custom Regional Pack* |
 
 ### 4.2. Programmatic Registration Example (`window.BarterCore.AuditSources.registerCustomAuditSource`)
 
 ```javascript
 window.BarterCore.AuditSources.registerCustomAuditSource({
-  index: 101,
+  index: 129,
   id: 'doxycycline_hyclate_100mg_capsule',
   category: 'cat_pharma_essential',
   source_code: 'WHO EML 23rd List (WHO/MHP/HPS/EML/2023.02) | ATC: J01AA02 (Access)',
   baseline_note: 'E=4600 EEB (broad-spectrum tetracycline for cholera/zoonoses); P=0.001kg, V=1460d, FP=2.35',
   direct_url: 'https://iris.who.int/handle/10665/371090',
-  snapshot_date: '2026-11-06',
+  snapshot_date: '2026-11-09',
   contributor: 'Custom Regional Fork'
 });
 ```
+
 
