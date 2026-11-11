@@ -1,6 +1,6 @@
-# BarterScore Engine (v1.0.0) — Analog Field Manual for Total Blackout Operations
+# BarterScore Engine (v1.1.0) — Analog Field Manual for Total Blackout Operations
 
-> **Manual Language / Idioma do Manual / 语言:**
+> **Manual Language:**
 > [**English (`OFFLINE_MANUAL.md`)**](./OFFLINE_MANUAL.md) · [**Português (`OFFLINE_MANUAL.pt-BR.md`)**](./OFFLINE_MANUAL.pt-BR.md) · [**Español (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md) · [**简体中文 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
 >
 > **Official Repository:** [https://github.com/barterscoreengine/library](https://github.com/barterscoreengine/library)
@@ -83,16 +83,17 @@ When an offered food or pharmaceutical item is close to its physical expiration 
 | **1 to 7 Days (`1–7 d`)** | **`25%` (`0.25x`)** | Keep only **1/4 (`-75%`)** of printed score | Immediate consumption only; cannot be stockpiled or re-traded. |
 | **0 Days / Spoiled (`0 d`)** | **`0%` (`0.00x`)** | **0 Points — Reject Trade** | Zero exchange value; spoiled food or degraded critical pharmaceuticals pose biological hazards. |
 
-### Protocol B: Proportional Shelf-Life Rule (Long-Life Goods)
+### Protocol B: Proportional Shelf-Life Rule (Long-Life Goods & Essential Services)
 For long-shelf-life goods (`1 to 5 years`) that still have more than 90 days remaining but have lost a major fraction of their original factory seal life:
 - **Half of Factory Shelf Life Remaining (`50% of V`):** Deduct **`~10%`** (exact logarithmic loss is `-8.9%` to `-9.8%`).
 - **One-Quarter of Factory Shelf Life Remaining (`25% of V`):** Deduct **`~20%`** (exact logarithmic loss is `-17.8%` to `-19.6%`).
+- **Essential Human Services (`cat_essential_services`, Items `101–128`):** For human services, `V` represents the **Nominal Service Outcome Durability (Days)** (recurrence/warranty interval). Always use **`100%` (`1.00x`)** of the printed score for a complete standard service; apply a reduction only if both parties agree on a temporary/palliative repair of shorter durability.
 
 ---
 
-## 4. Reference Guide to the 8 Canonical Categories & Crisis Contexts (`MEC`)
+## 4. Reference Guide to the 9 Canonical Categories & Crisis Contexts (`MEC`)
 
-The 100 standardized items in `data/items_core.js` are organized into **8 Canonical Categories**. When transitioning between crisis phases, you can either print a dedicated sheet for that scenario or apply the category/tag multipliers mentally:
+The 128 standardized items in `data/items_core.js` (`100` physical commodities + `28` essential human services) are organized into **9 Canonical Categories**. When transitioning between crisis phases, you can either print a dedicated sheet for that scenario or apply the category/tag multipliers mentally:
 
 | Category Slug | Category Name | Core Physical Role | Behavior Across Crisis Phases (`MEC`) |
 | :--- | :--- | :--- | :--- |
@@ -104,6 +105,7 @@ The 100 standardized items in `data/items_core.js` are organized into **8 Canoni
 | `cat_water_fire_shelter` | **Hydration, Water Purification, Ignition & Shelter** | Sealed potable water, NaDCC tablets, ceramic filters, ferrocerium rods, butane, and tarps. | Water and purification command the highest survival multiplier (`2.5x`) in acute collapse or drought. |
 | `cat_tools_energy_comms` | **Hand Tools, Cordage, Off-Grid Energy & Comms** | Full-tang carbon steel, multitools, paracord, IEC AA/AAA/18650 cells, solar panels, VHF/UHF radios. | Essential in collapse (`1.3x–1.5x`) and increases further (`1.6x–1.8x`) during agrarian/infrastructure reconstruction. |
 | `cat_store_of_value` | **Store of Value, Bullion & Knowledge Archives** | Fractional `.999` silver/gold, open-pollinated heirloom seeds, reading glasses, and offline archives. | **Strict Phase Inversion:** Bullion drops to **`0.01x`** in `acute_collapse` (you cannot eat gold/silver) and surges to **`5.00x`** in `economic_reconstruction` as coinage and seed capital return. |
+| `cat_essential_services` | **Essential Human Services, Clinical Procedures, Off-Grid IT, Instruction & Labor** | Standardized trauma surgery, dental, obstetrics, WASH repair, solar/mechanical overhaul, off-grid IT/microelectronics, technical instruction/translation, and tactical watch (`Items 101–128`). | Trauma, obstetrics, dental, WASH, and security surge in `acute_collapse` (`up to 2.21x`); off-grid IT, technical instruction, engineering, metallurgy, construction, and agrarian/vet services surge in `economic_reconstruction` (`up to 2.32x`). |
 
 ---
 

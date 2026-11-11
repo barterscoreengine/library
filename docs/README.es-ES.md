@@ -1,14 +1,14 @@
-# BarterScore Engine (v1.0.0)
+# BarterScore Engine (v1.1.0)
 
 **A Local-First library for Collapse Informatics and Off-Grid Economics.**
 *(Una biblioteca Local-First para Informática del Colapso y Economía Off-Grid.)*
 
-> **Idioma / Language / 语言:**
+> **Idioma:**
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Manual Analógico (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md)
 
 ---
 
-**BarterScore Engine** es un motor matemático determinista, multiplataforma, sin dependencias externas y 100% *offline-first*, diseñado para evaluar científicamente el valor físico, nutricional y funcional de artículos esenciales para el trueque en escenarios de interrupción de la cadena de suministro, crisis humanitarias y colapso civil.
+**BarterScore Engine** es un motor matemático determinista, multiplataforma, sin dependencias externas y 100% *offline-first*, diseñado para evaluar científicamente el valor físico, nutricional y funcional de artículos esenciales y servicios humanos especializados para el trueque en escenarios de interrupción de la cadena de suministro, crisis humanitarias y colapso civil.
 
 Licenciado bajo [**Apache License 2.0**](https://www.apache.org/licenses/LICENSE-2.0), toda la arquitectura está escrita en **Vanilla JavaScript puro (ES6+ UMD)** y **HTML5/CSS3** nativos, funcionando de forma idéntica bajo el protocolo local `file://` (mediante doble clic, sin requerir Node.js, servidores web ni conexión a internet), CommonJS (`module.exports`) y entornos ES Modules.
 
@@ -22,7 +22,7 @@ Licenciado bajo [**Apache License 2.0**](https://www.apache.org/licenses/LICENSE
 4. [Contrato de Esquema y Estandarización Científica](#4-contrato-de-esquema-y-estandarización-científica)
 5. [Ejecución Offline en 1 Clic, Impresión Física y Estructura del Repositorio](#5-ejecución-offline-en-1-clic-impresión-física-y-estructura-del-repositorio)
 6. [Guía de Integración para Desarrolladores y Referencia de la API](#6-guía-de-integración-para-desarrolladores-y-referencia-de-la-api)
-7. [Cómo Añadir el Artículo 101+ o un Nuevo Idioma](#7-cómo-añadir-el-artículo-101-o-un-nuevo-idioma)
+7. [Cómo Añadir el Artículo 129+ o un Nuevo Idioma](#7-cómo-añadir-el-artículo-129-o-un-nuevo-idioma)
 8. [Licencia y Gobernanza](#8-licencia-y-gobernanza)
 
 ---
@@ -90,7 +90,7 @@ Por análisis dimensional de `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log�
 ### 3.1. Fuentes Científicas, Regulatorias y Gubernamentales Oficiales (Snapshot Offline en `audit_sources/` + Enlaces en 1 Clic)
 > **Auditoría 100% Offline (`audit_sources/`):** Todas las consultas de fuentes, códigos **USDA FDC ID**, códigos **ATC de la OMS** y formulaciones oficiales están guardados localmente en [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md) y en el módulo UMD [`audit_sources/offline_sources_registry.js`](../audit_sources/offline_sources_registry.js) (`window.BarterCore.AuditSources`), permitiendo verificar toda la base mediante el protocolo `file://` sin depender de internet.
 >
-> **Nota de Alcance (Ejemplos Representativos frente a Matriz Completa de los 100 Artículos):** Para mantener este `README` conciso y didáctico, los artículos citados a continuación son **ejemplos representativos** de cada dominio científico. La matriz de trazabilidad y auditoría individual completa de los **100 artículos del catálogo (`001` a `100`)** se encuentra íntegramente documentada en [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md).
+> **Nota de Alcance (Ejemplos Representativos frente a Matriz Completa de los 128 Artículos):** Para mantener este `README` conciso y didáctico, los artículos citados a continuación son **ejemplos representativos** de cada dominio científico. La matriz de trazabilidad y auditoría individual completa de los **128 artículos del catálogo (`001` a `128`: 100 mercancías físicas + 28 servicios humanos esenciales)** se encuentra íntegramente documentada en [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md).
 
 1. **Densidad Calórica y Macronutrientes Alimentarios (`E_alimento`, `IN`) — Códigos de Registro Específicos USDA FDC:**
    - Extraídos directamente de [**USDA FoodData Central (SR Legacy)**](https://fdc.nal.usda.gov/), [**TBCA — USP/FoRC**](https://www.tbca.net.br/), [**TACO 4.ª Edición — UNICAMP (PDF)**](https://www.cfn.org.br/wp-content/uploads/2017/03/taco_4_edicao_ampliada_e_revisada.pdf) y [**Codex Alimentarius (FAO/OMS)**](https://www.fao.org/fao-who-codexalimentarius/). Registros específicos auditados:
@@ -103,6 +103,9 @@ Por análisis dimensional de `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log�
    - Basados en el [**Manual Esfera (Edición 2018, Estándar WASH 2.1: `15 L/persona/día` necesidad básica total; `2,5–3,0 L/día` bebida de supervivencia; `3–6 L/día` cocción de alimentos)**](https://spherestandards.org/handbook/editions/) y las [**Guías de la OMS para la Calidad del Agua Potable (`ISBN 978-92-4-154995-0`: 1 comprimido de `67 mg` de NaDCC potabiliza `20 Litros` de agua clara en `30 min`)**](https://www.who.int/publications/i/item/9789241549950).
 4. **Vida Útil Sellada (`V`) y Durabilidad de Envase (`Frag`):**
    - Basados en estudios del [**US Army DEVCOM Soldier Center (Natick)**](https://www.army.mil/devcom-sc), las directrices [**USDA FSIS Shelf-Stable Food Safety**](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/shelf-stable-food), las guías de [**FEMA / Ready.gov**](https://www.ready.gov/food) y el programa [**FDA / DoD Shelf-Life Extension Program (SLEP)**](https://www.fda.gov/emergency-preparedness-and-response/mcm-legal-regulatory-and-policy-framework/expiration-dating-extension).
+5. **Servicios Humanos Esenciales, Procedimientos Clínicos, TI Off-Grid, Instrucción y Trabajo Técnico (`cat_essential_services`, Artículos `101–128`):**
+   - Basados en el [**Manual OMS IMEESC (Atención Quirúrgica Esencial y de Emergencia)**](https://www.who.int/Specify/emergencies/surgical-care), la [**Guía OMS/UNFPA/UNICEF IMPAC (Complicaciones en el Embarazo y el Parto, ISBN 978-92-4-156549-3)**](https://www.who.int/publications/i/item/9789241565493), la [**Clasificación Internacional de Ocupaciones OIT ISCO-08 y Norma ISO 8996**](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/), las [**Directrices Veterinarias y de Semillas de la FAO**](https://www.fao.org/agriculture/crops/thematic-sitemap/theme/seeds-pgr/seed-sys/security/en/), los [**Estándares de Mantenimiento de Campo IEEE / IEC / ETSI**](https://www.itu.int/en/ITU-D/Emergency-Telecommunications/), las normas [**IEEE 802.11s / ISO/IEC 27037 / IPC-7711/7721 / IEC 61131-3 (TI Off-Grid y Microelectrónica)**](https://standards.ieee.org/ieee/802.11s/4570/) y las normas [**UNESCO ISCED / OMS-CICR BEC / ISO 17100 (Instrucción Técnica y Traducción)**](https://uis.unesco.org/en/topic/international-standard-classification-education-isced).
+   - *Mapeo Físico para Servicios Intangibles:* Los 28 servicios (`is_food: false`, `is_divisible: false`, `sub_units: 1`, `unit_measure: 'un'`) asignan `weight_kg (P)` (`0,40–3,50 kg`) y `volume_liters (Vol)` (`0,45–3,80 L`) a la **Carga Física del Equipo/Instrumental Portátil del Operador** (evitando la inflación artificial de `0,001 kg`), `lifecycle_units (V)` (`7–3.650 días`) a la **Durabilidad Efectiva / Intervalo de Recurrencia del Servicio**, y `energy_or_utility_base (E)` (`5.200–38.000 EEB`) a la **Pérdida Calórica Biológica Evitada + Trabajo Técnico Ahorrado**. Por defecto, `calculateChangeOptions()` excluye `cat_essential_services` de las opciones automáticas de cambio fraccionario.
 
 #### Directorio Completo de Verificación en 1 Clic (Con Códigos de Documento e IDs de Registro Exactos)
 
@@ -129,6 +132,10 @@ Por análisis dimensional de `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log�
 | **Pilas y Baterías (`LR6`, `LR03`, `INR18650`)** | IEC 60086-2 (Primarias) & IEC 61960-3 (Litio Secundarias) | [https://webstore.iec.ch/en/publication/603](https://webstore.iec.ch/en/publication/603) |
 | **Respiradores de Partículas (`N95 / FFP2`)** | CDC / NIOSH `42 CFR Part 84` | [https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html](https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html) |
 | **Metales Preciosos (`999.0 Fine` Oro/Plata)** | LBMA Good Delivery Assay Specifications | [https://www.lbma.org.uk/good-delivery/about-good-delivery](https://www.lbma.org.uk/good-delivery/about-good-delivery) |
+| **Cirugía de Emergencia y Obstetricia** | OMS IMEESC & OMS/UNFPA/UNICEF IMPAC (`978-92-4-156549-3`) | [https://www.who.int/publications/i/item/9789241565493](https://www.who.int/publications/i/item/9789241565493) |
+| **Trabajo Técnico y Ergonomía Metabólica** | OIT ISCO-08 & ISO 8996 (Tasa Metabólica Ocupacional) | [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/) · [https://www.iso.org/standard/74443.html](https://www.iso.org/standard/74443.html) |
+| **TI Off-Grid, Recuperación de Datos y PCB** | IEEE 802.11s, ISO/IEC 27037, IPC-7711/7721 & IEC 61131-3 | [https://standards.ieee.org/ieee/802.11s/4570/](https://standards.ieee.org/ieee/802.11s/4570/) · [https://www.iso.org/standard/44381.html](https://www.iso.org/standard/44381.html) |
+| **Instrucción Técnica, Pedagogía y Traducción** | UNESCO ISCED, OMS/CICR BEC & ISO 17100:2015 | [https://uis.unesco.org/en/topic/international-standard-classification-education-isced](https://uis.unesco.org/en/topic/international-standard-classification-education-isced) · [https://www.iso.org/standard/59149.html](https://www.iso.org/standard/59149.html) |
 | **Informes sobre Asedios y Conflictos** | CICR Publicación `4249` & OMS Ucrania | [https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict](https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict) · [https://www.who.int/emergencies/situations/ukraine-emergency](https://www.who.int/emergencies/situations/ukraine-emergency) |
 
 ### 3.2. Heurísticas de Ingeniería y Rúbrica por Escalones Decimales (Sin Fuente Externa — Justificadas por Diseño)
@@ -151,7 +158,7 @@ Donde la literatura oficial separa nutrición (`kcal`), medicina (supervivencia 
 | **`fragility_index` (`Frag`)** | `0.70 – 1.20` | • **`0.75 – 0.80`**: Papel/cartón hidrofílico expuesto u óptica frágil (`paper_toilet_cellulose_roll_30m`, `biscuit_wheat_salted_dry_400g`).<br>• **`0.85 – 0.90`**: Bolsa polimérica flexible o botella líquida (`pasta_wheat_dry_500g`, `oil_vegetable_refined_900ml`).<br>• **`0.95 – 1.05`**: Envase sellado grueso, frasco PEAD o blíster farmacéutico (`rice_white_polished_raw_1000g`, `amoxicillin_500mg_capsule` `1.05`).<br>• **`1.10 – 1.18`**: Lata metálica hermética, blíster laminado o multiherramienta de acero (`fish_sardine_canned_oil_125g` `1.15`).<br>• **`1.20`**: Aleación sólida o metal noble macizo indestructible (`tourniquet_tactical_arterial_unit`, `gold_bullion_999_fine_fractional_1g`, `silver_bullion_999_fine_1_troy_oz_31_1g`). |
 
 ### 3.3. Lecciones Empíricas de Guerras y Asedios Urbanos Recientes Catalogadas en el Motor
-El catálogo de 100 artículos y los modificadores de contexto (`MEC`) incorporan lecciones documentadas en conflictos modernos:
+El catálogo de 128 artículos y los modificadores de contexto (`MEC`) incorporan lecciones documentadas en conflictos modernos:
 - **Asedio de Sarajevo (1992–1996, Guerra de Bosnia):** Demostró la desmonetización aguda del oro y las joyas durante asedios urbanos cerrados (`cat_store_of_value` cae a **`0.01x`** en `acute_collapse` y se recupera a **`5.0x`** en `economic_reconstruction`), mientras que los **encendedores de butano**, **cigarrillos sueltos**, **café**, **sal** y **alcohol antiséptico** funcionaron como monedas fraccionarias de alta liquidez.
 - **Guerra de Ucrania (2022–Presente — Mariúpol, Bajmut y Apagones Invernales — [Informes de Emergencia de la OMS](https://www.who.int/emergencies/situations/ukraine-emergency)):** Confirmó que la supervivencia civil moderna bajo bombardeos y caída de la red eléctrica (*grid-down*) depende críticamente de la **microenergía DC y comunicaciones descentralizadas** (**baterías Li-Ion 18650**, **paneles solares USB 5V 10W**, **radios VHF/UHF de doble banda**), **trauma táctico civil (TCCC)** (**torniquetes arteriales**, **suturas de nailon 3-0**) y **bloqueo tiroideo radiológico** (**yoduro de potasio 130mg**).
 - **Crisis Hídricas y Brotes de Cólera (Siria, Yemen, Gaza, Sudán — [Informes de Asedios Urbanos del CICR](https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict) y [Guías WASH de la OMS](https://www.who.int/publications/i/item/9789241549950)):** Demostraron que, cuando falla el bombeo eléctrico y no hay combustible para hervir agua, la **desinfección química en frío** (**comprimidos NaDCC**, **hipoclorito de sodio al 2,5%**), los **filtros de fibra hueca de 0,1 micras**, las **Sales de Rehidratación Oral (SRO)** y los **antibióticos frente a enteropatógenos** (**ciprofloxacino**, **metronidazol**, **azitromicina**) poseen el mayor valor de supervivencia por gramo en los primeros 30 días.
@@ -205,8 +212,8 @@ Cada objeto en `data/items_core.js` o registrado mediante `BarterEngine.register
 | Propiedad | Tipo | Restricción / Valores Permitidos |
 | :--- | :--- | :--- |
 | `id` | `string` | `snake_case` en minúsculas (`/^[a-z][a-z0-9_]{2,120}$/`), no numérico, sin marcas comerciales |
-| `category` | `string` | `cat_staple_foods`, `cat_critical_nutrition`, `cat_spices_morale`, `cat_pharma_essential`, `cat_trauma_hygiene`, `cat_water_fire_shelter`, `cat_tools_energy_comms`, `cat_store_of_value` |
-| `is_food` | `boolean` | `true` para alimentos calóricos; `false` para artículos no alimentarios, fármacos y herramientas |
+| `category` | `string` | `cat_staple_foods`, `cat_critical_nutrition`, `cat_spices_morale`, `cat_pharma_essential`, `cat_trauma_hygiene`, `cat_water_fire_shelter`, `cat_tools_energy_comms`, `cat_store_of_value`, `cat_essential_services` |
+| `is_food` | `boolean` | `true` para alimentos calóricos; `false` para artículos no alimentarios, fármacos, herramientas y servicios |
 | `is_divisible` | `boolean` | `true` si es fraccionable en `sub_units`; `false` si solo se intercambia por unidades enteras |
 | `sub_units` | `number` | Entero `≥ 1` (`1` para artículos indivisibles; total en `g`, `ml` o subunidades para artículos divisibles) |
 | `unit_measure` | `string` | `"g"` \| `"ml"` \| `"un"` |
@@ -229,7 +236,7 @@ No se requieren compiladores, servidores web locales ni conexión a internet par
 - **Linux / macOS / FreeBSD / OpenBSD:** Ejecute `./start_unix.sh` (o `sh ./start_unix.sh`).
 - **Apertura Directa:** Haga doble clic en `manual_generator.html` desde cualquier gestor de archivos de escritorio o móvil.
 - **Simulador Bilateral de Trueque y Resumen de Liquidación Directa:** En `manual_generator.html`, seleccione el **Artículo Ofrecido (Usted Entrega)** y el **Artículo Solicitado (Para Recibir)** (o pulse `⇄` para invertir los artículos al instante) junto con su vida útil restante en tiempo real (`V`). El simulador presenta el **Resumen de Liquidación Directa** (`Usted Entrega ➔ Usted Recibe`), 6 indicadores explícitos identificados con el nombre del artículo (tasa de paridad unitaria, valor total ofrecido, valor unitario del artículo solicitado, equivalencia matemática exacta, cantidad recomendada del artículo solicitado y subunidades físicas), además de alertas traducidas de indivisibilidad y cambio.
-- **Impresión de Manual de Campo en Papel y Operación Analógica (Página 1 Completa + 3 Escenarios en Paralelo):** En `manual_generator.html`, seleccione el idioma y pulse **"Imprimir Manual Físico"** (o `Ctrl+P` / `Cmd+P`). La hoja de estilos `@media print` (`A4 landscape`) oculta los controles interactivos y formatea automáticamente un manual impreso en blanco y negro de alto contraste: la **Página 1** imprime íntegramente el **Manual de Operación Analógica (`OFFLINE_MANUAL`)** (protocolo en 4 pasos, guía de las 3 columnas de escenario, ejemplo práctico paso a paso, Protocolos A y B de caducidad, lista de verificación sanitaria y la **Tabla Precalculada de Cambio Fraccionario en los 3 Escenarios**), y las **Páginas 2+** imprimen el catálogo de 100 artículos mostrando **simultáneamente los 3 escenarios de crisis en paralelo** en las **Columnas 8 (`1. Línea Base Pura 1,0x`), 9 (`2. Colapso Agudo`) y 10 (`3. Reconstrucción Económica`)** junto con la tasa `1 g / 1 ml` de cada artículo divisible. Consulte también el manual analógico dedicado en español [**`docs/OFFLINE_MANUAL.es-ES.md`**](./OFFLINE_MANUAL.es-ES.md).
+- **Impresión de Manual de Campo en Papel y Operación Analógica (Página 1 Completa + 3 Escenarios en Paralelo):** En `manual_generator.html`, seleccione el idioma y pulse **"Imprimir Manual Físico"** (o `Ctrl+P` / `Cmd+P`). La hoja de estilos `@media print` (`A4 landscape`) oculta los controles interactivos y formatea automáticamente un manual impreso en blanco y negro de alto contraste: la **Página 1** imprime íntegramente el **Manual de Operación Analógica (`OFFLINE_MANUAL`)** (protocolo en 4 pasos, guía de las 3 columnas de escenario, ejemplo práctico paso a paso, Protocolos A y B de caducidad, lista de verificación sanitaria y la **Tabla Precalculada de Cambio Fraccionario en los 3 Escenarios**), y las **Páginas 2+** imprimen el catálogo de 128 artículos mostrando **simultáneamente los 3 escenarios de crisis en paralelo** en las **Columnas 8 (`1. Línea Base Pura 1,0x`), 9 (`2. Colapso Agudo`) y 10 (`3. Reconstrucción Económica`)** junto con la tasa `1 g / 1 ml` de cada artículo divisible. Consulte también el manual analógico dedicado en español [**`docs/OFFLINE_MANUAL.es-ES.md`**](./OFFLINE_MANUAL.es-ES.md).
 
 ### 5.1. Arquitectura del Repositorio
 
@@ -250,7 +257,7 @@ library/
 ├── start_unix.sh                       # Lanzador POSIX en 1 clic (Linux, macOS, BSD)
 ├── manual_generator.html               # GUI offline sin dependencias, simulador y generador de manual impreso
 ├── data/
-│   └── items_core.js                   # 100 artículos estandarizados (8 categorías) + plantilla Item 101+
+│   └── items_core.js                   # 128 artículos estandarizados (9 categorías: 100 mercancías + 28 servicios) + plantilla Item 129+
 ├── audit_sources/
 │   ├── OFFLINE_AUDIT_DOSSIER.md        # Dossier offline de fuentes científicas y escalones de calibración
 │   └── offline_sources_registry.js     # Snapshot empírico UMD offline (window.BarterCore.AuditSources)
@@ -405,8 +412,8 @@ console.log(JSON.stringify(tradeResult, null, 2));
 }
 ```
 
-### 6.4. Ejemplo Práctico 2: Extensión Programática del Artículo 101+ (`registerCustomItems` & `AuditSources`)
-Al integrar el SDK en una aplicación externa, puede ampliar el catálogo canónico de 100 artículos (`001–100`) con nuevos artículos regionales (`Artículo 101+`) mediante `mode: 'merge'` y `strict: true`, registrando su trazabilidad de auditoría de Nivel 2 (`Tier 2`) a través de `AuditSources.registerCustomAuditSource`:
+#### 6.4. Ejemplo Práctico 2: Extensión Programática del Artículo 129+ (`registerCustomItems` & `AuditSources`)
+Al integrar el SDK en una aplicación externa, puede ampliar el catálogo canónico de 128 artículos (`001–128`) con nuevos artículos regionales (`Artículo 129+`) mediante `mode: 'merge'` y `strict: true`, registrando su trazabilidad de auditoría de Nivel 2 (`Tier 2`) a través de `AuditSources.registerCustomAuditSource`:
 
 ```javascript
 const regionalDataset = [
@@ -442,16 +449,16 @@ const regionalDataset = [
   }
 ];
 
-// 1. Fusiona el Artículo 101+ en el catálogo canónico de 100 artículos con validación estricta de esquema
+// 1. Fusiona el Artículo 129+ en el catálogo canónico de 128 artículos con validación estricta de esquema
 const mergeReport = engine.registerCustomItems(regionalDataset, {
   mode: 'merge',
   strict: true
 });
 console.log('Artículos registrados:', mergeReport.registered_count, 'Total en motor:', mergeReport.total_registry_size);
 
-// 2. Registra la trazabilidad de auditoría en el Nivel 2 (preservando intacta la matriz oficial 001–100)
+// 2. Registra la trazabilidad de auditoría en el Nivel 2 (preservando intacta la matriz oficial 001–128)
 AuditSources.registerCustomAuditSource({
-  index: 101,
+  index: 129,
   id: 'doxycycline_hyclate_100mg_capsule',
   category: 'cat_pharma_essential',
   source_code: 'WHO_EML_23',
@@ -465,17 +472,17 @@ AuditSources.registerCustomAuditSource({
 
 ---
 
-## 7. Cómo Añadir el Artículo 101+ o un Nuevo Idioma
+## 7. Cómo Añadir el Artículo 129+ o un Nuevo Idioma
 
-### Añadir el Artículo 101+
+### Añadir el Artículo 129+
 1. Abra `data/items_core.js` y copie la plantilla comentada al final del array `ITEMS_CORE`.
 2. Defina un `id` semántico en `snake_case` en inglés (sin marcas comerciales) y complete todos los parámetros físicos y nutricionales siguiendo la Rúbrica de Calibración de la Sección 3.
 3. Verifique con `window.BarterCore.Validator.validateDataset(window.BarterCore.ItemsCore)` que haya 0 errores y 0 advertencias.
-4. **Registre la Fuente de Auditoría del Nuevo Artículo (Separación en 2 Niveles):** Mantenga intacta la matriz canónica `001–100` y registre la fuente normativa, farmacopea regional o medición empírica de su `Artículo 101+` en la **Sección 4 (`Custom & Regional User Audit Ledger`)** de [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md) y/o mediante código con `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 101, id, category, source_code, baseline_note })`.
+4. **Registre la Fuente de Auditoría del Nuevo Artículo (Separación en 2 Niveles):** Mantenga intacta la matriz canónica `001–128` y registre la fuente normativa, farmacopea regional o medición empírica de su `Artículo 129+` en la **Sección 4 (`Custom & Regional User Audit Ledger`)** de [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md) y/o mediante código con `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 129, id, category, source_code, baseline_note })`.
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────┐
-│                FLUJO DE EXPANSIÓN: AÑADIENDO EL ARTÍCULO 101+                 │
+│                FLUJO DE EXPANSIÓN: AÑADIENDO EL ARTÍCULO 129+                 │
 └───────────────────────────────────────────────────────────────────────────────┘
 
   [ 1. FÍSICA Y MATEMÁTICA ]              [ 2. TRADUCCIÓN / IDIOMAS ]
@@ -489,15 +496,15 @@ AuditSources.registerCustomAuditSource({
                      [ 3. VALIDACIÓN DE INTEGRIDAD ]
                      ⚙️ src/validator.js
                      └─ Ejecutar `Validator.validateDataset(ItemsCore)`
-                        ├─ ❌ Con error/aviso ──► Corregir límites o etiquetas
+                        ├─ ❌ Con error/aviso ──► Corrigir límites o etiquetas
                         └─ ✅ 0 errores / 0 avisos (100% determinista)
                                      │
                                      ▼
-               [ 4. AUDITORÍA EN 2 NIVELES (NIVEL 2: 101+) ]
+               [ 4. AUDITORÍA EN 2 NIVELES (NIVEL 2: 129+) ]
                📋 audit_sources/OFFLINE_AUDIT_DOSSIER.md (Sección 4)
                ⚙️ audit_sources/offline_sources_registry.js
-               ├─ Nivel 1 (Artículos 001–100): Permanece INMUTABLE
-               └─ Nivel 2 (Artículos 101+): Registrar fuente regional/empírica
+               ├─ Nivel 1 (Artículos 001–128): Permanece INMUTABLE
+               └─ Nivel 2 (Artículos 129+): Registrar fuente regional/empírica
                   en la tabla de la Sección 4 o `registerCustomAuditSource(...)`
 ```
 

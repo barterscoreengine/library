@@ -1,13 +1,13 @@
-# BarterScore Engine (v1.0.0)
+# BarterScore Engine (v1.1.0)
 
 **A Local-First library for Collapse Informatics and Off-Grid Economics.**
 
-> **Language / Idioma / 语言:**
+> **Language:**
 > [**English (en-US)**](./README.md) · [**Português (pt-BR)**](./docs/README.pt-BR.md) · [**Español (es-ES)**](./docs/README.es-ES.md) · [**简体中文 (zh-Hans)**](./docs/README.zh-Hans.md) · [**Analog Field Manual (`OFFLINE_MANUAL.md`)**](./docs/OFFLINE_MANUAL.md)
 
 ---
 
-**BarterScore Engine** is a deterministic, cross-platform, zero-dependency, offline-first mathematical engine and reference catalog designed to evaluate the physical, nutritional, and functional barter value of essential commodities in supply-chain disruptions, humanitarian crises, and civil collapse scenarios.
+**BarterScore Engine** is a deterministic, cross-platform, zero-dependency, offline-first mathematical engine and reference catalog designed to evaluate the physical, nutritional, and functional barter value of essential commodities and specialized human services in supply-chain disruptions, humanitarian crises, and civil collapse scenarios.
 
 Licensed under the [**Apache License 2.0**](https://www.apache.org/licenses/LICENSE-2.0), the entire architecture is written in pure **Vanilla JavaScript (ES6+ UMD)** and native **HTML5/CSS3**, executing identically over the local `file://` protocol (via double-click without Node.js, web servers, or internet connectivity), CommonJS (`module.exports`), and ES Module environments.
 
@@ -21,7 +21,7 @@ Licensed under the [**Apache License 2.0**](https://www.apache.org/licenses/LICE
 4. [Schema Contract & Scientific Standardization](#4-schema-contract--scientific-standardization)
 5. [1-Click Offline Launch, Physical Manual Printing & Repository Structure](#5-1-click-offline-launch-physical-manual-printing--repository-structure)
 6. [Developer Integration Guide & API Reference](#6-developer-integration-guide--api-reference)
-7. [Adding Item 101+ or a New Localization Pack](#7-adding-item-101-or-a-new-localization-pack)
+7. [Adding Item 129+ or a New Localization Pack](#7-adding-item-129-or-a-new-localization-pack)
 8. [License & Governance](#8-license--governance)
 
 ---
@@ -89,7 +89,7 @@ By dimensional analysis of `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log₁�
 ### 3.1. Official Scientific, Regulatory & Humanitarian Sources (Offline Snapshot in `audit_sources/` + 1-Click Direct Links)
 > **100% Offline Auditability (`audit_sources/`):** All empirical queries, USDA FoodData Central FDC IDs, WHO ATC codes, and official formulations are permanently saved inside [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](./audit_sources/OFFLINE_AUDIT_DOSSIER.md) and [`audit_sources/offline_sources_registry.js`](./audit_sources/offline_sources_registry.js) (`window.BarterCore.AuditSources`) so auditors can verify every baseline record offline without internet access.
 >
-> **Note on Scope (Representative Examples vs. Full 100-Item Ledger):** To keep this `README` concise and readable, the items cited below are **representative examples** of each scientific domain. The complete, item-by-item traceability matrix covering all **100 catalog items (`001` to `100`)** is maintained in [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](./audit_sources/OFFLINE_AUDIT_DOSSIER.md).
+> **Note on Scope (Representative Examples vs. Full 128-Item Ledger):** To keep this `README` concise and readable, the items cited below are **representative examples** of each scientific domain. The complete, item-by-item traceability matrix covering all **128 catalog items (`001` to `128`: 100 physical commodities + 28 essential human services)** is maintained in [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](./audit_sources/OFFLINE_AUDIT_DOSSIER.md).
 
 1. **Food Caloric Density & Macronutrient Ratios (`E_food`, `IN`) — Specific USDA FDC Records:**
    - Extracted from [**USDA FoodData Central (SR Legacy)**](https://fdc.nal.usda.gov/), [**TBCA — USP/FoRC**](https://www.tbca.net.br/), [**TACO 4th Ed. — UNICAMP PDF**](https://www.cfn.org.br/wp-content/uploads/2017/03/taco_4_edicao_ampliada_e_revisada.pdf), and [**FAO/WHO Codex Alimentarius**](https://www.fao.org/fao-who-codexalimentarius/). Verified records include:
@@ -102,6 +102,9 @@ By dimensional analysis of `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log₁�
    - Grounded in [**The Sphere Handbook (2018 Ed., WASH Standard 2.1: `15 L/person/day` total basic need; `2.5–3.0 L/day` survival drinking; `3–6 L/day` cooking)**](https://spherestandards.org/handbook/editions/) and [**WHO Guidelines for Drinking-water Quality (`ISBN 978-92-4-154995-0`: `67 mg` NaDCC tablet treats `20 L` clear water jerrycan in `30 min`)**](https://www.who.int/publications/i/item/9789241549950).
 4. **Sealed Shelf Life (`V`) & Packaging Durability (`Frag`):**
    - Grounded in [**US Army DEVCOM Soldier Center (Natick Operational Rations)**](https://www.army.mil/devcom-sc), [**USDA FSIS Shelf-Stable Food Safety Guidelines**](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/shelf-stable-food), [**FEMA / Ready.gov**](https://www.ready.gov/food), and the [**FDA / DoD Shelf-Life Extension Program (SLEP)**](https://www.fda.gov/emergency-preparedness-and-response/mcm-legal-regulatory-and-policy-framework/expiration-dating-extension).
+5. **Essential Human Services, Clinical Procedures, Off-Grid IT, Technical Instruction & Specialized Labor (`cat_essential_services`, Items `101–128`):**
+   - Grounded in [**WHO Integrated Management for Emergency and Essential Surgical Care (IMEESC)**](https://www.who.int/Specify/emergencies/surgical-care), [**WHO/UNFPA/UNICEF IMPAC (*Managing Complications in Pregnancy and Childbirth*, ISBN 978-92-4-156549-3)**](https://www.who.int/publications/i/item/9789241565493), [**ILO ISCO-08 (*International Standard Classification of Occupations*) & ISO 8996 (Occupational Metabolic Rates)**](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/), [**FAO Animal Production & Health / Seed Security Guidelines**](https://www.fao.org/agriculture/crops/thematic-sitemap/theme/seeds-pgr/seed-sys/security/en/), [**IEEE / IEC / ETSI Field Maintenance Standards**](https://www.itu.int/en/ITU-D/Emergency-Telecommunications/), [**IEEE 802.11s / ISO/IEC 27037 / IPC-7711/7721 / IEC 61131-3 (Off-Grid IT & Microelectronics)**](https://standards.ieee.org/ieee/802.11s/4570/), and [**UNESCO ISCED / WHO-ICRC BEC / ISO 17100 (Technical Instruction & Translation)**](https://uis.unesco.org/en/topic/international-standard-classification-education-isced).
+   - *Physical Proxy Mapping for Services:* All 28 intangible services (`is_food: false`, `is_divisible: false`, `sub_units: 1`, `unit_measure: 'un'`) map `weight_kg (P)` (`0.40–3.50 kg`) and `volume_liters (Vol)` (`0.45–3.80 L`) to the **Operator's Portable Field Tool/Kit Burden** (preventing artificial `0.001 kg` portability inflation), `lifecycle_units (V)` (`7–3,650 days`) to the **Effective Outcome Durability / Recurrence Interval**, and `energy_or_utility_base (E)` (`5,200–38,000 EEB`) to **Biological Caloric Loss Prevented + Skilled Labor Expenditure Saved**. By default, `calculateChangeOptions()` excludes `cat_essential_services` so physical commodities (`g`, `ml`, `un`) are used for fractional change settlement.
 
 #### Complete 1-Click Verification Directory (With Exact Document & Record Identifiers)
 
@@ -128,6 +131,10 @@ By dimensional analysis of `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log₁�
 | **Battery Cells (`LR6`, `LR03`, `INR18650`)** | IEC 60086-2 Primary Cells & IEC 61960-3 Secondary Lithium | [https://webstore.iec.ch/en/publication/603](https://webstore.iec.ch/en/publication/603) |
 | **Particulate Respirators (`N95`)** | CDC / NIOSH `42 CFR Part 84` Approved Respirators | [https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html](https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html) |
 | **Precious Metals (`999.0 Fine`)** | LBMA Good Delivery Assay Specifications | [https://www.lbma.org.uk/good-delivery/about-good-delivery](https://www.lbma.org.uk/good-delivery/about-good-delivery) |
+| **Essential Surgical & Obstetric Care** | WHO IMEESC & WHO/UNFPA/UNICEF IMPAC (`978-92-4-156549-3`) | [https://www.who.int/publications/i/item/9789241565493](https://www.who.int/publications/i/item/9789241565493) |
+| **Occupational Labor & Metabolic Ergonomics** | ILO ISCO-08 & ISO 8996 (Ergonomics Metabolic Rate) | [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/) · [https://www.iso.org/standard/74443.html](https://www.iso.org/standard/74443.html) |
+| **Off-Grid IT, Data Recovery & PCB Rework** | IEEE 802.11s, ISO/IEC 27037, IPC-7711/7721 & IEC 61131-3 | [https://standards.ieee.org/ieee/802.11s/4570/](https://standards.ieee.org/ieee/802.11s/4570/) · [https://www.iso.org/standard/44381.html](https://www.iso.org/standard/44381.html) |
+| **Technical Literacy, Pedagogy & Translation** | UNESCO ISCED, WHO/ICRC BEC & ISO 17100:2015 | [https://uis.unesco.org/en/topic/international-standard-classification-education-isced](https://uis.unesco.org/en/topic/international-standard-classification-education-isced) · [https://www.iso.org/standard/59149.html](https://www.iso.org/standard/59149.html) |
 | **Urban Siege & Conflict Reports** | ICRC Publication `4249` & WHO Ukraine Emergency | [https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict](https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict) · [https://www.who.int/emergencies/situations/ukraine-emergency](https://www.who.int/emergencies/situations/ukraine-emergency) |
 
 ### 3.2. Engineering Heuristics & Granular Decimal-Step Rubric (No External Source — Justified by Design)
@@ -150,7 +157,7 @@ Where official literature separates nutrition (`kcal`), medicine (clinical outco
 | **`fragility_index` (`Frag`)** | `0.70 – 1.20` | • **`0.75 – 0.80`**: Exposed hydrophilic paper/cardboard or brittle optics (`paper_toilet_cellulose_roll_30m`, `biscuit_wheat_salted_dry_400g`).<br>• **`0.85 – 0.90`**: Flexible poly bag or liquid bottle (`pasta_wheat_dry_500g`, `oil_vegetable_refined_900ml`).<br>• **`0.95 – 1.05`**: Sealed thick pouch, HDPE bottle, or pharmaceutical blister (`rice_white_polished_raw_1000g`, `amoxicillin_500mg_capsule` `1.05`).<br>• **`1.10 – 1.18`**: Hermetic metal can, laminated foil blister, or steel multi-tool (`fish_sardine_canned_oil_125g` `1.15`).<br>• **`1.20`**: Indestructible solid alloy or noble metal bullion (`tourniquet_tactical_arterial_unit`, `gold_bullion_999_fine_fractional_1g`, `silver_bullion_999_fine_1_troy_oz_31_1g`). |
 
 ### 3.3. Empirical Lessons from Recent Wars & Modern Urban Sieges
-The 100-item catalog and the External Context Modifiers (`MEC`) incorporate documented field lessons from modern conflicts:
+The 128-item catalog and the External Context Modifiers (`MEC`) incorporate documented field lessons from modern conflicts:
 - **Siege of Sarajevo (1992–1996, Bosnian War):** Demonstrated the acute demonetization of gold and jewelry during closed urban sieges (`cat_store_of_value` drops to **`0.01x`** in `acute_collapse`, recovering to **`5.0x`** only in `economic_reconstruction`), while **butane lighters**, **individual cigarettes**, **coffee**, **salt**, and **antiseptic alcohol** functioned as high-liquidity fractional barter currencies.
 - **War in Ukraine (2022–Present — Mariupol, Bakhmut & Winter Grid Blackouts — [WHO Emergency Reports](https://www.who.int/emergencies/situations/ukraine-emergency)):** Proved that modern civilian survival under artillery and grid destruction depends heavily on **DC micro-energetics and decentralized comms** (**Li-Ion 18650 cells**, **5V 10W solar panels**, **VHF/UHF dual-band transceivers**), **civilian TCCC trauma gear** (**tactical arterial tourniquets**, **nylon 3-0 sutures**), and **radiological thyroid blocking** (**potassium iodide 130mg**).
 - **Modern Water & Cholera Crises (Syria, Yemen, Gaza, Sudan — [ICRC Urban Siege Reports](https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict) & [WHO WASH Guidelines](https://www.who.int/publications/i/item/9789241549950)):** Showed that when municipal pumping fails and boiling fuel is unavailable, **cold chemical water disinfection** (**NaDCC tablets**, **2.5% sodium hypochlorite**), **0.1-micron hollow-fiber filters**, **Oral Rehydration Salts (ORS)**, and **enteropathogen antibiotics** (**ciprofloxacin**, **metronidazole**, **azithromycin**) carry the highest survival utility per gram in the first 30 days.
@@ -204,8 +211,8 @@ Every item object in `data/items_core.js` or registered via `BarterEngine.regist
 | Property | Type | Constraint / Allowed Values |
 | :--- | :--- | :--- |
 | `id` | `string` | Lowercase `snake_case` (`/^[a-z][a-z0-9_]{2,120}$/`), non-numeric, zero commercial brands |
-| `category` | `string` | `cat_staple_foods`, `cat_critical_nutrition`, `cat_spices_morale`, `cat_pharma_essential`, `cat_trauma_hygiene`, `cat_water_fire_shelter`, `cat_tools_energy_comms`, `cat_store_of_value` |
-| `is_food` | `boolean` | `true` for caloric foods; `false` for non-foods, pharmaceuticals, and tools |
+| `category` | `string` | `cat_staple_foods`, `cat_critical_nutrition`, `cat_spices_morale`, `cat_pharma_essential`, `cat_trauma_hygiene`, `cat_water_fire_shelter`, `cat_tools_energy_comms`, `cat_store_of_value`, `cat_essential_services` |
+| `is_food` | `boolean` | `true` for caloric foods; `false` for non-foods, pharmaceuticals, tools, and services |
 | `is_divisible` | `boolean` | `true` if portionable into `sub_units`; `false` if traded only as whole units |
 | `sub_units` | `number` | Integer `≥ 1` (`1` for indivisible items; total `g`, `ml`, or unit count for divisible items) |
 | `unit_measure` | `string` | `"g"` \| `"ml"` \| `"un"` |
@@ -228,7 +235,7 @@ No build tools, local web servers, or internet connections are required for offl
 - **Linux / macOS / FreeBSD / OpenBSD:** Run `./start_unix.sh` (or `sh ./start_unix.sh`).
 - **Direct Browser Open:** Double-click `manual_generator.html` directly on any desktop or mobile file manager.
 - **Bilateral Barter Simulator & Direct Trade Settlement Summary:** Inside `manual_generator.html`, select an **Offered Item (You Deliver)** and a **Requested Item (To Receive)** (or click `⇄` to swap items instantly) with their real-time remaining shelf-life days (`V`). The simulator renders a **Direct Trade Settlement Summary** (`You Deliver ➔ You Receive`), explicit item-scoped KPIs (unit exchange rate, total offered value, single unit value of the requested item, exact mathematical equivalence, recommended settlement quantity of the requested item, and physical sub-units), plus localized indivisibility/change alerts.
-- **Physical Paper Manual Printing & Total Blackout Guide (Page 1 Manual + All 3 Scenarios Side-by-Side):** Inside `manual_generator.html`, select your desired language and click **"Print Field Manual"** (or press `Ctrl+P` / `Cmd+P`). The built-in `@media print` stylesheet (`A4 landscape`) strips interactive controls and prints a book-grade black-and-white field manual: **Page 1** automatically prints the complete **Analog Field Manual (`OFFLINE_MANUAL`)** (4-step protocol, 3-scenario column guide, worked field example, Shelf-Life Protocols A & B, sanitary trade-post checklist, and the multi-scenario **Pre-Calculated Fractional Change Lookup Table**), and **Pages 2+** print the 100-item catalog with **all 3 crisis scenarios side-by-side** in **Columns 8 (`1. Pure Baseline 1.0x`), 9 (`2. Acute Collapse`), and 10 (`3. Economic Reconstruction`)** along with each item's `1 g / 1 ml` sub-unit rate. See [**`docs/OFFLINE_MANUAL.md`**](./docs/OFFLINE_MANUAL.md) for the standalone analog operation manual.
+- **Physical Paper Manual Printing & Total Blackout Guide (Page 1 Manual + All 3 Scenarios Side-by-Side):** Inside `manual_generator.html`, select your desired language and click **"Print Field Manual"** (or press `Ctrl+P` / `Cmd+P`). The built-in `@media print` stylesheet (`A4 landscape`) strips interactive controls and prints a book-grade black-and-white field manual: **Page 1** automatically prints the complete **Analog Field Manual (`OFFLINE_MANUAL`)** (4-step protocol, 3-scenario column guide, worked field example, Shelf-Life Protocols A & B, sanitary trade-post checklist, and the multi-scenario **Pre-Calculated Fractional Change Lookup Table**), and **Pages 2+** print the 128-item catalog with **all 3 crisis scenarios side-by-side** in **Columns 8 (`1. Pure Baseline 1.0x`), 9 (`2. Acute Collapse`), and 10 (`3. Economic Reconstruction`)** along with each item's `1 g / 1 ml` sub-unit rate. See [**`docs/OFFLINE_MANUAL.md`**](./docs/OFFLINE_MANUAL.md) for the standalone analog operation manual.
 
 ### 5.1. Repository Architecture
 
@@ -249,7 +256,7 @@ library/
 ├── start_unix.sh                       # 1-Click POSIX launcher (Linux, macOS, BSD)
 ├── manual_generator.html               # Zero-dependency offline GUI, trade simulator & printable field manual
 ├── data/
-│   └── items_core.js                   # 100 standardized items (8 categories) + Item 101+ template
+│   └── items_core.js                   # 128 standardized items (9 categories: 100 commodities + 28 services) + Item 129+ template
 ├── audit_sources/
 │   ├── OFFLINE_AUDIT_DOSSIER.md        # Offline scientific & decimal-step calibration ledger
 │   └── offline_sources_registry.js     # UMD offline empirical snapshot (window.BarterCore.AuditSources)
@@ -404,8 +411,8 @@ console.log(JSON.stringify(tradeResult, null, 2));
 }
 ```
 
-### 6.4. Practical Example 2: Programmatic Extension of Item 101+ (`registerCustomItems` & `AuditSources`)
-When integrating the SDK into an external application, you can extend the canonical 100-item catalog (`001–100`) with regional items (`Item 101+`) using `mode: 'merge'` and `strict: true`, while recording Tier 2 audit traceability via `AuditSources.registerCustomAuditSource`:
+### 6.4. Practical Example 2: Programmatic Extension of Item 129+ (`registerCustomItems` & `AuditSources`)
+When integrating the SDK into an external application, you can extend the canonical 128-item catalog (`001–128`) with regional items (`Item 129+`) using `mode: 'merge'` and `strict: true`, while recording Tier 2 audit traceability via `AuditSources.registerCustomAuditSource`:
 
 ```javascript
 const regionalDataset = [
@@ -441,16 +448,16 @@ const regionalDataset = [
   }
 ];
 
-// 1. Merge Item 101+ into the canonical 100-item catalog with strict schema validation
+// 1. Merge Item 129+ into the canonical 128-item catalog with strict schema validation
 const mergeReport = engine.registerCustomItems(regionalDataset, {
   mode: 'merge',
   strict: true
 });
 console.log('Merged items:', mergeReport.registered_count, 'Total items:', mergeReport.total_registry_size);
 
-// 2. Register Tier 2 audit traceability (preserving the immutable 001–100 core ledger)
+// 2. Register Tier 2 audit traceability (preserving the immutable 001–128 core ledger)
 AuditSources.registerCustomAuditSource({
-  index: 101,
+  index: 129,
   id: 'doxycycline_hyclate_100mg_capsule',
   category: 'cat_pharma_essential',
   source_code: 'WHO_EML_23',
@@ -464,17 +471,17 @@ AuditSources.registerCustomAuditSource({
 
 ---
 
-## 7. Adding Item 101+ or a New Localization Pack
+## 7. Adding Item 129+ or a New Localization Pack
 
-### Adding Item 101+
+### Adding Item 129+
 1. Open `data/items_core.js` and copy the commented template block at the bottom of `ITEMS_CORE`.
 2. Assign a brand-free, lowercase `snake_case` semantic `id` and complete all physical and nutritional parameters following the Calibration Rubric in Section 3.
 3. Verify zero errors and zero warnings using `window.BarterCore.Validator.validateDataset(window.BarterCore.ItemsCore)`.
-4. **Register Custom Audit Traceability (Tier 2 Separation):** Keep the canonical `001–100` core ledger untouched and record the scientific or regional regulatory source of your new `Item 101+` in **Section 4 (`Custom & Regional User Audit Ledger`)** of [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](./audit_sources/OFFLINE_AUDIT_DOSSIER.md) and/or programmatically via `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 101, id, category, source_code, baseline_note })`.
+4. **Register Custom Audit Traceability (Tier 2 Separation):** Keep the canonical `001–128` core ledger untouched and record the scientific or regional regulatory source of your new `Item 129+` in **Section 4 (`Custom & Regional User Audit Ledger`)** of [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](./audit_sources/OFFLINE_AUDIT_DOSSIER.md) and/or programmatically via `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 129, id, category, source_code, baseline_note })`.
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────┐
-│                EXPANSION WORKFLOW: ADDING ITEM 101+                           │
+│                EXPANSION WORKFLOW: ADDING ITEM 129+                           │
 └───────────────────────────────────────────────────────────────────────────────┘
 
   [ 1. PHYSICS & MATHEMATICS ]            [ 2. LOCALIZATION / DICTIONARIES ]
@@ -492,11 +499,11 @@ AuditSources.registerCustomAuditSource({
                         └─ ✅ 0 errors / 0 warnings (100% deterministic)
                                      │
                                      ▼
-               [ 4. TWO-TIER AUDIT LEDGER (TIER 2: ITEMS 101+) ]
+               [ 4. TWO-TIER AUDIT LEDGER (TIER 2: ITEMS 129+) ]
                📋 audit_sources/OFFLINE_AUDIT_DOSSIER.md (Section 4)
                ⚙️ audit_sources/offline_sources_registry.js
-               ├─ Tier 1 (Items 001–100): Remains IMMUTABLE
-               └─ Tier 2 (Items 101+): Record regional/empirical source
+               ├─ Tier 1 (Items 001–128): Remains IMMUTABLE
+               └─ Tier 2 (Items 129+): Record regional/empirical source
                   via Section 4 table or `registerCustomAuditSource(...)`
 ```
 

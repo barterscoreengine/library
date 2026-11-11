@@ -1,14 +1,14 @@
-# BarterScore Engine (v1.0.0)
+# BarterScore Engine (v1.1.0)
 
 **A Local-First library for Collapse Informatics and Off-Grid Economics.**
 *（面向崩溃信息学与离网经济学的本地优先开源计算库。）*
 
-> **语言 / Language / Idioma:**
+> **语言:**
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**纸质离线操作手册 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
 
 ---
 
-**BarterScore Engine** 是一套确定性、跨平台、零外部依赖、100% 离线优先（Offline-First）的实物易货数学估值引擎与百项标准物资目录，专为供应链中断、人道主义危机及社会秩序崩溃场景下的物资实用价值评估与双边交换比价而设计。
+**BarterScore Engine** 是一套确定性、跨平台、零外部依赖、100% 离线优先（Offline-First）的实物与基础专业技术服务易货数学估值引擎及 128 项标准参考目录，专为供应链中断、人道主义危机及社会秩序崩溃场景下的实用价值评估与双边交换比价而设计。
 
 本项目采用 [**Apache License 2.0**](https://www.apache.org/licenses/LICENSE-2.0) 开源许可，全部核心代码均使用纯原生 **Vanilla JavaScript (ES6+ UMD)** 与 **HTML5/CSS3** 编写，无需 Node.js、无需本地 Web 服务器或互联网连接，支持直接通过本地 `file://` 协议双击运行，同时兼容 CommonJS (`module.exports`) 与 ES Module 环境。
 
@@ -22,7 +22,7 @@
 4. [数据模型契约 (Schema Contract) 与科学标准化](#4-数据模型契约-schema-contract-与科学标准化)
 5. [一键离线启动、纸质速查手册打印与仓库结构](#5-一键离线启动纸质速查手册打印与仓库结构)
 6. [开发者集成指南与 API 参考手册](#6-开发者集成指南与-api-参考手册)
-7. [如何扩展第 101+ 号物资或新增语言包](#7-如何扩展第-101-号物资或新增语言包)
+7. [如何扩展第 129+ 号物资或新增语言包](#7-如何扩展第-129-号物资或新增语言包)
 8. [开源许可与治理条款](#8-开源许可与治理条款)
 
 ---
@@ -90,7 +90,7 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
 ### 3.1. 官方科学、监管与人道主义权威数据源（`audit_sources/` 本地离线快照 + 一键核验链接）
 > **100% 离线可审计性 (`audit_sources/`)：** 所有外部数据源查询快照、**USDA FDC ID** 编号、**WHO ATC 药物编码**及官方配方均已保存在本地 [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md) 与 UMD 模块 [`audit_sources/offline_sources_registry.js`](../audit_sources/offline_sources_registry.js)（`window.BarterCore.AuditSources`）中，无需互联网即可通过 `file://` 离线核验全部依据。
 >
-> **范围说明（领域代表性示例 vs. 100 项物资完整审计矩阵）：** 为保持本 `README` 简明易读，下文列举的物资为各科学领域的**代表性示例**。涵盖目录全部 **100 项标准物资（`001` 至 `100`）** 的逐项溯源与完整审计矩阵均完整记录于 [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md)。
+> **范围说明（领域代表性示例 vs. 128 项完整审计矩阵）：** 为保持本 `README` 简明易读，下文列举的物资为各科学领域的**代表性示例**。涵盖目录全部 **128 项标准条目（`001` 至 `128`：100 项实体物资 + 28 项基础专业技术服务）** 的逐项溯源与完整审计矩阵均完整记录于 [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md)。
 
 1. **食品热量密度与宏量营养素供能比 (`E_food`, `IN`) — 精确 USDA FDC 记录编号：**
    - 直接引自 [**美国农业部食品数据库 (USDA FoodData Central — SR Legacy)**](https://fdc.nal.usda.gov/)、[**TBCA — USP/FoRC**](https://www.tbca.net.br/)、[**TACO 第 4 版 PDF (UNICAMP)**](https://www.cfn.org.br/wp-content/uploads/2017/03/taco_4_edicao_ampliada_e_revisada.pdf) 及 [**FAO/WHO 国际食品法典 (Codex Alimentarius)**](https://www.fao.org/fao-who-codexalimentarius/)。已归档的核心记录包括：
@@ -103,6 +103,9 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
    - 依据 [**《环球计划手册》(2018 版，WASH 标准 2.1：每人每天基本总需水量 `15 升`；生存饮水与食物 `2.5–3.0 升/天`；基础炊事 `3–6 升/天`)**](https://spherestandards.org/handbook/editions/) 与 [**WHO《饮用水水质准则》(`ISBN 978-92-4-154995-0`：1 片 `67 mg` NaDCC 净水片可在 `30 分钟`内消毒 `20 升`清澈饮用水)**](https://www.who.int/publications/i/item/9789241549950)。
 4. **密封保质期 (`V`) 与包装抗损度 (`Frag`)：**
    - 依据 [**美国陆军士兵研发中心 (US Army DEVCOM / Natick)**](https://www.army.mil/devcom-sc)、[**USDA FSIS 耐储食品安全指南**](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/shelf-stable-food)、[**FEMA / Ready.gov**](https://www.ready.gov/food) 及 [**美国 FDA / 国防部药品保质期延长计划 (SLEP)**](https://www.fda.gov/emergency-preparedness-and-response/mcm-legal-regulatory-and-policy-framework/expiration-dating-extension)。
+5. **基础人类技术服务、临床医疗操作、离网信息技术、技术教学与专业劳务 (`cat_essential_services`, 第 `101–128` 项)：**
+   - 依据 [**WHO 应急与基本外科医疗综合管理指南 (IMEESC)**](https://www.who.int/Specify/emergencies/surgical-care)、[**WHO/UNFPA/UNICEF 妊娠与分娩并发症管理手册 (IMPAC, ISBN 978-92-4-156549-3)**](https://www.who.int/publications/i/item/9789241565493)、[**国际劳工组织国际标准职业分类 (ILO ISCO-08) 与 ISO 8996 职业代谢率标准**](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/)、[**联合国粮农组织 (FAO) 畜牧兽医与留种安全指南**](https://www.fao.org/agriculture/crops/thematic-sitemap/theme/seeds-pgr/seed-sys/security/en/)、[**IEEE / IEC / ETSI 野战工程抢修标准**](https://www.itu.int/en/ITU-D/Emergency-Telecommunications/)、[**IEEE 802.11s / ISO/IEC 27037 / IPC-7711/7721 / IEC 61131-3（离网信息技术与微电子返修标准）**](https://standards.ieee.org/ieee/802.11s/4570/) 及 [**UNESCO ISCED / WHO-ICRC BEC / ISO 17100（技术识字教学与翻译标准）**](https://uis.unesco.org/en/topic/international-standard-classification-education-isced)。
+   - *无形技术劳务的物理代理映射规则：* 全部 28 项服务（`is_food: false`, `is_divisible: false`, `sub_units: 1`, `unit_measure: 'un'`）将 `weight_kg (P)`（`0.40–3.50 kg`）与 `volume_liters (Vol)`（`0.45–3.80 L`）映射为**技术人员执行作业所需的便携工具/器械包物理负荷**（防止将质量设为 `0.001 kg` 导致失真膨胀），将 `lifecycle_units (V)`（`7–3,650 天`）映射为**服务成果的有效持续期/复发间隔**，并将 `energy_or_utility_base (E)`（`5,200–38,000 EEB`）映射为**避免的生理热量损耗 + 节省的专业体力劳务消耗**。默认情况下，`calculateChangeOptions()` 自动排除 `cat_essential_services`，确保仅推荐实体物资（`g`、`ml`、`un`）用于小额找零。
 
 #### 全库官方权威标准与精确文献编号一键核验名录
 
@@ -129,6 +132,10 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
 | **电池与储能电芯 (`LR6`, `LR03`, `INR18650`)** | IEC 60086-2 原电池标准与 IEC 61960-3 锂蓄电池标准 | [https://webstore.iec.ch/en/publication/603](https://webstore.iec.ch/en/publication/603) |
 | **防颗粒物呼吸器 (`N95 / PFF2`)** | CDC / NIOSH `42 CFR Part 84` 认证标准 | [https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html](https://www.cdc.gov/niosh/npptl/topics/respirators/disp_part/n95list1.html) |
 | **贵金属硬通货 (`999.0 Fine` 金银)** | 伦敦金银市场协会 (LBMA) 交割纯度标准 | [https://www.lbma.org.uk/good-delivery/about-good-delivery](https://www.lbma.org.uk/good-delivery/about-good-delivery) |
+| **应急外科与产科救治规范** | WHO IMEESC 与 WHO/UNFPA/UNICEF IMPAC (`978-92-4-156549-3`) | [https://www.who.int/publications/i/item/9789241565493](https://www.who.int/publications/i/item/9789241565493) |
+| **职业工种分类与人体代谢工效学** | 国际劳工组织 ILO ISCO-08 与 ISO 8996 职业代谢率标准 | [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/) · [https://www.iso.org/standard/74443.html](https://www.iso.org/standard/74443.html) |
+| **离网局域网、数据恢复与电路板微焊** | IEEE 802.11s、ISO/IEC 27037、IPC-7711/7721 与 IEC 61131-3 | [https://standards.ieee.org/ieee/802.11s/4570/](https://standards.ieee.org/ieee/802.11s/4570/) · [https://www.iso.org/standard/44381.html](https://www.iso.org/standard/44381.html) |
+| **技术识字、实用几何教学与技术翻译** | UNESCO ISCED、WHO/ICRC BEC 与 ISO 17100:2015 | [https://uis.unesco.org/en/topic/international-standard-classification-education-isced](https://uis.unesco.org/en/topic/international-standard-classification-education-isced) · [https://www.iso.org/standard/59149.html](https://www.iso.org/standard/59149.html) |
 | **现代城市围困与武装冲突报告** | ICRC 出版物 `4249` 与 WHO 乌克兰应急报告 | [https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict](https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict) · [https://www.who.int/emergencies/situations/ukraine-emergency](https://www.who.int/emergencies/situations/ukraine-emergency) |
 
 ### 3.2. 本模型独创的工程启发式标尺与小数阶梯细则（无外部政府现成表 — 附设计合理性论证）
@@ -151,7 +158,7 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
 | **`fragility_index` (`Frag`)** | `0.70 – 1.20` | • **`0.75 – 0.80`**：易受潮破损的裸露纸品或易碎光学件（`paper_toilet_cellulose_roll_30m`、`biscuit_wheat_salted_dry_400g`）。<br>• **`0.85 – 0.90`**：柔性塑料袋或液体瓶（`pasta_wheat_dry_500g`、`oil_vegetable_refined_900ml`）。<br>• **`0.95 – 1.05`**：加厚密封袋、HDPE 塑料瓶或药用铝塑泡罩（`rice_white_polished_raw_1000g`、`amoxicillin_500mg_capsule` `1.05`）。<br>• **`1.10 – 1.18`**：马口铁罐头、复合铝箔泡罩或全钢多功能钳（`fish_sardine_canned_oil_125g` `1.15`）。<br>• **`1.20`**：不可损毁的实心合金或高纯贵金属块/币（`tourniquet_tactical_arterial_unit`、`gold_bullion_999_fine_fractional_1g`、`silver_bullion_999_fine_1_troy_oz_31_1g`）。 |
 
 ### 3.3. 现代战争与城市围困的实证经验总结
-本目录的 100 项物资及外部环境修正系数（`MEC`）直接吸纳了现代武装冲突与人道主义围困的实证教训：
+本目录的 128 项物资与服务及外部环境修正系数（`MEC`）直接吸纳了现代武装冲突与人道主义围困的实证教训：
 - **萨拉热窝围城战（1992–1996，波黑战争）：** 证实了在封闭城市围困初期，黄金与珠宝会出现急性去货币化（`cat_store_of_value` 在 `acute_collapse` 下跌至 **`0.01x`**，仅在外部贸易恢复的 `economic_reconstruction` 阶段回升至 **`5.0x`**）；相反，**丁烷打火机**、**单支香烟**、**咖啡**、**食盐**与**医用酒精**成为了流动性最高的“零钱”硬通货。
 - **俄乌冲突（2022 至今 — 马里乌波尔、巴赫穆特及冬季电网瘫痪 — [WHO 乌克兰应急报告](https://www.who.int/emergencies/situations/ukraine-emergency)）：** 证明在现代炮火封锁与长期断电（*Grid-Down*）环境下，平民生存高度依赖 **直流微能源与去中心化通信**（**18650 锂离子电池**、**5V 10W 折叠太阳能板**、**VHF/UHF 双频对讲机**）、**平民化战术止血急救 (TCCC)**（**战术动脉止血带**、**3-0 尼龙带针缝合线**）以及 **核辐射甲状腺防护**（**碘化钾片 130mg**）。
 - **现代断水危机与霍乱疫情（叙利亚、也门、加沙、苏丹 — [ICRC 城市围困报告](https://www.icrc.org/en/publication/4249-urban-services-during-protracted-armed-conflict) 与 [WHO 饮水消毒准则](https://www.who.int/publications/i/item/9789241549950)）：** 证明当市政水泵断电且缺乏燃料烧水时，**冷化学饮水消毒**（**NaDCC 净水片**、**2.5% 次氯酸钠溶液**）、**0.1 微米中空纤维滤水器**、**口服补液盐 (ORS)** 以及 **肠道致病菌抗生素**（**环丙沙星**、**甲硝唑**、**阿奇霉素**）在危机首月具备最高的每克生存价值。
@@ -205,8 +212,8 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
 | 字段名 | 类型 | 约束条件与合法取值范围 |
 | :--- | :--- | :--- |
 | `id` | `string` | 全英文小写 `snake_case` (`/^[a-z][a-z0-9_]{2,120}$/`)，严禁纯数字编号与商业商标 |
-| `category` | `string` | `cat_staple_foods`, `cat_critical_nutrition`, `cat_spices_morale`, `cat_pharma_essential`, `cat_trauma_hygiene`, `cat_water_fire_shelter`, `cat_tools_energy_comms`, `cat_store_of_value` |
-| `is_food` | `boolean` | 热量食品为 `true`；非食品、药品与工具为 `false` |
+| `category` | `string` | `cat_staple_foods`, `cat_critical_nutrition`, `cat_spices_morale`, `cat_pharma_essential`, `cat_trauma_hygiene`, `cat_water_fire_shelter`, `cat_tools_energy_comms`, `cat_store_of_value`, `cat_essential_services` |
+| `is_food` | `boolean` | 热量食品为 `true`；非食品、药品、工具与技术服务为 `false` |
 | `is_divisible` | `boolean` | 可按子单位拆分为 `true`；仅能整件交易为 `false` |
 | `sub_units` | `number` | 正整数 `≥ 1`（不可拆物资为 `1`；可拆物资为总克数 `g`、毫升数 `ml` 或子件数） |
 | `unit_measure` | `string` | `"g"` \| `"ml"` \| `"un"` |
@@ -229,7 +236,7 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
 - **Linux / macOS / FreeBSD / OpenBSD：** 在终端执行 `./start_unix.sh`（或 `sh ./start_unix.sh`）。
 - **直接打开：** 在桌面或手机文件管理器中直接双击 `manual_generator.html`。
 - **双边易货模拟器与直接交割结算摘要：** 在 `manual_generator.html` 界面中选择 **己方出让物资（您交付）** 与 **对方请求物资（待接收）**（或点击 `⇄` 一键互换双方物资）及实时剩余保质期天数（`V`）。模拟器将实时生成 **直接易货交割结算摘要**（`您交付 ➔ 您接收`）、6 项明确标注所属物资名称的核心指标（单位交换比、出让物资总分、请求物资单件分值、理论精确换算量、建议实际交割的请求物资数量及折合最小物理计量单位），以及本地化语言的不可拆分找零预警。
-- **打印纸质应急易货手册与断电纯纸质作业（第 1 页完整手册 + 三大危机场景并列）：** 在 `manual_generator.html` 界面中选择目标语言（如 `zh-Hans`）后，点击右上角 **“打印纸质速查手册”**（或按 `Ctrl+P` / `Cmd+P`）。内置的 `@media print`（`A4 landscape` 横向）打印样式表将自动隐藏交互按钮，输出黑白高对比度纸质手册：**第 1 页** 自动完整打印 **《纯纸质易货操作手册》（`OFFLINE_MANUAL`）**（4 步结算规程、三大场景列选择说明、完整实战演算示例、保质期折旧准则 A 与 B、交割站卫生核验清单，以及包含三大场景单价率的 **预计算零钱速查表**），**第 2 页起** 打印 100 项物资总表并在 **第 8 列（`1. 纯物理基准 1.0x`）、第 9 列（`2. 急性社会崩溃期`）与第 10 列（`3. 经济重建期`）** 并列印出三大场景分值与可拆分物资的 `1 g / 1 ml` 单价率。另请参阅简体中文版独立纸质操作手册 [**`docs/OFFLINE_MANUAL.zh-Hans.md`**](./OFFLINE_MANUAL.zh-Hans.md)。
+- **打印纸质应急易货手册与断电纯纸质作业（第 1 页完整手册 + 三大危机场景并列）：** 在 `manual_generator.html` 界面中选择目标语言（如 `zh-Hans`）后，点击右上角 **“打印纸质速查手册”**（或按 `Ctrl+P` / `Cmd+P`）。内置的 `@media print`（`A4 landscape` 横向）打印样式表将自动隐藏交互按钮，输出黑白高对比度纸质手册：**第 1 页** 自动完整打印 **《纯纸质易货操作手册》（`OFFLINE_MANUAL`）**（4 步结算规程、三大场景列选择说明、完整实战演算示例、保质期折旧准则 A 与 B、交割站卫生核验清单，以及包含三大场景单价率的 **预计算零钱速查表**），**第 2 页起** 打印 128 项物资与服务总表并在 **第 8 列（`1. 纯物理基准 1.0x`）、第 9 列（`2. 急性社会崩溃期`）与第 10 列（`3. 经济重建期`）** 并列印出三大场景分值与可拆分物资的 `1 g / 1 ml` 单价率。另请参阅简体中文版独立纸质操作手册 [**`docs/OFFLINE_MANUAL.zh-Hans.md`**](./OFFLINE_MANUAL.zh-Hans.md)。
 
 ### 5.1. 仓库目录架构
 
@@ -250,7 +257,7 @@ library/
 ├── start_unix.sh                       # POSIX 跨平台一键启动脚本 (Linux, macOS, BSD)
 ├── manual_generator.html               # 零依赖离线 GUI、易货模拟器与纸质速查手册生成器
 ├── data/
-│   └── items_core.js                   # 100 项标准化物资物理与营养数据集（8 大分类）+ 第 101+ 项模板
+│   └── items_core.js                   # 128 项标准化物资与服务数据集（9 大分类：100 项物资 + 28 项服务）+ 第 129+ 项模板
 ├── audit_sources/
 │   ├── OFFLINE_AUDIT_DOSSIER.md        # 离线权威科学数据源记录与小数阶梯标定档案
 │   └── offline_sources_registry.js     # UMD 离线实证数据快照模块 (window.BarterCore.AuditSources)
@@ -405,8 +412,8 @@ console.log(JSON.stringify(tradeResult, null, 2));
 }
 ```
 
-### 6.4. 实战示例 2：通过 SDK 编程扩展第 101+ 号物资 (`registerCustomItems` & `AuditSources`)
-当外部应用集成 SDK 时，可通过 `mode: 'merge'` 与 `strict: true` 在保留官方 `001–100` 标准物资库的前提下追加区域性新物资（`第 101+ 号物资`），并通过 `AuditSources.registerCustomAuditSource` 登记独立的第二层（Tier 2）审计溯源记录：
+### 6.4. 实战示例 2：通过 SDK 编程扩展第 129+ 号物资 (`registerCustomItems` & `AuditSources`)
+当外部应用集成 SDK 时，可通过 `mode: 'merge'` 与 `strict: true` 在保留官方 `001–128` 标准目录的前提下追加区域性新物资（`第 129+ 号物资`），并通过 `AuditSources.registerCustomAuditSource` 登记独立的第二层（Tier 2）审计溯源记录：
 
 ```javascript
 const regionalDataset = [
@@ -442,16 +449,16 @@ const regionalDataset = [
   }
 ];
 
-// 1. 严格校验并将第 101+ 号物资合并至官方 100 项标准目录中
+// 1. 严格校验并将第 129+ 号物资合并至官方 128 项标准目录中
 const mergeReport = engine.registerCustomItems(regionalDataset, {
   mode: 'merge',
   strict: true
 });
 console.log('新增载入物资数:', mergeReport.registered_count, '当前内存物资总数:', mergeReport.total_registry_size);
 
-// 2. 在第二层（Tier 2）登记独立审计溯源记录（保持 001–100 官方核心账本原封不动）
+// 2. 在第二层（Tier 2）登记独立审计溯源记录（保持 001–128 官方核心账本原封不动）
 AuditSources.registerCustomAuditSource({
-  index: 101,
+  index: 129,
   id: 'doxycycline_hyclate_100mg_capsule',
   category: 'cat_pharma_essential',
   source_code: 'WHO_EML_23',
@@ -465,17 +472,17 @@ AuditSources.registerCustomAuditSource({
 
 ---
 
-## 7. 如何扩展第 101+ 号物资或新增语言包
+## 7. 如何扩展第 129+ 号物资或新增语言包
 
-### 扩展第 101+ 号物资
+### 扩展第 129+ 号物资
 1. 打开 `data/items_core.js`，复制文件末尾注释块中的标准物资模板。
 2. 遵循第 3 节的权重标定标尺，填写符合 WHO/INN、IEC 或国际食品法典的无商标英文 `snake_case` 语义 `id` 及完整物理、营养参数。
 3. 运行 `window.BarterCore.Validator.validateDataset(window.BarterCore.ItemsCore)` 确保 0 错误、0 警告。
-4. **登记新增物资的独立审计溯源记录（双层隔离机制）：** 保持官方 `001–100` 核心审计矩阵原封不动，在 [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md) 的 **第 4 节（`Custom & Regional User Audit Ledger`）** 中记录您新增 `第 101+ 号物资` 的药典、国标或实测依据，和/或通过代码调用 `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 101, id, category, source_code, baseline_note })` 进行动态注册。
+4. **登记新增物资的独立审计溯源记录（双层隔离机制）：** 保持官方 `001–128` 核心审计矩阵原封不动，在 [`audit_sources/OFFLINE_AUDIT_DOSSIER.md`](../audit_sources/OFFLINE_AUDIT_DOSSIER.md) 的 **第 4 节（`Custom & Regional User Audit Ledger`）** 中记录您新增 `第 129+ 号物资` 的药典、国标或实测依据，和/或通过代码调用 `window.BarterCore.AuditSources.registerCustomAuditSource({ index: 129, id, category, source_code, baseline_note })` 进行动态注册。
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────┐
-│                扩展工作流：新增第 101+ 号自定义物资                             │
+│                扩展工作流：新增第 129+ 号自定义物资                             │
 └───────────────────────────────────────────────────────────────────────────────┘
 
   [ 1. 物理与营养数学参数 ]               [ 2. 多语言词典映射 ]
@@ -493,11 +500,11 @@ AuditSources.registerCustomAuditSource({
                         └─ ✅ 0 错误 / 0 警告（100% 确定性通过）
                                      │
                                      ▼
-               [ 4. 双层审计溯源登记（第 2 层：101+ 扩展台账） ]
+               [ 4. 双层审计溯源登记（第 2 层：129+ 扩展台账） ]
                📋 audit_sources/OFFLINE_AUDIT_DOSSIER.md（第 4 节）
                ⚙️ audit_sources/offline_sources_registry.js
-               ├─ 第 1 层（001–100 核心物资）：保持绝对不可篡改
-               └─ 第 2 层（101+ 扩展物资）：在第 4 节表格或通过
+               ├─ 第 1 层（001–128 核心目录）：保持绝对不可篡改
+               └─ 第 2 层（129+ 扩展物资）：在第 4 节表格或通过
                   `registerCustomAuditSource(...)` 登记区域法典/实测来源
 ```
 

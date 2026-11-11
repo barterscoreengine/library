@@ -5,6 +5,27 @@ All notable changes to the **BarterScore Engine** project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-11-09
+
+### Added
+- **9th Canonical Taxonomy Category (`cat_essential_services`)**:
+  - Expanded `Validator.VALID_CATEGORIES` (`src/validator.js`), `src/barter_engine.js`, `index.d.ts`, and all 4 localization dictionaries (`en-US`, `pt-BR`, `es-ES`, `zh-Hans`) to include `cat_essential_services` (*Essential Human Services, Clinical Procedures, Off-Grid IT, Technical Instruction & Specialized Labor*).
+- **28 Standardized Essential Human Services & Specialized Labor (`data/items_core.js`, Items `101–128`)**:
+  - Preserved the immutable Tier 1 Centennial Commodity Catalog (`Items 001–100`) intact while adding 28 standardized procedures, classes, and shifts (`Items 101–128`) calibrated with non-zero portable field kit mass/volume burdens (`weight_kg` in `[0.40, 3.50] kg`, `volume_liters` in `[0.45, 3.80] L`), effective outcome durability intervals (`lifecycle_units` in `[7, 3650] days`), and Equivalent Energy Base (`EEB` in `[5,200, 38,000]`):
+    - Clinical, Surgical, Dental & Obstetric Care (`101` trauma wound debridement & suturing, `102` orthopedic closed fracture reduction & splinting, `103` emergency dental extraction & abscess drainage, `104` obstetric delivery & midwifery care, `105` 4-hour clinical triage & nursing care shift).
+    - WASH & Biohazard Engineering (`106` manual borehole/hand-pump & filtration repair, `107` Sphere-compliant trench/pit latrine & vector sanitization).
+    - Off-Grid Power, Internal Combustion & RF Communications (`108` solar PV/battery DC diagnostics & repair, `109` small generator/engine overhaul, `110` VHF/UHF transceiver & antenna SWR calibration).
+    - Metallurgy, Transport & Shelter Construction (`111` blacksmith blade/tool forging & sharpening, `112` bicycle/cargo handcart drivetrain repair, `113` weatherproof roofing & structural carpentry, `114` high-efficiency rocket stove & masonry chimney construction, `115` boot cobbling & heavy load-bearing textile repair).
+    - Veterinary, Agrarian, Food Preservation & Tactical Logistics (`116` livestock veterinary trauma & obstetrics, `117` fruit tree grafting & open-pollinated seed preservation, `118` batch meat/fish smoking & lacto-fermentation preservation, `119` 4-hour tactical perimeter watch shift, `120` 25 kg over 5 km off-road cargo portage trip).
+    - Off-Grid IT, Cybernetics & Microelectronics (`121` local WLAN/LoRa mesh intranet & offline archive deployment, `122` forensic data recovery & technical/medical extraction from damaged storage, `123` PCB microsoldering & component salvage/rework, `124` low-power microcontroller automation for boreholes & irrigation).
+    - Technical Instruction, Pedagogy & Knowledge Multiplication (`125` adult technical literacy & pharmacological/WASH manual reading class, `126` applied geometry, construction & BarterScore trade parity calculation class, `127` combat medicine, hemorrhage control, clinical triage & WASH survival workshop, `128` technical & pharmacological manual translation and reverse-engineering interpretation).
+- **Crisis Context Modifiers (`MEC`) for Essential Services (`src/barter_engine.js`)**:
+  - Calibrated `cat_essential_services` and 12 single-specialty service tags (`service_medical_trauma`, `service_obstetrics`, `service_dental`, `service_wash_sanitation`, `service_security_tactical`, `service_comms_rf`, `service_power_electronics`, `service_shelter_construction`, `service_mechanical_metallurgy`, `service_agrarian_vet`, `service_it_cybernetics`, `service_instruction_pedagogy`) across `acute_collapse` and `economic_reconstruction`.
+- **Physical-Only Counter-Change Guardrail (`calculateChangeOptions` in `src/barter_engine.js`)**:
+  - Excluded intangible human services (`cat_essential_services`) from automatic fractional counter-change recommendations by default (unless `options.includeServicesInChange === true`), ensuring physical commodity change options (`g`, `ml`, `un`) are prioritized when settling indivisibility deltas.
+- **Expanded Offline Scientific Audit Registry (`audit_sources/`)**:
+  - Added official international standards (`WHO_IMEESC_SURGICAL`, `WHO_IMPAC_OBSTETRICS`, `ILO_ISCO08_ISO8996`, `FAO_VET_SEED_PRESERVATION`, `IEEE_ETSI_FIELD_MAINT`, `IEEE_802_11S_IPC7711_IT`, `UNESCO_ISCED_ISO17100_PEDAGOGY`), `ESSENTIAL_SERVICES_TRACEABILITY_MATRIX` (`Items 101–128`), and `COMPLETE_128_ITEM_TRACEABILITY_MATRIX` (`Items 001–128`) while keeping `COMPLETE_100_ITEM_TRACEABILITY_MATRIX` (`Items 001–100`) and `COMPLETE_120_ITEM_TRACEABILITY_MATRIX` (`Items 001–120`) intact for 100% backward compatibility. Shifted Tier 2 custom/regional user item indices to **`Items 129+`**.
+
 ## [1.0.0] - 2026-11-05
 
 ### Added

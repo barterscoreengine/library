@@ -1,6 +1,6 @@
-# BarterScore Engine (v1.0.0) — Manual de Campo Analógico para Operações em Blackout Total
+# BarterScore Engine (v1.1.0) — Manual de Campo Analógico para Operações em Blackout Total
 
-> **Idioma do Manual / Manual Language / 语言:**
+> **Idioma do Manual:**
 > [**English (`OFFLINE_MANUAL.md`)**](./OFFLINE_MANUAL.md) · [**Português (`OFFLINE_MANUAL.pt-BR.md`)**](./OFFLINE_MANUAL.pt-BR.md) · [**Español (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md) · [**简体中文 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
 >
 > **Repositório Oficial:** [https://github.com/barterscoreengine/library](https://github.com/barterscoreengine/library)
@@ -83,16 +83,17 @@ Quando um alimento ou medicamento (DCB/ANVISA) ofertado estiver próximo da data
 | **De 1 a 7 Dias (`1–7 d`)** | **`25%` (`0,25x`)** | Mantenha apenas **1/4 (`-75%`)** do score | Consumo emergencial imediato; inviável para estocagem ou repasse futuro. |
 | **0 Dias / Vencido (`0 d`)** | **`0%` (`0,00x`)** | **0 Pontos — Recuse a Troca** | Valor de escambo nulo; alimentos deteriorados ou fármacos críticos degradados oferecem risco biológico severo. |
 
-### Protocolo B: Regra Proporcional de Validade (Itens de Longa Duração)
+### Protocolo B: Regra Proporcional de Validade (Itens de Longa Duração e Serviços Essenciais)
 Para itens de longa vida útil (`1 a 5 anos`) que ainda possuem mais de 90 dias restantes, mas já consumiram grande parte da validade original de fábrica:
 - **Metade da Validade de Fábrica Restante (`50% de V`):** Desconte **`~10%`** (a perda logarítmica exata fica entre `-8,9%` e `-9,8%`).
 - **Um Quarto da Validade de Fábrica Restante (`25% de V`):** Desconte **`~20%`** (a perda logarítmica exata fica entre `-17,8%` e `-19,6%`).
+- **Serviços Humanos Essenciais (`cat_essential_services`, Itens `101–128`):** Nos serviços humanos, `V` representa a **Durabilidade Nominal do Desfecho do Serviço (Dias)** (intervalo de cobertura/recorrência). Utilize sempre **`100%` (`1,00x`)** do score impresso para serviços completos padronizados; aplique redução apenas se ambas as partes acordarem um reparo provisório/paliativo de menor durabilidade.
 
 ---
 
-## 4. Guia de Referência das 8 Categorias Canônicas e Contextos de Crise (`MEC`)
+## 4. Guia de Referência das 9 Categorias Canônicas e Contextos de Crise (`MEC`)
 
-Os 100 itens padronizados em `data/items_core.js` estão estruturados em **8 Categorias Canônicas**. Ao transitar entre fases de crise, você pode utilizar a folha impressa específica daquele cenário ou aplicar mentalmente o comportamento de cada grupo:
+Os 128 itens padronizados em `data/items_core.js` (`100` mercadorias físicas + `28` serviços humanos essenciais) estão estruturados em **9 Categorias Canônicas**. Ao transitar entre fases de crise, você pode utilizar a folha impressa específica daquele cenário ou aplicar mentalmente o comportamento de cada grupo:
 
 | Slug da Categoria | Nome Oficial da Categoria (`pt-BR`) | Papel Físico e Funcional | Comportamento nas Fases de Crise (`MEC`) |
 | :--- | :--- | :--- | :--- |
@@ -104,6 +105,7 @@ Os 100 itens padronizados em `data/items_core.js` estão estruturados em **8 Cat
 | `cat_water_fire_shelter` | **Água, Purificação, Fogo, Iluminação e Abrigo** | Água potável lacrada, pastilhas de NaDCC, velas filtrantes, pederneiras de ferrocério, gás butano e lonas. | Água e purificação atingem o maior multiplicador vital (`2,5x`) em colapso agudo ou seca severa. |
 | `cat_tools_energy_comms` | **Ferramentas, Cordame, Energia Off-Grid e Comunicações** | Facas full-tang, alicates multiferramenta, paracord 550, pilhas IEC AA/AAA/18650, painel solar e rádio VHF/UHF. | Essenciais no colapso (`1,3x–1,5x`) e valorizam ainda mais (`1,6x–1,8x`) na reconstrução agrária e técnica. |
 | `cat_store_of_value` | **Reserva de Valor, Metais de Escambo e Acervo Técnico** | Prata e ouro fracionados (`.999`), sementes crioulas de polinização aberta, óculos de leitura e arquivos offline. | **Inversão Estrita de Fase:** Metais preciosos caem para **`0,01x`** em `acute_collapse` (não são comestíveis) e saltam para **`5,00x`** em `economic_reconstruction` com a retomada cambial e agrícola. |
+| `cat_essential_services` | **Serviços Humanos Essenciais, Procedimentos Clínicos, TI Off-Grid, Instrução e Mão de Obra Técnica** | Cirurgia de trauma, odontologia, obstetrícia, reparo WASH, revisão solar/mecânica, TI off-grid/microeletrônica, instrução/tradução técnica, metalurgia e vigilância (`Itens 101–128`). | Trauma, obstetrícia, odontologia, WASH e segurança saltam em `acute_collapse` (`até 2,21x`); TI off-grid, instrução técnica, engenharia elétrica/mecânica, metalurgia, construção e veterinária lideram em `economic_reconstruction` (`até 2,32x`). |
 
 ---
 
