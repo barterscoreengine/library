@@ -25,8 +25,8 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "test": "node -e \"const { Validator, ItemsCore } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); console.log('Validator: ' + r.valid_items + '/' + r.total_items + ' items validated.');\"",
-    "build": "node -e \"const { Validator, ItemsCore } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); console.log('Build OK: ' + r.valid_items + ' items.');\"",
-    "lint": "node -e \"const { Validator, ItemsCore } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); console.log('Lint OK: 0 errors.');\""
+    "test": "node -e \"const { Validator, ItemsCore, Locales } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); for (const c of Validator.SUPPORTED_LOCALES) { const lr = Validator.validateLocale(Locales[c], ItemsCore); if (!lr.is_valid) process.exit(1); } console.log('Validator: ' + r.valid_items + '/' + r.total_items + ' items & ' + Validator.SUPPORTED_LOCALES.length + ' locales validated.');\"",
+    "build": "node -e \"const { Validator, ItemsCore, Locales } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); for (const c of Validator.SUPPORTED_LOCALES) { const lr = Validator.validateLocale(Locales[c], ItemsCore); if (!lr.is_valid) process.exit(1); } console.log('Build OK: ' + r.valid_items + ' items & ' + Validator.SUPPORTED_LOCALES.length + ' locales.');\"",
+    "lint": "node -e \"const { Validator, ItemsCore, Locales } = require('./index.js'); const r = Validator.validateDataset(ItemsCore); if (!r.is_valid) process.exit(1); for (const c of Validator.SUPPORTED_LOCALES) { const lr = Validator.validateLocale(Locales[c], ItemsCore); if (!lr.is_valid) process.exit(1); } console.log('Lint OK: 0 errors across ' + r.valid_items + ' items & ' + Validator.SUPPORTED_LOCALES.length + ' locales.');\""
   }
 }
