@@ -338,6 +338,46 @@
       ],
       direct_url: 'https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/',
       snapshot_date: '2026-11-09'
+    },
+    {
+      record_id: 'ANSM-DCI-ANSES-CIQUAL-FR',
+      agency: 'ANSM (Pharmacopée Française / DCI) & ANSES Table Ciqual / AFNOR',
+      document_code: 'Pharmacopée Française 11e Éd. (ANSM DCI) | ANSES Table Ciqual 2020 | AFNOR NF EN 149 (FFP2) & NF EN 60086',
+      official_title: 'Référentiel Pharmaceutique (DCI/ANSM), Nutritionnel (ANSES-Ciqual) et Normatif (AFNOR) pour la Localisation Française (fr-FR)',
+      verified_metrics: '128 articles, 9 catégories et 3 scénarios normalisés selon la Dénomination Commune Internationale (DCI/ANSM), la Table Ciqual (ANSES) et les normes AFNOR/NF EN',
+      mapped_catalog_items: ['rice_white_polished_raw_1000g', 'amoxicillin_500mg_capsule', 'respirator_particulate_n95_pff2_unit'],
+      direct_url: 'https://ansm.sante.fr/documents/reference/pharmacopee',
+      snapshot_date: '2026-11-11'
+    },
+    {
+      record_id: 'GRLS-MNN-GOST-RU',
+      agency: 'Минздрав РФ (ГРЛС / ГФ РФ XV / МНН) & Росстандарт (ГОСТ / ФИЦ питания и биотехнологии)',
+      document_code: 'Государственная фармакопея РФ XV изд. (МНН / ГРЛС) | ГОСТ 6292-93 / ГОСТ 7758-2020 | ГОСТ 12.4.294-2013 (FFP2) & ГОСТ МЭК 60086',
+      official_title: 'Фармакопейный (МНН/ГРЛС), нутрициологический (ФИЦ питания) и технический (ГОСТ) реестр для русской локализации (ru-RU)',
+      verified_metrics: '128 эталонных позиций, 9 категорий и 3 кризисных сценария, стандартизированных по Международным непатентованным наименованиям (МНН Минздрава РФ) и межгосударственным стандартам ГОСТ',
+      mapped_catalog_items: ['rice_white_polished_raw_1000g', 'amoxicillin_500mg_capsule', 'respirator_particulate_n95_pff2_unit'],
+      direct_url: 'https://grls.rosminzdrav.ru/',
+      snapshot_date: '2026-11-11'
+    },
+    {
+      record_id: 'KEML-PPB-KEBS-KFCT-SW',
+      agency: 'Ministry of Health Kenya (KEML / PPB) & FAO / KEBS (Kenya Food Composition Tables & East African Standards)',
+      document_code: 'Kenya Essential Medicines List (KEML / WHO INN) | FAO/MoH Kenya Food Composition Tables (KFCT 2018) | KEBS KS EAS / IEC 60086',
+      official_title: 'Orodha ya Dawa Muhimu (KEML/PPB), Jedwali la Lishe (KFCT) na Viwango vya Kiufundi (KEBS/EAS) kwa Kiswahili (sw-KE)',
+      verified_metrics: 'Bidhaa na huduma 128, makundi 9 na mazingira 3 ya dharura yaliyosawazishwa kwa Kiswahili kulingana na WHO INN / KEML-PPB Kenya na FAO KFCT / KEBS',
+      mapped_catalog_items: ['rice_white_polished_raw_1000g', 'amoxicillin_500mg_capsule', 'respirator_particulate_n95_pff2_unit'],
+      direct_url: 'https://web.pharmacyboardkenya.org/',
+      snapshot_date: '2026-11-11'
+    },
+    {
+      record_id: 'SFDA-SASO-GSO-AR',
+      agency: 'SFDA (الهيئة العامة للغذاء والدواء) & SASO / GSO (الهيئة السعودية للمواصفات والمقاييس والجودة / هيئة التقييس الخليجية)',
+      document_code: 'SFDA Saudi National Formulary (WHO INN) | SASO / GSO Food Standards & FAO Near East Food Composition Tables | SASO IEC 60086',
+      official_title: 'الدليل الدوائي الوطني (SFDA / WHO-INN) وجداول تركيب الأغذية والمواصفات القياسية (SASO / GSO) للتعريب التقني (ar-SA)',
+      verified_metrics: '128 عنصراً وخدمة قياسية، 9 فئات رسمية و3 سيناريوهات أزمة معرّبة بالكامل وفق الأسماء الدولية غير مسجلة الملكية (WHO INN / SFDA) ومواصفات SASO / GSO والدستور الغذائي',
+      mapped_catalog_items: ['rice_white_polished_raw_1000g', 'amoxicillin_500mg_capsule', 'respirator_particulate_n95_pff2_unit'],
+      direct_url: 'https://www.sfda.gov.sa/',
+      snapshot_date: '2026-11-11'
     }
   ]);
 
