@@ -1,7 +1,7 @@
 /**
  * @fileoverview BarterScore Engine - Portuguese (Brazil) Technical Localization (pt-BR)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  *
  * Terminologia técnica comercial, nutricional e farmacêutica oficial do Brasil seguindo:
  * - Denominação Comum Brasileira (DCB / ANVISA) e Farmacopeia Brasileira para fármacos
@@ -77,6 +77,10 @@
       cat_store_of_value: {
         name: 'Reserva de Valor, Metais de Escambo e Acervo Técnico',
         description: 'Metais preciosos fracionados (.999), sementes crioulas de polinização aberta, correção óptica e blindagem eletromagnética.'
+      },
+      cat_essential_services: {
+        name: 'Serviços Humanos Essenciais, Procedimentos Clínicos e Mão de Obra Técnica',
+        description: 'Procedimentos padronizados de cirurgia de trauma, odontologia, obstetrícia, saneamento WASH, elétrica solar, TI off-grid, microeletrônica, metalurgia, veterinária, instrução técnica e logística.'
       }
     },
 
@@ -115,9 +119,12 @@
       sim_quantity: 'Quantidade Ofertada (Unidades Atômicas)',
       sim_lifecycle_remaining: 'Validade Restante Real (Dias)',
       sim_lifecycle_nominal_hint: 'Validade nominal lacrado:',
+      sim_service_durability_label: 'Durabilidade / Cobertura do Serviço (Dias)',
+      sim_service_durability_hint: 'Durabilidade nominal do serviço (mantenha o padrão para serviço completo; reduza apenas se provisório/paliativo):',
       sim_unit_days: 'dias',
       sim_hint_unit_value: 'Valor Unitário Atual:',
       sim_hint_depreciation: 'Perda por validade:',
+      sim_hint_service_depreciation: 'Redução por serviço paliativo:',
       sim_summary_title: 'Resumo Direto da Liquidação da Troca',
       sim_summary_deliver: 'Você Entrega (Sua Oferta):',
       sim_summary_receive: 'Você Recebe (Liquidação Recomendada):',
@@ -137,14 +144,14 @@
       sim_msg_sub_unit_rounding: 'O fracionamento de "{item}" em {sub} {measure} ({rec} un) gera uma diferença mínima de arredondamento de {sign}{pct}% ({delta} pts).',
       sim_change_suggestion: 'Opções Imediatas de Troco (Escolha 1 opção abaixo para quitar {delta} pts):',
       sim_change_all_toggle: 'Ver todas as {count} opções de troco fisicamente viáveis no catálogo ({div} divisíveis em g/ml/un + {indiv} unidades inteiras menores)',
-      table_title: 'Tabela Geral de Cotações do Catálogo Centenário',
+      table_title: 'Tabela Geral de Cotações do Catálogo de Referência (128 Itens)',
       table_search_placeholder: 'Filtrar por nome comercial/DCB, ID semântico ou tag funcional...',
-      table_filter_all_categories: 'Todas as 8 Categorias Oficiais',
+      table_filter_all_categories: 'Todas as 9 Categorias Oficiais',
       col_item: 'Especificação Técnica e Nome Comercial/DCB',
       col_unit: 'Unidade Atômica e Divisibilidade',
       col_energy: 'Energia / EEB (E)',
       col_mass_vol: 'Peso / Vol (P / Vol)',
-      col_lifecycle: 'Validade (V)',
+      col_lifecycle: 'Validade / Durabilidade (V)',
       col_in: 'Índ. Nutr. (IN)',
       col_base_score: 'Score Base',
       col_mec: 'Contexto (MEC)',
@@ -156,7 +163,7 @@
       unit_indivisible: 'Indivisível',
       unit_food: 'Alimento Calórico',
       unit_non_food: 'Utilidade / Não-Alimento',
-      print_header_note: 'MANUAL FÍSICO DE COTAÇÃO DE ESCAMBO OFFLINE (COM AS 3 SITUAÇÕES DE CRISE) — GERADO PELO BARTERSCORE ENGINE v1.0.0',
+      print_header_note: 'MANUAL FÍSICO DE COTAÇÃO DE ESCAMBO OFFLINE (COM AS 3 SITUAÇÕES DE CRISE) — GERADO PELO BARTERSCORE ENGINE v1.1.0',
       print_guide_title: 'MANUAL DE CAMPO ANALÓGICO COMPLETO (OPERAÇÃO EM BLACKOUT TOTAL) E TABELA DE TROCO FRACIONÁRIO',
       print_step1_title: '1. Calcule Seu Crédito (Pontos que Você Entrega)',
       print_step1_body: 'Localize o item ofertado e escolha a coluna da situação atual (Col 8 Base Pura 1,0x, Col 9 Colapso Agudo ou Col 10 Reconstrução). Multiplique o Score pela quantidade entregue (ou multiplique a taxa 1 g / 1 ml pelo peso/volume).',
@@ -171,7 +178,7 @@
       print_example_box_title: 'Exemplo Prático Resolvido Passo a Passo (Coluna Colapso Agudo — 0% de Perda)',
       print_example_box_body: 'Troca de 50 pacotes de Leite em Pó Integral (400 g) por Alicate Multiferramenta Dobrável em Aço Inox (1 un, Indivisível): 1) Seu Crédito: 50 × {milk_pts} pts = {milk_total} pts. 2) Score do Alicate: {pliers_pts} pts/un. 3) Divisão: {milk_total} ÷ {pliers_pts} = {pliers_exact} un → Receba 2 Alicates inteiros ({pliers_two} pts). 4) Troco Devido a Você: {milk_total} − {pliers_two} = {change_pts} pts → Divida pela taxa do Sal Iodado ({salt_rate} pts/g) = {salt_g} g de Sal Refinado Iodado (ou {sugar_g} g de Açúcar Cristal a {sugar_rate} pts/g).',
       print_expiry_box_title: 'Protocolos de Desconto Manual de Validade (Papel e Calculadora de Bolso)',
-      print_expiry_box_body: '• Protocolo A (Vencimento Próximo): >90d = 100%; 31–90d = 75% (−1/4); 8–30d = 50% (Metade do Valor); 1–7d = 25% (1/4 do Valor); 0d/Vencido = 0 pts (Recusar). • Protocolo B (Proporcional para Longa Duração >90d): 50% da validade de fábrica restante ≈ −10% no score; 25% da validade de fábrica restante ≈ −20% no score (aproxima log10(V_rest+1) ÷ log10(V_nom+1)).',
+      print_expiry_box_body: '• Protocolo A (Vencimento Próximo): >90d = 100%; 31–90d = 75% (−1/4); 8–30d = 50% (Metade do Valor); 1–7d = 25% (1/4 do Valor); 0d/Vencido = 0 pts (Recusar). • Protocolo B (Proporcional para Longa Duração >90d): 50% da validade de fábrica restante ≈ −10% no score; 25% da validade de fábrica restante ≈ −20% no score (aproxima log10(V_rest+1) ÷ log10(V_nom+1)). • Serviços Essenciais (101–128): V é a durabilidade do serviço; use sempre 100% (1,0x) do score impresso para serviços completos.',
       print_checklist_box_title: 'Checklist de Inspeção para Postos de Escambo e Kit Analógico de Blackout',
       print_checklist_box_body: '• Kit Analógico Necessário: Tabela A4 Paisagem impressa, Régua reta, Calculadora de bolso (ou lápis/papel) e Balança de 1 g / Copo graduado de 1 ml. • Regras de Segurança: 1) Recuse vácuo violado, latas estufadas/enferrujadas ou blísteres rompidos (0 pts); 2) Confirme que ambos leem a mesma coluna de situação; 3) Aplique o desconto de 50% (<30 dias) antes de multiplicar a quantidade; 4) Sempre liquide sobras de indivisíveis em g/ml/un.',
       print_change_table_title: 'Tabela Pronta de Consulta Rápida de Troco em Gramas / mL / Unidades — As 3 Situações de Crise (Col 8 Base | Col 9 Colapso | Col 10 Reconstrução)'
@@ -592,6 +599,120 @@
       gold_bullion_999_fine_fractional_1g: {
         name: 'Lâmina / Barra Fracionada de Ouro Puro .9999 Fine Gold Certificada (1,0 g)',
         description: 'Reserva patrimonial incorruptível de altíssima densidade de valor por miligrama para liquidação de alto valor.'
+      },
+
+      // 9. cat_essential_services (28)
+      service_trauma_wound_debridement_suturing_proc: {
+        name: 'Desbridamento Cirúrgico de Ferida, Irrigação e Sutura Primária (1 Procedimento)',
+        description: 'Limpeza cirúrgica asséptica de tecido desvitalizado, irrigação copiosa e fechamento primário por planos com sutura (padrão OMS IMEESC).'
+      },
+      service_fracture_closed_reduction_splinting_proc: {
+        name: 'Redução Incruenta de Fratura / Luxação Ortopédica e Imobilização com Tala (1 Procedimento)',
+        description: 'Alinhamento anatômico por tração manual de fratura fechada ou luxação articular com imobilização rígida e checagem neurovascular.'
+      },
+      service_dental_extraction_infection_drainage_proc: {
+        name: 'Exodontia de Urgência (Extração Dentária), Drenagem de Abscesso e Controle de Dor (1 Procedimento)',
+        description: 'Extração dentária atraumática com fórceps/alavanca e incisão/drenagem de abscesso odontogênico agudo para prevenir sepse cervical.'
+      },
+      service_obstetric_delivery_midwifery_care_proc: {
+        name: 'Assistência Obstétrica ao Parto, Reanimação Neonatal e Controle de Hemorragia Pós-Parto (1 Procedimento)',
+        description: 'Condução qualificada do parto, manejo ativo do 3º período, clampeamento estéril do cordão e reanimação neonatal (padrão OMS IMPAC).'
+      },
+      service_clinical_triage_nursing_care_shift_4hr: {
+        name: 'Plantão de Triagem Clínica, Monitoramento de Hidratação SRO/EV e Curativos (Turno de 4 Horas)',
+        description: 'Turno dedicado de 4 horas de enfermagem aguda com controle de sinais vitais, titulação de reidratação oral/venosa e troca estéril de curativos.'
+      },
+      service_water_well_pump_filtration_repair_proc: {
+        name: 'Manutenção e Revisão de Bomba Manual de Poço Artesiano e Sistema de Filtração WASH (1 Procedimento)',
+        description: 'Desmontagem mecânica, substituição de gaxetas/válvula de retenção, alinhamento de hastes e reabilitação de filtro comunitário (Sphere WASH).'
+      },
+      service_sanitation_latrine_vector_control_proc: {
+        name: 'Engenharia de Latrina Sanitária (Padrão Sphere) e Saneamento de Vetores Biológicos (1 Procedimento)',
+        description: 'Escavação dimensionada, vedação de laje com tubo de ventilação anti-insetos, proteção de lençol freático e desinfecção com cal/cloro.'
+      },
+      service_solar_pv_battery_dc_diagnostics_repair_proc: {
+        name: 'Diagnóstico e Reparo de Sistema Solar Fotovoltaico Off-Grid, Controlador e Banco de Baterias CC (1 Procedimento)',
+        description: 'Isolamento de falhas com multímetro, reparo de controlador MPPT/PWM, balanceamento de células, dessulfatação e barramentos CC (IEC 62446).'
+      },
+      service_generator_internal_combustion_overhaul_proc: {
+        name: 'Revisão Mecânica de Motor Estacionário / Gerador a Combustão (Carburador, Magneto e Válvulas) (1 Procedimento)',
+        description: 'Limpeza técnica de carburador/bico injetor, calibração de ignição por magneto, ajuste de folga de válvulas e vedação de compressão.'
+      },
+      service_radio_vhf_uhf_antenna_calibration_repair_proc: {
+        name: 'Reparo de Rádio Transceptor VHF/UHF, Conectorização Coaxial e Ajuste de ROE (VSWR) de Antena (1 Procedimento)',
+        description: 'Diagnóstico de estágio de RF, soldagem de conectores coaxiais de baixa perda e ajuste físico de antena dipolo/Yagi para ROE < 1,5.'
+      },
+      service_metallurgy_blade_tool_forging_sharpening_proc: {
+        name: 'Forjamento Metalúrgico, Têmpera, Afiação de Precisão em Lâminas e Brasagem/Solda Estrutural (1 Procedimento)',
+        description: 'Tratamento térmico de aço carbono (têmpera e revenimento), retífica de fio em machados/facas e união estrutural metálica de carga.'
+      },
+      service_mechanical_bicycle_cart_drivetrain_repair_proc: {
+        name: 'Revisão Mecânica de Transporte de Carga Não-Motorizado (Bicicleta / Carrinho: Rolamentos, Raios e Transmissão) (1 Procedimento)',
+        description: 'Alinhamento e tensão de raios de roda, lubrificação/troca de esferas de cubo, ajuste de relação de corrente e calibragem de freios.'
+      },
+      service_shelter_roofing_structural_carpentry_proc: {
+        name: 'Carpintaria Estrutural de Abrigo, Estabilização de Tesouras de Telhado e Vedação contra Intempéries (1 Procedimento)',
+        description: 'Encaixe estrutural de madeiramento, reforço de caibros/terças e impermeabilização de cobertura contra chuva e vento severo.'
+      },
+      service_masonry_thermal_stove_chimney_build_proc: {
+        name: 'Construção em Alvenaria de Fogão a Lenha de Alta Eficiência (Rocket Stove / Forno) com Chaminé (1 Procedimento)',
+        description: 'Edificação de câmara de combustão isolada e duto de tiragem que reduz o consumo de lenha em 50–70% e elimina fumaça interna (ISO 19867).'
+      },
+      service_footwear_cobbling_heavy_textile_repair_proc: {
+        name: 'Sapataria Pesada (Ressola de Botas, Costura Selaria) e Reparo Estrutural de Mochilas/Lonas (1 Procedimento)',
+        description: 'Costura manual travada com sovela e fio encerado, refixação de solado de botas de marcha e reforço de alças de carga e lonas.'
+      },
+      service_veterinary_livestock_obstetrics_wound_proc: {
+        name: 'Atendimento Veterinário a Animais de Produção/Tração (Trauma, Obstetrícia e Controle Parasitário) (1 Procedimento)',
+        description: 'Intervenção clínica em rebanhos ou animais de trabalho incluindo auxílio ao parto distócico, casqueamento/sutura e vermifugação (FAO).'
+      },
+      service_agrarian_crop_grafting_seed_preservation_proc: {
+        name: 'Enxertia Agrícola, Remineralização de Solo e Seleção/Secagem Técnica de Sementes Crioulas (1 Procedimento)',
+        description: 'Enxertia de frutíferas/culturas perenes, correção de pH do solo com cinzas/composto e beneficiamento de sementes para vigor germinativo.'
+      },
+      service_food_preservation_smoking_fermentation_batch: {
+        name: 'Serviço de Conservação de Alimentos por Cura Salgada, Defumação Térmica ou Lactofermentação (1 Lote)',
+        description: 'Processamento técnico por salga osmótica, defumação controlada em fumeiro ou fermentação lática anaeróbica de até 15 kg de alimentos.'
+      },
+      service_security_perimeter_watch_patrol_shift_4hr: {
+        name: 'Turno de Vigia Tático de Perímetro, Controle de Acesso e Alerta Antecipado (Turno de 4 Horas)',
+        description: 'Plantão disciplinado de 4 horas de observação defensiva diurna/noturna, ronda de perímetro, controle de acesso e alerta contra incêndio/intrusão.'
+      },
+      service_logistics_heavy_cargo_portage_5km_25kg: {
+        name: 'Transporte Logístico Humano com Armação de Carga (25 kg de Suprimentos por 5 km Off-Road) (1 Viagem)',
+        description: 'Porte seguro de 25 kg de água, grãos ou insumos médicos através de 5 km de terreno acidentado ou obstruído sem vias pavimentadas (ISO 8996).'
+      },
+      service_it_mesh_network_intranet_deployment_proc: {
+        name: 'Implantação de Rede Local Off-Grid (Intranet / WLAN / Mesh LoRa) para Acesso Coletivo a Acervo (1 Procedimento)',
+        description: 'Configuração de roteadores salvados ou módulos LoRa para criar uma rede local sem internet permitindo que múltiplos dispositivos acessem simultaneamente o acervo MicroSD de 64 GB (IEEE 802.11s).'
+      },
+      service_it_data_recovery_extraction_proc: {
+        name: 'Recuperação Forense de Dados e Extração de Arquivos Técnicos em Dispositivos Danificados/Inoperantes (1 Procedimento)',
+        description: 'Extração física e lógica de PDFs de engenharia, esquemas de purificação de água, mapas e prontuários médicos a partir de HDDs, SSDs, pendrives e celulares mortos (ISO/IEC 27037).'
+      },
+      service_it_pcb_microsoldering_salvage_proc: {
+        name: 'Microssoldagem em Placas Eletrônicas (PCB) e Canibalização de Componentes de Sucata (1 Procedimento)',
+        description: 'Dessoldagem e reaproveitamento de transistores, capacitores, resistores e diodos de placas-mãe queimadas para consertar rádios VHF/UHF ou controladores de carga solar (IPC-7711/7721).'
+      },
+      service_it_microcontroller_low_power_automation_proc: {
+        name: 'Programação de Microcontroladores de Baixo Consumo (MCU) para Automação de Poços e Irrigação (1 Procedimento)',
+        description: 'Programação embarcada (classe Arduino/ESP32/MCU) e integração de sensores/relés CC para automatizar bombas de poços artesianos, corte de bateria ou irrigação agrícola (IEC 61131-3).'
+      },
+      service_instruction_technical_literacy_class: {
+        name: 'Instrução em Alfabetização Técnica Funcional e Leitura de Manuais Médicos/Engenharia (1 Módulo / Aula)',
+        description: 'Capacitação estruturada de jovens e adultos focada na leitura e interpretação precisa de bulas/dosagens de antibióticos, esquemas de filtração de água e manuais offline (UNESCO ISCED).'
+      },
+      service_instruction_applied_mathematics_proc: {
+        name: 'Instrução em Matemática Aplicada de Campo, Geometria Estrutural e Logística de Trocas (1 Módulo / Procedimento)',
+        description: 'Ensino prático de cálculos geométricos para telhados e alvenaria térmica, conversão de pesos/volumes clínicos e aritmética de paridade e troco na tabela BarterScore (ILO ISCO-08 2320).'
+      },
+      service_instruction_combat_medicine_triage_class: {
+        name: 'Oficina Prática de Sobrevivência em Triagem Clínica, Controle de Hemorragia e Saneamento WASH (1 Módulo / Aula)',
+        description: 'Treinamento prático para multiplicar novos socorristas em triagem clínica, aplicação de torniquete arterial, tamponamento de feridas e construção de latrinas seguras (OMS BEC / CICV).'
+      },
+      service_instruction_technical_translation_proc: {
+        name: 'Tradução Técnica Multilíngue e Decodificação de Manuais para Engenharia Reversa (1 Procedimento)',
+        description: 'Tradução técnica direta e ensino de terminologia (Inglês, Chinês, Espanhol, Português) de manuais salvados, datasheets eletrônicos e interfaces de rádios transceptores (ISO 17100).'
       }
     }
   };

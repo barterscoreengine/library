@@ -1,7 +1,7 @@
 /**
  * @fileoverview BarterScore Engine - Simplified Chinese (Mainland China) Technical Localization (zh-Hans)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  *
  * 严格遵循中国大陆法定标准与商业流通规范的专业术语本地化：
  * - 药品名称严格采用《中华人民共和国药典》(ChP) 及国家药监局 (NMPA) 中国药品通用名称 (CADN) 与世界卫生组织 INN 标准
@@ -77,6 +77,10 @@
       cat_store_of_value: {
         name: '价值储藏、贵金属硬通货与离线知识库',
         description: '足金/足银投资条块、非杂交可留种蔬菜种子、老花镜、防电磁脉冲袋及离线百科存储卡。'
+      },
+      cat_essential_services: {
+        name: '关键人类专业技术服务、临床医疗处置与特种劳务',
+        description: '标准化的创伤外科、急诊牙科、产科接生、饮水卫生工程、离网光伏维修、离网信息网络与微电子抢修、冶金锻造、兽医农艺、技术教学培训及战术安保劳务。'
       }
     },
 
@@ -115,9 +119,12 @@
       sim_quantity: '出让数量 (最小消费原子单位)',
       sim_lifecycle_remaining: '实际剩余保质期 (天)',
       sim_lifecycle_nominal_hint: '未拆封标称保质期：',
+      sim_service_durability_label: '服务效果持续期 / 质保期 (天)',
+      sim_service_durability_hint: '服务标准持续期（完整标准服务请保持默认值；仅在临时应急修补时调低）：',
       sim_unit_days: '天',
       sim_hint_unit_value: '当前单件价值：',
       sim_hint_depreciation: '保质期折旧损耗：',
+      sim_hint_service_depreciation: '临时修补折减：',
       sim_summary_title: '双边易货交割直观结论摘要',
       sim_summary_deliver: '己方交出 (出让物资)：',
       sim_summary_receive: '己方收取 (建议交割目标物资)：',
@@ -137,14 +144,14 @@
       sim_msg_sub_unit_rounding: '将目标物资“{item}”拆分为 {sub} {measure}（{rec} 单位）会产生 {sign}{pct}% 的微幅取整误差（{delta} pts）。',
       sim_change_suggestion: '即时找零交割方案（任选以下 1 项物资即可结清 {delta} pts 差额）：',
       sim_change_all_toggle: '展开查看目录中全部 {count} 种物理可行的找零物资方案（{div} 种按 g/ml/un 可拆分物资 + {indiv} 种小额整件物资）',
-      table_title: '百年核心物资目录完整比价行情表',
+      table_title: '核心参考物资与专业服务目录完整比价行情表 (128 项)',
       table_search_placeholder: '按药典/国标名称、英文语义ID或功能标签搜索...',
-      table_filter_all_categories: '全部 8 大官方物资分类',
+      table_filter_all_categories: '全部 9 大官方分类',
       col_item: '国标/药典规范名称与技术规格',
       col_unit: '最小单位与可分割性',
       col_energy: '热量 / 等效功用 (E)',
       col_mass_vol: '质量 / 体积 (P / Vol)',
-      col_lifecycle: '保质期 (V)',
+      col_lifecycle: '保质期 / 持续期 (V)',
       col_in: '营养指数 (IN)',
       col_base_score: '基础分 (Base)',
       col_mec: '环境系数 (MEC)',
@@ -156,7 +163,7 @@
       unit_indivisible: '整件不可拆',
       unit_food: '热量食品',
       unit_non_food: '实用物资/非食品',
-      print_header_note: '离线应急实物易货基准比价手册（含全部 3 大危机阶段并列报价）— 由 BARTERSCORE ENGINE v1.0.0 生成',
+      print_header_note: '离线应急实物易货基准比价手册（含全部 3 大危机阶段并列报价）— 由 BARTERSCORE ENGINE v1.1.0 生成',
       print_guide_title: '全面断电纸质易货完整操作手册与预计算零钱速查表',
       print_step1_title: '1. 计算己方总积分（您交出的物资分值）',
       print_step1_body: '在目录表中定位己方物资并选定当前危机阶段列（第8列 基准原值1.0x、第9列 急性崩溃期 或 第10列 秩序重建期），将其分值乘以件数（或用 1 g / 1 ml 单价乘以重量/体积）。',
@@ -171,7 +178,7 @@
       print_example_box_title: '现场纸笔/计算器实战算例（以第9列“急性崩溃期”为例 — 0% 找零损耗）',
       print_example_box_body: '用 50 袋全脂速溶奶粉 (400 g) 换取 折叠式不锈钢多功能钳 (1 把，整件不可拆)：1) 己方总积分：50 × {milk_pts} pts = {milk_total} pts。2) 多功能钳单价：{pliers_pts} pts/把。3) 相除：{milk_total} ÷ {pliers_pts} = {pliers_exact} 把 → 实收 2 把完整多功能钳（{pliers_two} pts）。4) 应退找零差额：{milk_total} − {pliers_two} = {change_pts} pts → 除以加碘食盐单价（{salt_rate} pts/g）= 补交 {salt_g} g 加碘精制食盐（或按 {sugar_rate} pts/g 补交 {sugar_g} g 白砂糖）。',
       print_expiry_box_title: '保质期折旧双轨心算准则（无需科学计算器对数运算）',
-      print_expiry_box_body: '• 准则 A（临期绝对天数）：>90天 = 100%；31–90天 = 75%（扣1/4）；8–30天 = 50%（分值减半）；1–7天 = 25%（仅留1/4）；0天/变质 = 0 分拒收。 • 准则 B（长保质期物资 >90天 按比例折旧）：剩余原厂保质期 50% 约扣减 10% 分值；剩余 25% 约扣减 20% 分值（拟合 log10(V_rem+1) ÷ log10(V_nom+1)）。',
+      print_expiry_box_body: '• 准则 A（临期绝对天数）：>90天 = 100%；31–90天 = 75%（扣1/4）；8–30天 = 50%（分值减半）；1–7天 = 25%（仅留1/4）；0天/变质 = 0 分拒收。 • 准则 B（长保质期物资 >90天 按比例折旧）：剩余原厂保质期 50% 约扣减 10% 分值；剩余 25% 约扣减 20% 分值（拟合 log10(V_rem+1) ÷ log10(V_nom+1)）。 • 专业技术服务（101–128）：V 代表服务效果持续期，完整标准服务一律按 100%（1.0x）印制分值结算。',
       print_checklist_box_title: '社区易货交割站安全核验清单与断电必备工具包',
       print_checklist_box_body: '• 断电作业 4 件套：A4 横向打印手册、直尺、太阳能/纽扣计算器（或纸笔）、1 g 精度厨房秤 / 1 ml 量筒。 • 交割铁律：1) 凡真空袋漏气、罐头膨胀生锈、药板泡罩破损一律按 0 分拒收；2) 双方必须确认读取同一阶段列；3) 临期不足 30 天先减半再乘数量；4) 整件尾数差额必须用 g/ml/un 零钱物资结清。',
       print_change_table_title: '高流通找零物资分值速查表（克 / 毫升 / 单片）— 全部 3 大危机阶段（第8列基准 | 第9列崩溃 | 第10列重建）'
@@ -592,6 +599,120 @@
       gold_bullion_999_fine_fractional_1g: {
         name: 'Au9999 万足金标准投资金片 / 1 克小金条 (1.0 g 检验证书封装)',
         description: '化学性质永恒稳定、单位毫克价值密度最高的终极财富储藏与跨区域清算媒介。'
+      },
+
+      // 9. cat_essential_services (28)
+      service_trauma_wound_debridement_suturing_proc: {
+        name: '创伤外科无菌清创、冲洗与一期缝合闭合术 (1 次处置)',
+        description: '按照世界卫生组织 (WHO IMEESC) 外科规范切除失活组织、大量无菌灌洗并逐层缝合闭合深部创口，阻断坏疽与败血症。'
+      },
+      service_fracture_closed_reduction_splinting_proc: {
+        name: '骨科闭合性骨折 / 关节脱位手法复位与夹板外固定术 (1 次处置)',
+        description: '通过解剖学手法牵引复位四肢闭合性骨折或脱位，实施刚性夹板外固定并核查远端血管神经功能。'
+      },
+      service_dental_extraction_infection_drainage_proc: {
+        name: '急诊拔牙术、牙源性脓肿切开引流与神经镇痛处置 (1 次处置)',
+        description: '使用牙钳/牙挺微创拔除病灶患牙并切开引流急性牙槽脓肿，解除剧痛并防止深部颈间隙感染。'
+      },
+      service_obstetric_delivery_midwifery_care_proc: {
+        name: '规范助产接生、新生儿复苏与产后出血主动干预处理 (1 次分娩)',
+        description: '遵循 WHO IMPAC 指南执行第三产程主动管理、无菌断脐、新生儿气道清理复苏及产妇止血稳定。'
+      },
+      service_clinical_triage_nursing_care_shift_4hr: {
+        name: '急性临床分诊、口服/静脉补液监护与无菌换药护理 (4 小时班次)',
+        description: '专职 4 小时急症护理值班，涵盖生命体征监测、脱水补液滴定管理及创面无菌敷料更换。'
+      },
+      service_water_well_pump_filtration_repair_proc: {
+        name: '手动深井水泵与社区饮水净化过滤系统大修维护 (1 次工程)',
+        description: '机械拆解修复手压泵活塞密封圈与底阀、校正提水管并恢复慢砂滤/超滤净水模块功能 (Sphere WASH 标准)。'
+      },
+      service_sanitation_latrine_vector_control_proc: {
+        name: '符合 Sphere 标准的防渗卫生旱厕工程建造与病媒生物消杀 (1 次工程)',
+        description: '按地下水安全距离挖掘排泄物收集池、架设防蝇通风排气管并对周边环境进行生石灰/含氯消毒。'
+      },
+      service_solar_pv_battery_dc_diagnostics_repair_proc: {
+        name: '离网光伏发电阵列、充放电控制器与直流蓄电池组故障检修 (1 次工程)',
+        description: '万用表故障隔离、MPPT/PWM 控制器修复、锂电/铅酸电池组均衡除硫及直流母排加固 (IEC 62446 规范)。'
+      },
+      service_generator_internal_combustion_overhaul_proc: {
+        name: '小型柴油 / 汽油发电机化油器、磁电机点火与气门机构大修 (1 次工程)',
+        description: '拆洗化油器或喷油嘴、校准磁电机点火正时、调整气门间隙并恢复气缸压缩密封性能。'
+      },
+      service_radio_vhf_uhf_antenna_calibration_repair_proc: {
+        name: 'VHF/UHF 无线电收发信机抢修、同轴馈线端接与天线驻波比 (VSWR) 调谐 (1 次工程)',
+        description: '排查功放电路故障、焊接低损耗射频同轴接头并修剪偶极/八木天线振子使驻波比降至 1.5 以下。'
+      },
+      service_metallurgy_blade_tool_forging_sharpening_proc: {
+        name: '铁匠热锻/冷锻、刀斧刃口开刃重塑与结构金属钎焊/焊接 (1 次作业)',
+        description: '高碳钢淬火与回火热处理、砍伐斧与刀具刃角精密打磨以及承重金属构件焊接修复。'
+      },
+      service_mechanical_bicycle_cart_drivetrain_repair_proc: {
+        name: '非机动货运载具（自行车 / 手推车）轴承、辐条编圈与传动系统大修 (1 次作业)',
+        description: '车圈动平衡校正、辐条张力调校、花鼓与中轴滚珠轴承清洗注脂、链条修复及制动调校。'
+      },
+      service_shelter_roofing_structural_carpentry_proc: {
+        name: '防风雨木结构框架搭建、屋架桁架加固与应急屋顶防漏密封 (1 次工程)',
+        description: '承重木工榫卯连接、屋顶椽条结构加固及防风防雨围护层密封处理，恢复安全居住空间。'
+      },
+      service_masonry_thermal_stove_chimney_build_proc: {
+        name: '高热效砖石柴火火箭炉 (Rocket Stove) / 蓄热烤炉与排烟囱砌筑 (1 次工程)',
+        description: '砌筑保温燃烧室与高抽力排烟道，降低 50–70% 木柴消耗并彻底消除室内一氧化碳与浓烟 (ISO 19867)。'
+      },
+      service_footwear_cobbling_heavy_textile_repair_proc: {
+        name: '重型军靴/登山靴换底修补、鞍具双针缝合与承重背囊/篷布修复 (1 次作业)',
+        description: '使用钢锥与涂蜡涤纶线进行高强度锁缝、重粘加固鞋底，并修补承重背包肩带与防水帆布。'
+      },
+      service_veterinary_livestock_obstetrics_wound_proc: {
+        name: '家畜与役用动物创伤救治、寄生虫驱虫给药与兽医产科接生 (1 次处置)',
+        description: '针对牛马羊等役用及产奶家畜的难产助产、蹄病/外伤清创缝合及定量驱虫临床处置 (FAO 规范)。'
+      },
+      service_agrarian_crop_grafting_seed_preservation_proc: {
+        name: '果树农作物嫁接、土壤矿物改良与非杂交留种筛选干燥技术服务 (1 次作业)',
+        description: '实施形成层枝接/芽接、草木灰与堆肥土壤酸碱度改良，以及常规种子精选脱水以保障跨季发芽率。'
+      },
+      service_food_preservation_smoking_fermentation_batch: {
+        name: '成批肉类/鱼类盐渍腌制、烟熏脱水或乳酸发酵长期保鲜加工服务 (1 批次)',
+        description: '通过高渗盐腌、冷热木烟熏制或厌氧乳酸发酵工艺，一次性长效保鲜处理最多 15 kg 易腐食材。'
+      },
+      service_security_perimeter_watch_patrol_shift_4hr: {
+        name: '昼夜战术周界警戒巡逻、出入口人员管控与早期预警值守 (4 小时班次)',
+        description: '严格执行 4 小时防卫观察哨、声光周界巡查、口令准入核验及火情/入侵早期预警。'
+      },
+      service_logistics_heavy_cargo_portage_5km_25kg: {
+        name: '使用背架人力安全背运 25 kg 核心物资跨越 5 km 无道路复杂地形 (1 趟)',
+        description: '在道路损毁或废墟阻断条件下，依靠背架徒步安全转运 25 kg 饮水、粮食或医疗物资行进 5 km (ISO 8996)。'
+      },
+      service_it_mesh_network_intranet_deployment_proc: {
+        name: '离网局域网 / 无线自组网 (WLAN / LoRa Mesh) 部署与离线知识库共享架设 (1 次工程)',
+        description: '配置回收路由器或 LoRa 节点搭建无互联网本地无线局域网，使营地多台旧手机/终端可同时查阅 64 GB 离线百科存储卡 (IEEE 802.11s)。'
+      },
+      service_it_data_recovery_extraction_proc: {
+        name: '损毁/断电存储设备 (HDD / SSD / 手机) 数据取证恢复与技术文献提取 (1 次处置)',
+        description: '从故障或废弃硬盘、固态盘及移动终端中物理提取工程图纸 PDF、净水方案、离线地图与医疗档案 (ISO/IEC 27037)。'
+      },
+      service_it_pcb_microsoldering_salvage_proc: {
+        name: '电路板 (PCB) 精密微焊接、废旧主板元器件拆解复用与板级抢修 (1 次作业)',
+        description: '从报废电路板拆焊完好的晶体管、电容、电阻与芯片，用于抢修 VHF/UHF 对讲机或太阳能充放电控制器 (IPC-7711/7721)。'
+      },
+      service_it_microcontroller_low_power_automation_proc: {
+        name: '低功耗微控制器 (MCU) 编程与深井水泵/农田灌溉自动化控制改造 (1 次工程)',
+        description: '编写 Arduino/ESP32 等低功耗单片机控制程序并接入传感器与直流继电器，实现深井抽水或良种滴灌自动化运行 (IEC 61131-3)。'
+      },
+      service_instruction_technical_literacy_class: {
+        name: '成人实用技术扫盲与医药剂量表 / 工程图纸阅读专项教学 (1 课时/模块)',
+        description: '针对性培训社区人员准确识读抗生素剂量说明、滤水器组装图纸及 64 GB 离线百科文献，激活知识库使用价值 (UNESCO ISCED)。'
+      },
+      service_instruction_applied_mathematics_proc: {
+        name: '现场应用数学、木工/砌筑结构几何计算与易货比价算术教学 (1 课时/模块)',
+        description: '传授屋架桁架与省柴炉砌筑几何计算、医疗溶液配比换算以及 BarterScore 易货比价与找零核算方法 (ILO ISCO-08 2320)。'
+      },
+      service_instruction_combat_medicine_triage_class: {
+        name: '战地创伤急救、临床分诊、动脉止血带使用与防渗旱厕卫生实操培训班 (1 课时/模块)',
+        description: '手把手培养社区新急救员掌握临床急症分诊、动脉止血带加压包扎及符合 Sphere 标准的饮水卫生防疫实操技能 (WHO BEC / ICRC)。'
+      },
+      service_instruction_technical_translation_proc: {
+        name: '多语种工程医学文献专业翻译与外文设备说明书逆向解析服务 (1 次作业)',
+        description: '对回收的英/中/西/葡文机械电子手册、无线电对讲机界面及医药文献进行精准技术翻译与术语标注，支撑逆向工程 (ISO 17100)。'
       }
     }
   };
