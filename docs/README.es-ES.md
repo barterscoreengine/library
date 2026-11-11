@@ -4,7 +4,7 @@
 *(Una biblioteca Local-First para Informática del Colapso y Economía Off-Grid.)*
 
 > **Idioma:**
-> [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Manual Analógico (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md)
+> [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Manual Analógico (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md)
 
 ---
 
@@ -30,7 +30,7 @@ Licenciado bajo [**Apache License 2.0**](https://www.apache.org/licenses/LICENSE
 ## 1. Principios Arquitectónicos Fundamentales
 
 - **Cero Dependencias en Tiempo de Ejecución (`file://` First):** Todos los módulos en `src/`, `data/` y `locales/` emplean un patrón UMD híbrido que expone `window.BarterCore` para ejecución local en el navegador sin bloqueos CORS, además de soportar `module.exports`.
-- **Desacoplamiento Total (Física vs. Idioma):** La física y la matemática de los artículos están aisladas en `data/items_core.js` mediante identificadores semánticos en `snake_case`. Las traducciones técnicas están aisladas en `locales/[lang].js` siguiendo la norma [**IETF BCP 47 / RFC 5646**](https://www.rfc-editor.org/info/bcp47) (`en-US`, `pt-BR`, `es-ES`, `zh-Hans`) con *Fallback* automático en tres niveles:
+- **Desacoplamiento Total (Física vs. Idioma):** La física y la matemática de los artículos están aisladas en `data/items_core.js` mediante identificadores semánticos en `snake_case`. Las traducciones técnicas están aisladas en `locales/[lang].js` siguiendo la norma [**IETF BCP 47 / RFC 5646**](https://www.rfc-editor.org/info/bcp47) (`en-US`, `pt-BR`, `es-ES`, `fr-FR`, `ru-RU`, `sw-KE`, `ar-SA`, `zh-Hans`) con *Fallback* automático en tres niveles:
   ```text
   Idioma Seleccionado  ───►  en-US (Base Canónica)  ───►  ID Técnico Semántico
   ```
@@ -126,6 +126,10 @@ Por análisis dimensional de `ScoreBase = ((E × IN) / (P + Vol + 0.1)) × log�
 | **Nomenclatura Local `en-US`** | United States Pharmacopeia (USP) & FDA Orange Book | [https://www.usp.org/](https://www.usp.org/) · [https://www.accessdata.fda.gov/scripts/cder/ob/](https://www.accessdata.fda.gov/scripts/cder/ob/) |
 | **Nomenclatura Local `pt-BR`** | DCB / ANVISA (Denominación Común Brasileña) | [https://www.gov.br/anvisa/pt-br/assuntos/farmacopeia/dcb](https://www.gov.br/anvisa/pt-br/assuntos/farmacopeia/dcb) |
 | **Nomenclatura Local `es-ES`** | DOE / CIMA AEMPS & BOE `BOE-A-1967-16485` (CAE) | [https://cima.aemps.es/](https://cima.aemps.es/) · [https://www.boe.es/buscar/act.php?id=BOE-A-1967-16485](https://www.boe.es/buscar/act.php?id=BOE-A-1967-16485) |
+| **Nomenclatura Local `fr-FR`** | DCI / ANSM (Pharmacopée Française) & ANSES Table Ciqual | [https://ansm.sante.fr/documents/reference/pharmacopee](https://ansm.sante.fr/documents/reference/pharmacopee) · [https://ciqual.anses.fr/](https://ciqual.anses.fr/) |
+| **Nomenclatura Local `ru-RU`** | МНН / ГРЛС Минздрава РФ (ГФ РФ XV) & Росстандарт (ГОСТ) | [https://grls.rosminzdrav.ru/](https://grls.rosminzdrav.ru/) · [https://protect.gost.ru/](https://protect.gost.ru/) |
+| **Nomenclatura Local `sw-KE`** | KEML / PPB Kenya (Pharmacy and Poisons Board) & KEBS / KFCT | [https://web.pharmacyboardkenya.org/](https://web.pharmacyboardkenya.org/) · [https://www.kebs.org/](https://www.kebs.org/) |
+| **Nomenclatura Local `ar-SA`** | SFDA (Saudi Food & Drug Authority) & Normas SASO / GSO | [https://www.sfda.gov.sa/](https://www.sfda.gov.sa/) · [https://www.saso.gov.sa/](https://www.saso.gov.sa/) |
 | **Nomenclatura Local `zh-Hans`** | Farmacopea China (ChP) & Normas Nacionales GB (SAMR) | [https://www.chp.org.cn/](https://www.chp.org.cn/) · [https://openstd.samr.gov.cn/](https://openstd.samr.gov.cn/) |
 | **Agua y Desinfección NaDCC (`67mg/20L`)** | Esfera WASH Std 2.1 (`15L/día`) & OMS GDWQ `978-92-4-154995-0` | [https://spherestandards.org/handbook/editions/](https://spherestandards.org/handbook/editions/) · [https://www.who.int/publications/i/item/9789241549950](https://www.who.int/publications/i/item/9789241549950) |
 | **Vida Útil (`V`) y Envases (`Frag`)** | USDA FSIS Shelf-Stable, FEMA Ready.gov & FDA SLEP | [https://www.fsis.usda.gov/.../shelf-stable-food](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/shelf-stable-food) · [https://www.fda.gov/.../expiration-dating-extension](https://www.fda.gov/emergency-preparedness-and-response/mcm-legal-regulatory-and-policy-framework/expiration-dating-extension) |
@@ -265,14 +269,26 @@ library/
 │   ├── en-US.js                        # Inglés (WHO INN / USP / Codex Alimentarius)
 │   ├── pt-BR.js                        # Portugués (DCB-ANVISA / TBCA-TACO)
 │   ├── es-ES.js                        # Español (DOE-AEMPS / Código Alimentario Español)
+│   ├── fr-FR.js                        # Francés (DCI-ANSM / Pharmacopée Française / ANSES-Ciqual)
+│   ├── ru-RU.js                        # Ruso (MNN-GRLS Minzdrav RF / Farmacopea Estatal XV / GOST)
+│   ├── sw-KE.js                        # Suajili (WHO INN / KEML-PPB Kenya / KEBS-KFCT)
+│   ├── ar-SA.js                        # Árabe (WHO INN / SFDA / SASO-GSO / Codex Alimentarius)
 │   └── zh-Hans.js                      # Chino Simplificado (Farmacopea China ChP / GB)
 ├── docs/
 │   ├── OFFLINE_MANUAL.md               # Manual de Operación Analógica en Inglés (en-US)
 │   ├── OFFLINE_MANUAL.pt-BR.md         # Manual de Operación Analógica en Portugués de Brasil
 │   ├── OFFLINE_MANUAL.es-ES.md         # Manual de Operación Analógica en Español
+│   ├── OFFLINE_MANUAL.fr-FR.md         # Manual de Operación Analógica en Francés
+│   ├── OFFLINE_MANUAL.ru-RU.md         # Manual de Operación Analógica en Ruso
+│   ├── OFFLINE_MANUAL.sw-KE.md         # Manual de Operación Analógica en Suajili
+│   ├── OFFLINE_MANUAL.ar-SA.md         # Manual de Operación Analógica en Árabe
 │   ├── OFFLINE_MANUAL.zh-Hans.md       # Manual de Operación Analógica en Chino Simplificado
 │   ├── README.pt-BR.md                 # Documentación reflejada en Portugués de Brasil
 │   ├── README.es-ES.md                 # Documentación reflejada en Español
+│   ├── README.fr-FR.md                 # Documentación reflejada en Francés
+│   ├── README.ru-RU.md                 # Documentación reflejada en Ruso
+│   ├── README.sw-KE.md                 # Documentación reflejada en Suajili
+│   ├── README.ar-SA.md                 # Documentación reflejada en Árabe
 │   └── README.zh-Hans.md               # Documentación reflejada en Chino Simplificado
 └── src/
     ├── barter_engine.js                # Motor Matemático y de Trueque UMD (Cero Dependencias)

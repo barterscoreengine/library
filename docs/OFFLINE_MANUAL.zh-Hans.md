@@ -1,11 +1,11 @@
 # BarterScore Engine (v1.1.0) — 全面断电场景下的纸质速查与心算操作手册
 
 > **手册语言:**
-> [**English (`OFFLINE_MANUAL.md`)**](./OFFLINE_MANUAL.md) · [**Português (`OFFLINE_MANUAL.pt-BR.md`)**](./OFFLINE_MANUAL.pt-BR.md) · [**Español (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md) · [**简体中文 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
+> [**English (`OFFLINE_MANUAL.md`)**](./OFFLINE_MANUAL.md) · [**Português (`OFFLINE_MANUAL.pt-BR.md`)**](./OFFLINE_MANUAL.pt-BR.md) · [**Español (`OFFLINE_MANUAL.es-ES.md`)**](./OFFLINE_MANUAL.es-ES.md) · [**Français (`OFFLINE_MANUAL.fr-FR.md`)**](./OFFLINE_MANUAL.fr-FR.md) · [**Русский (`OFFLINE_MANUAL.ru-RU.md`)**](./OFFLINE_MANUAL.ru-RU.md) · [**Kiswahili (`OFFLINE_MANUAL.sw-KE.md`)**](./OFFLINE_MANUAL.sw-KE.md) · [**العربية (`OFFLINE_MANUAL.ar-SA.md`)**](./OFFLINE_MANUAL.ar-SA.md) · [**简体中文 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
 >
 > **官方代码仓库：** [https://github.com/barterscoreengine/library](https://github.com/barterscoreengine/library)
 > **开源许可：** [Apache License 2.0](../LICENSE) · **作者署名：** [Erisson Marques](https://github.com/erissontech) ([`NOTICE`](../NOTICE))
-> **主技术文档：** [**简体中文 (`README.zh-Hans.md`)**](./README.zh-Hans.md) · [**English (`README.md`)**](../README.md) · [**Português (`README.pt-BR.md`)**](./README.pt-BR.md) · [**Español (`README.es-ES.md`)**](./README.es-ES.md)
+> **主技术文档：** [**简体中文 (`README.zh-Hans.md`)**](./README.zh-Hans.md) · [**English (`README.md`)**](../README.md) · [**Português (`README.pt-BR.md`)**](./README.pt-BR.md) · [**Español (`README.es-ES.md`)**](./README.es-ES.md) · [**Français (`README.fr-FR.md`)**](./README.fr-FR.md) · [**Русский (`README.ru-RU.md`)**](./README.ru-RU.md) · [**Kiswahili (`README.sw-KE.md`)**](./README.sw-KE.md) · [**العربية (`README.ar-SA.md`)**](./README.ar-SA.md)
 
 ---
 

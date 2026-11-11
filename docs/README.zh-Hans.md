@@ -4,7 +4,7 @@
 *（面向崩溃信息学与离网经济学的本地优先开源计算库。）*
 
 > **语言:**
-> [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**纸质离线操作手册 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
+> [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**纸质离线操作手册 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
 
 ---
 
@@ -30,7 +30,7 @@
 ## 1. 核心架构与工程原则
 
 - **零运行时依赖 (`file://` 协议原生兼容)：** `src/`、`data/` 与 `locales/` 下的所有模块均采用通用模块定义（UMD）模式，既能安全挂载到全局命名空间 `window.BarterCore` 以规避浏览器本地 `file://` 的 CORS 跨域拦截，又支持 `module.exports`。
-- **物理属性与多语言完全解耦：** 物资的物理与营养参数严格独立存储于 `data/items_core.js`，并采用全英文小写 `snake_case` 语义化 ID。多语言字典独立存储于 `locales/[lang].js`（遵循 [**IETF BCP 47 / RFC 5646**](https://www.rfc-editor.org/info/bcp47) 标准：`en-US`、`pt-BR`、`es-ES`、`zh-Hans`），具备三级自动回退机制（Fallback）：
+- **物理属性与多语言完全解耦：** 物资的物理与营养参数严格独立存储于 `data/items_core.js`，并采用全英文小写 `snake_case` 语义化 ID。多语言字典独立存储于 `locales/[lang].js`（遵循 [**IETF BCP 47 / RFC 5646**](https://www.rfc-editor.org/info/bcp47) 标准：`en-US`、`pt-BR`、`es-ES`、`fr-FR`、`ru-RU`、`sw-KE`、`ar-SA`、`zh-Hans`），具备三级自动回退机制（Fallback）：
   ```text
   当前所选语言  ───►  en-US (英文基准字典)  ───►  技术语义 ID
   ```
@@ -126,6 +126,10 @@ Q_B_精确 = ( ScoreFinal(A) × Q_A ) / ScoreFinal(B)
 | **`en-US` 语言包法定标准** | 美国药典 (USP) 与 FDA 橙皮书 (Orange Book) | [https://www.usp.org/](https://www.usp.org/) · [https://www.accessdata.fda.gov/scripts/cder/ob/](https://www.accessdata.fda.gov/scripts/cder/ob/) |
 | **`pt-BR` 语言包法定标准** | 巴西国家卫生监督局通用药品名称 (DCB / ANVISA) | [https://www.gov.br/anvisa/pt-br/assuntos/farmacopeia/dcb](https://www.gov.br/anvisa/pt-br/assuntos/farmacopeia/dcb) |
 | **`es-ES` 语言包法定标准** | 西班牙药监局 (DOE / AEMPS) 与 `BOE-A-1967-16485` | [https://cima.aemps.es/](https://cima.aemps.es/) · [https://www.boe.es/buscar/act.php?id=BOE-A-1967-16485](https://www.boe.es/buscar/act.php?id=BOE-A-1967-16485) |
+| **`fr-FR` 语言包法定标准** | 法国药典 (DCI / ANSM Pharmacopée Française) 与 ANSES Ciqual | [https://ansm.sante.fr/documents/reference/pharmacopee](https://ansm.sante.fr/documents/reference/pharmacopee) · [https://ciqual.anses.fr/](https://ciqual.anses.fr/) |
+| **`ru-RU` 语言包法定标准** | 俄罗斯卫生部国家药品注册目录 (МНН / ГРЛС Минздрава РФ) 与 ГОСТ 国家标准 | [https://grls.rosminzdrav.ru/](https://grls.rosminzdrav.ru/) · [https://protect.gost.ru/](https://protect.gost.ru/) |
+| **`sw-KE` 语言包法定标准** | 肯尼亚国家基本药物清单与药监局 (KEML / PPB Kenya) 及肯尼亚标准局 (KEBS / KFCT) | [https://web.pharmacyboardkenya.org/](https://web.pharmacyboardkenya.org/) · [https://www.kebs.org/](https://www.kebs.org/) |
+| **`ar-SA` 语言包法定标准** | 沙特食品药品监督管理局 (SFDA) 与沙特及海湾标准局 (SASO / GSO) | [https://www.sfda.gov.sa/](https://www.sfda.gov.sa/) · [https://www.saso.gov.sa/](https://www.saso.gov.sa/) |
 | **`zh-Hans` 语言包法定标准** | 《中华人民共和国药典》(ChP) 与国家标准全文公开系统 (GB) | [https://www.chp.org.cn/](https://www.chp.org.cn/) · [https://openstd.samr.gov.cn/](https://openstd.samr.gov.cn/) |
 | **饮水与 NaDCC 净水片 (`67mg/20L`)** | Sphere WASH Std 2.1 (`15L/天`) & WHO GDWQ `978-92-4-154995-0` | [https://spherestandards.org/handbook/editions/](https://spherestandards.org/handbook/editions/) · [https://www.who.int/publications/i/item/9789241549950](https://www.who.int/publications/i/item/9789241549950) |
 | **密封保质期 (`V`) 与包装抗损 (`Frag`)** | USDA FSIS 耐储食品、FEMA Ready.gov 与 FDA SLEP | [https://www.fsis.usda.gov/.../shelf-stable-food](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/shelf-stable-food) · [https://www.fda.gov/.../expiration-dating-extension](https://www.fda.gov/emergency-preparedness-and-response/mcm-legal-regulatory-and-policy-framework/expiration-dating-extension) |
@@ -265,14 +269,26 @@ library/
 │   ├── en-US.js                        # 英语语言包 (WHO INN / USP / Codex Alimentarius)
 │   ├── pt-BR.js                        # 巴西葡萄牙语语言包 (DCB-ANVISA / TBCA-TACO)
 │   ├── es-ES.js                        # 西班牙语语言包 (DOE-AEMPS / 西班牙食品法典)
+│   ├── fr-FR.js                        # 法语语言包 (DCI-ANSM / 法国药典 / ANSES-Ciqual)
+│   ├── ru-RU.js                        # 俄语语言包 (МНН-ГРЛС 俄罗斯国家药典 XV / ГОСТ 标准)
+│   ├── sw-KE.js                        # 斯瓦希里语语言包 (WHO INN / KEML-PPB Kenya / KEBS-KFCT)
+│   ├── ar-SA.js                        # 阿拉伯语语言包 (WHO INN / SFDA / SASO-GSO / Codex Alimentarius)
 │   └── zh-Hans.js                      # 简体中文语言包 (《中华人民共和国药典》ChP / GB 国家标准)
 ├── docs/
 │   ├── OFFLINE_MANUAL.md               # 全面断电场景下的纸质速查与心算操作手册 (English)
 │   ├── OFFLINE_MANUAL.pt-BR.md         # 全面断电场景下的纸质速查与心算操作手册 (巴西葡萄牙语)
 │   ├── OFFLINE_MANUAL.es-ES.md         # 全面断电场景下的纸质速查与心算操作手册 (西班牙语)
+│   ├── OFFLINE_MANUAL.fr-FR.md         # 全面断电场景下的纸质速查与心算操作手册 (法语)
+│   ├── OFFLINE_MANUAL.ru-RU.md         # 全面断电场景下的纸质速查与心算操作手册 (俄语)
+│   ├── OFFLINE_MANUAL.sw-KE.md         # 全面断电场景下的纸质速查与心算操作手册 (斯瓦希里语)
+│   ├── OFFLINE_MANUAL.ar-SA.md         # 全面断电场景下的纸质速查与心算操作手册 (阿拉伯语)
 │   ├── OFFLINE_MANUAL.zh-Hans.md       # 全面断电场景下的纸质速查与心算操作手册 (简体中文)
 │   ├── README.pt-BR.md                 # 巴西葡萄牙语完整镜像技术文档
 │   ├── README.es-ES.md                 # 西班牙语完整镜像技术文档
+│   ├── README.fr-FR.md                 # 法语完整镜像技术文档
+│   ├── README.ru-RU.md                 # 俄语完整镜像技术文档
+│   ├── README.sw-KE.md                 # 斯瓦希里语完整镜像技术文档
+│   ├── README.ar-SA.md                 # 阿拉伯语完整镜像技术文档
 │   └── README.zh-Hans.md               # 简体中文完整镜像技术文档
 └── src/
     ├── barter_engine.js                # 零依赖 UMD 核心数学估值与易货交易引擎
