@@ -13,9 +13,9 @@ Every item and scientific reference in this repository is anchored by the **Immu
 
 1. **Pillar 1 — Permanent Bibliographic / Regulatory Identifier (`source_code`):**
    - Every item is indexed by an immutable, non-URL catalog code that exists in physical university libraries, printed pharmacopeias, and international standards registries:
-     - **Foods:** `USDA FoodData Central FDC ID / NDB Number`, `TBCA / TACO Code`, and `FAO/WHO Codex Alimentarius Standard (CXS)`.
-     - **Pharmaceuticals & Trauma:** `WHO Model List of Essential Medicines Document Code (WHO/MHP/HPS/EML/2023.02)`, `WHO Anatomical Therapeutic Chemical (ATC) Code`, `WHO/FCH/CAH/06.1`, `WHO IEHK 2017`, and `US DoD CoTCCC Guidelines`.
-     - **Water, Energy, Tools & Bullion:** `WHO GDWQ ISBN 978-92-4-154995-0`, `Sphere WASH Standard 2.1`, `IEC 60086 / IEC 61960`, `CDC/NIOSH 42 CFR Part 84`, `ISO / ASTM / MIL-STD`, and `LBMA Good Delivery / ISO 4217`.
+     - **Foods:** `USDA FoodData Central FDC ID / NDB Number`, `ANSES Table Ciqual`, `ГОСТ / ФИЦ питания`, `Kenya Food Composition Tables (KFCT 2018) / KEBS`, `SASO / GSO (Gulf Standardization Organization) & FAO Near East Food Composition Tables`, `TBCA / TACO Code`, and `FAO/WHO Codex Alimentarius Standard (CXS)`.
+     - **Pharmaceuticals & Trauma:** `WHO Model List of Essential Medicines Document Code (WHO/MHP/HPS/EML/2023.02)`, `WHO Anatomical Therapeutic Chemical (ATC) Code`, `DCI / ANSM (Pharmacopée Française)`, `МНН / ГРЛС Минздрава РФ (ГФ РФ XV)`, `KEML / PPB Kenya (Pharmacy and Poisons Board)`, `SFDA Saudi National Formulary (Saudi Food and Drug Authority)`, `WHO/FCH/CAH/06.1`, `WHO IEHK 2017`, and `US DoD CoTCCC Guidelines`.
+     - **Water, Energy, Tools & Bullion:** `WHO GDWQ ISBN 978-92-4-154995-0`, `Sphere WASH Standard 2.1`, `IEC 60086 / IEC 61960`, `SASO / KEBS KS EAS / AFNOR NF EN 149 / ГОСТ 12.4.294-2013 / CDC/NIOSH 42 CFR Part 84`, `ISO / ASTM / MIL-STD`, and `LBMA Good Delivery / ISO 4217`.
 2. **Pillar 2 — Self-Contained Local Data Snapshot (`baseline_note` & `items_core.js`):**
    - The exact quantitative values extracted from those standards (`kcal/100g`, macronutrient percentages, active mg posology, molarity, and shelf-life days) are permanently frozen in plain text inside this dossier and in `audit_sources/offline_sources_registry.js`. Even if the internet ceases to exist permanently, an auditor can recompute every `IN`, `ScoreBase`, and `ScoreFinal` locally.
 3. **Pillar 3 — Archival Recovery Protocol (If an Official URL Breaks in the Future):**
