@@ -20,7 +20,7 @@ export type UnitMeasure = 'g' | 'ml' | 'un';
 
 export type CrisisScenarioId = 'baseline' | 'acute_collapse' | 'economic_reconstruction' | (string & {});
 
-export type SupportedLocaleCode = 'en-US' | 'pt-BR' | 'es-ES' | 'zh-Hans' | (string & {});
+export type SupportedLocaleCode = 'en-US' | 'pt-BR' | 'es-ES' | 'fr-FR' | 'ru-RU' | 'sw-KE' | 'ar-SA' | 'zh-Hans' | (string & {});
 
 export interface NutritionProperties {
   pct_kcal_protein: number;
@@ -362,4 +362,4 @@ export declare const VERSION: string;
 export declare const Validator: ValidatorNamespace;
 export declare const ItemsCore: BarterItem[];
 export declare const AuditSources: AuditSourcesNamespace;
-export declare const Locales: Readonly<Record<'en-US' | 'pt-BR' | 'es-ES' | 'zh-Hans', LocaleDictionary>>;
+export declare const Locales: Readonly<Record<'en-US' | 'pt-BR' | 'es-ES' | 'fr-FR' | 'ru-RU' | 'sw-KE' | 'ar-SA' | 'zh-Hans', LocaleDictionary>>;

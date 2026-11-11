@@ -2,7 +2,7 @@
  * @fileoverview BarterScore Engine - Unified Root Package Entry Point (@barterscoreengine/library)
  * @author Erisson Marques (https://github.com/erissontech)
  * @license Apache-2.0
- * @version 1.0.0
+ * @version 1.1.0
  *
  * UMD root barrel module exporting BarterEngine, Validator, ItemsCore, AuditSources, and Locales
  * for seamless ES Module (`import { BarterEngine, Validator, ItemsCore, Locales } from '@barterscoreengine/library'`),
@@ -20,6 +20,10 @@
     var enUS = require('./locales/en-US.js');
     var ptBR = require('./locales/pt-BR.js');
     var esES = require('./locales/es-ES.js');
+    var frFR = require('./locales/fr-FR.js');
+    var ruRU = require('./locales/ru-RU.js');
+    var swKE = require('./locales/sw-KE.js');
+    var arSA = require('./locales/ar-SA.js');
     var zhHans = require('./locales/zh-Hans.js');
     var BarterEngine = require('./src/barter_engine.js');
 
@@ -32,6 +36,10 @@
         'en-US': enUS,
         'pt-BR': ptBR,
         'es-ES': esES,
+        'fr-FR': frFR,
+        'ru-RU': ruRU,
+        'sw-KE': swKE,
+        'ar-SA': arSA,
         'zh-Hans': zhHans
       }
     });
@@ -77,7 +85,8 @@
   }
 
   return Object.freeze({
-    VERSION: '1.0.0',
+    VERSION: '1.1.0',
+    SUPPORTED_LOCALES: Validator && Validator.SUPPORTED_LOCALES ? Validator.SUPPORTED_LOCALES : Object.keys(Locales),
     BarterEngine: BarterEngine,
     Validator: Validator,
     ItemsCore: ItemsCore,

@@ -238,7 +238,7 @@
         }
       }
 
-      var defaultLocaleFiles = ['en-US', 'pt-BR', 'es-ES', 'zh-Hans'];
+      var defaultLocaleFiles = ['en-US', 'pt-BR', 'es-ES', 'fr-FR', 'ru-RU', 'sw-KE', 'ar-SA', 'zh-Hans'];
       for (var l = 0; l < defaultLocaleFiles.length; l++) {
         var locCode = defaultLocaleFiles[l];
         if (!internalLocalesMap[locCode]) {
@@ -913,7 +913,7 @@
         function fmtLocaleNum(val, decs, locCode) {
           var num = Number(val);
           if (!Number.isFinite(num)) return String(val);
-          var useComma = locCode === 'pt-BR' || locCode === 'es-ES';
+          var useComma = locCode === 'pt-BR' || locCode === 'es-ES' || locCode === 'fr-FR' || locCode === 'ru-RU';
           var tSep = useComma ? '.' : ',';
           var dSep = useComma ? ',' : '.';
           var d = typeof decs === 'number' && decs >= 0 ? decs : 2;
@@ -1312,7 +1312,7 @@
   /**
    * Registers a localization dictionary under its IETF BCP 47 locale code.
    *
-   * @param {string} localeCode - IETF BCP 47 code (e.g., `'en-US'`, `'pt-BR'`, `'es-ES'`, `'zh-Hans'`).
+   * @param {string} localeCode - IETF BCP 47 code (e.g., `'en-US'`, `'pt-BR'`, `'es-ES'`, `'fr-FR'`, `'ru-RU'`, `'sw-KE'`, `'ar-SA'`, `'zh-Hans'`).
    * @param {Object} dictionary - Structured translation dictionary (`{ categories, scenarios, ui, items }`).
    * @returns {boolean} `true` if successfully registered.
    * @example
@@ -1336,7 +1336,7 @@
   /**
    * Sets the default active locale code for translation lookups.
    *
-   * @param {string} localeCode - IETF BCP 47 locale identifier (`'en-US'`, `'pt-BR'`, `'es-ES'`, `'zh-Hans'`).
+   * @param {string} localeCode - IETF BCP 47 locale identifier (`'en-US'`, `'pt-BR'`, `'es-ES'`, `'fr-FR'`, `'ru-RU'`, `'sw-KE'`, `'ar-SA'`, `'zh-Hans'`).
    * @returns {string} Active locale code after update.
    * @example
    * BarterEngine.setLocale('pt-BR');
@@ -1733,7 +1733,7 @@
   /**
    * Sets the active IETF BCP 47 locale code on this instance without mutating other instances.
    *
-   * @param {string} localeCode - Locale identifier (`'en-US'`, `'pt-BR'`, `'es-ES'`, `'zh-Hans'`).
+   * @param {string} localeCode - Locale identifier (`'en-US'`, `'pt-BR'`, `'es-ES'`, `'fr-FR'`, `'ru-RU'`, `'sw-KE'`, `'zh-Hans'`).
    * @returns {string} Active locale code for this instance.
    * @example
    * engine.setLocale('en-US');

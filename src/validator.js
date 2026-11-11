@@ -52,7 +52,7 @@
    * Supported IETF BCP 47 locale identifiers.
    * @type {ReadonlyArray<string>}
    */
-  var SUPPORTED_LOCALES = Object.freeze(['en-US', 'pt-BR', 'es-ES', 'zh-Hans']);
+  var SUPPORTED_LOCALES = Object.freeze(['en-US', 'pt-BR', 'es-ES', 'fr-FR', 'ru-RU', 'sw-KE', 'ar-SA', 'zh-Hans']);
 
   /**
    * Parameter mathematical boundaries enforced by the specification.
