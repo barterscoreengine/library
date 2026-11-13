@@ -262,6 +262,7 @@ library/
 ├── start_windows.bat                   # 1-Click Windows launcher (file:// protocol)
 ├── start_unix.sh                       # 1-Click POSIX launcher (Linux, macOS, BSD)
 ├── manual_generator.html               # Zero-dependency offline GUI, trade simulator & printable field manual
+├── attachments/                        # Project banners, icons, and visual media assets
 ├── data/
 │   └── items_core.js                   # 128 standardized items (9 categories: 100 commodities + 28 services) + Item 129+ template
 ├── audit_sources/
