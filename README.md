@@ -6,6 +6,9 @@
 > [**English (en-US)**](./README.md) · [**Português (pt-BR)**](./docs/README.pt-BR.md) · [**Español (es-ES)**](./docs/README.es-ES.md) · [**Français (fr-FR)**](./docs/README.fr-FR.md) · [**Русский (ru-RU)**](./docs/README.ru-RU.md) · [**Kiswahili (sw-KE)**](./docs/README.sw-KE.md) · [**العربية (ar-SA)**](./docs/README.ar-SA.md) · [**简体中文 (zh-Hans)**](./docs/README.zh-Hans.md) · [**Analog Field Manual (`OFFLINE_MANUAL.md`)**](./docs/OFFLINE_MANUAL.md)
 
 ---
+<p align="center">
+  <img width="557" height="279" alt="banner-readme" src="./attachments/banner-readme.jpg" />
+</p>
 
 **BarterScore Engine** is a deterministic, cross-platform, zero-dependency, offline-first mathematical engine and reference catalog designed to evaluate the physical, nutritional, and functional barter value of essential commodities and specialized human services in supply-chain disruptions, humanitarian crises, and civil collapse scenarios.
 
