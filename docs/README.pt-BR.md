@@ -7,6 +7,9 @@
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Manual Analógico (`OFFLINE_MANUAL.pt-BR.md`)**](./OFFLINE_MANUAL.pt-BR.md)
 
 ---
+<p align="center">
+  <img width="557" height="279" alt="banner-readme" src="../attachments/banner-readme.jpg" />
+</p>
 
 O **BarterScore Engine** é um motor matemático determinístico, multiplataforma, sem dependências externas e 100% *offline-first*, projetado para avaliar cientificamente o valor físico, nutricional e funcional de itens essenciais e serviços humanos especializados para escambo em cenários de ruptura logística, crises humanitárias e colapso civil.
 

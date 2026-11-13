@@ -7,6 +7,9 @@
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**纸质离线操作手册 (`OFFLINE_MANUAL.zh-Hans.md`)**](./OFFLINE_MANUAL.zh-Hans.md)
 
 ---
+<p align="center">
+  <img width="557" height="279" alt="banner-readme" src="../attachments/banner-readme.jpg" />
+</p>
 
 **BarterScore Engine** 是一套确定性、跨平台、零外部依赖、100% 离线优先（Offline-First）的实物与基础专业技术服务易货数学估值引擎及 128 项标准参考目录，专为供应链中断、人道主义危机及社会秩序崩溃场景下的实用价值评估与双边交换比价而设计。
 

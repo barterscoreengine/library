@@ -7,6 +7,9 @@
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Аналоговое полевое руководство (`OFFLINE_MANUAL.ru-RU.md`)**](./OFFLINE_MANUAL.ru-RU.md)
 
 ---
+<p align="center">
+  <img width="557" height="279" alt="banner-readme" src="../attachments/banner-readme.jpg" />
+</p>
 
 **BarterScore Engine** — это детерминированное, кроссплатформенное математическое ядро без внешних зависимостей (100% *offline-first*) и эталонный каталог из 128 позиций, разработанные для научно обоснованной оценки физической, нутритивной и функциональной меновой ценности товаров первой необходимости и специализированных человеческих услуг при разрушении цепочек поставок, гуманитарных кризисах и гражданском коллапсе.
 

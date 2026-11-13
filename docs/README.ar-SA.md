@@ -7,6 +7,9 @@
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**الدليل الميداني الورقي (`OFFLINE_MANUAL.ar-SA.md`)**](./OFFLINE_MANUAL.ar-SA.md)
 
 ---
+<p align="center">
+  <img width="557" height="279" alt="banner-readme" src="../attachments/banner-readme.jpg" />
+</p>
 
 **BarterScore Engine** هو محرك رياضي حتمي، متعدد المنصات، عديم الاعتماديات الخارجية (*Zero-Dependency*)، ويعمل دون اتصال بالإنترنت بنسبة 100% (*Offline-First*)، مزود بدليل مرجعي يضم **128 عنصراً وخدمة قياسية** لتقييم القيمة الفيزيائية والغذائية والوظيفية للسلع الأساسية والخدمات البشرية التخصصية في سيناريوهات انقطاع سلاسل الإمداد، الأزمات الإنسانية، والانهيار المدني.
 
