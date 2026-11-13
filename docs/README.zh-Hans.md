@@ -263,6 +263,7 @@ library/
 ├── start_windows.bat                   # Windows 一键离线启动脚本 (file:// 协议)
 ├── start_unix.sh                       # POSIX 跨平台一键启动脚本 (Linux, macOS, BSD)
 ├── manual_generator.html               # 零依赖离线 GUI、易货模拟器与纸质速查手册生成器
+├── attachments/                        # 项目横幅（Banner）、图标及视觉媒体资源
 ├── data/
 │   └── items_core.js                   # 128 项标准化物资与服务数据集（9 大分类：100 项物资 + 28 项服务）+ 第 129+ 项模板
 ├── audit_sources/

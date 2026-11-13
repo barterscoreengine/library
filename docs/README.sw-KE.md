@@ -169,6 +169,7 @@ library/
 ├── start_windows.bat                   # Kianzishaji cha Bofya-1 cha Windows (itifaki ya file://)
 ├── start_unix.sh                       # Kianzishaji cha Bofya-1 cha POSIX (Linux, macOS, BSD)
 ├── manual_generator.html               # Kiolesura cha nje ya mtandao, kiigaji cha biashara na kichapishaji cha A4
+├── attachments/                        # Mabango, aikoni na rasilimali za picha za mradi
 ├── data/
 │   └── items_core.js                   # Bidhaa na huduma 128 zilizosanifishwa (kategoria 9: bidhaa 100 + huduma 28) + kiolezo cha 129+
 ├── audit_sources/

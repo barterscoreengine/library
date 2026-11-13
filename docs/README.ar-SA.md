@@ -169,6 +169,7 @@ library/
 ├── start_windows.bat                   # مشغل Windows بنقرة واحدة (بروتوكول file://)
 ├── start_unix.sh                       # مشغل POSIX بنقرة واحدة (Linux, macOS, BSD)
 ├── manual_generator.html               # واجهة المستخدم الرسومية دون اتصال، محاكي المقايضة، ومولد الدليل المطبوع A4
+├── attachments/                        # الشعارات واللافتات والأيقونات والموارد البصرية للمشروع
 ├── data/
 │   └── items_core.js                   # 128 عنصراً وخدمة قياسية (9 فئات: 100 سلعة + 28 خدمة) + قالب العنصر 129+
 ├── audit_sources/

@@ -198,6 +198,7 @@ library/
 ├── start_windows.bat                   # Лаунчер Windows в 1 клик (протокол file://)
 ├── start_unix.sh                       # POSIX-лаунчер в 1 клик (Linux, macOS, BSD)
 ├── manual_generator.html               # Автономный GUI без зависимостей, симулятор и генератор руководства A4
+├── attachments/                        # Баннеры, иконки и визуальные медиаресурсы проекта
 ├── data/
 │   └── items_core.js                   # 128 стандартизированных позиций (9 категорий: 100 товаров + 28 услуг) + шаблон Позиции 129+
 ├── audit_sources/

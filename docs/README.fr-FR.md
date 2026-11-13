@@ -263,6 +263,7 @@ library/
 ├── start_windows.bat                   # Lanceur Windows en 1 clic (protocole file://)
 ├── start_unix.sh                       # Lanceur POSIX en 1 clic (Linux, macOS, BSD)
 ├── manual_generator.html               # Interface hors-ligne sans dépendance, simulateur et générateur A4
+├── attachments/                        # Bannières, icônes et ressources visuelles du projet
 ├── data/
 │   └── items_core.js                   # 128 articles standardisés (9 catégories : 100 biens + 28 services) + modèle Article 129+
 ├── audit_sources/

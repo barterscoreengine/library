@@ -263,6 +263,7 @@ library/
 ├── start_windows.bat                   # Inicializador Windows em 1 clique (protocolo file://)
 ├── start_unix.sh                       # Inicializador POSIX em 1 clique (Linux, macOS, BSD)
 ├── manual_generator.html               # GUI offline zero-dependency, simulador e gerador de manual impresso
+├── attachments/                        # Banners, ícones e recursos visuais do projeto
 ├── data/
 │   └── items_core.js                   # 128 itens padronizados (9 categorias: 100 mercadorias + 28 serviços) + template Item 129+
 ├── audit_sources/
