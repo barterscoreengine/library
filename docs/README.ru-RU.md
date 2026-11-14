@@ -7,6 +7,10 @@
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Аналоговое полевое руководство (`OFFLINE_MANUAL.ru-RU.md`)**](./OFFLINE_MANUAL.ru-RU.md)
 
 ---
+
+[![Запустить полную систему](https://img.shields.io/badge/🚀_Запустить_полную_систему-2EA043?style=for-the-badge)](https://barterscoreengine.github.io/barterscore/manual_generator.html)
+
+---
 <p align="center">
   <img width="557" height="279" alt="banner-readme" src="../attachments/banner-readme.jpg" />
 </p>

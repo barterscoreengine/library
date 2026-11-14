@@ -7,6 +7,10 @@
 > [**English (en-US)**](../README.md) · [**Português (pt-BR)**](./README.pt-BR.md) · [**Español (es-ES)**](./README.es-ES.md) · [**Français (fr-FR)**](./README.fr-FR.md) · [**Русский (ru-RU)**](./README.ru-RU.md) · [**Kiswahili (sw-KE)**](./README.sw-KE.md) · [**العربية (ar-SA)**](./README.ar-SA.md) · [**简体中文 (zh-Hans)**](./README.zh-Hans.md) · [**Manuel Analogique (`OFFLINE_MANUAL.fr-FR.md`)**](./OFFLINE_MANUAL.fr-FR.md)
 
 ---
+
+[![Lancer le Système Complet](https://img.shields.io/badge/🚀_Lancer_le_Système_Complet-2EA043?style=for-the-badge)](https://barterscoreengine.github.io/barterscore/manual_generator.html)
+
+---
 <p align="center">
   <img width="557" height="279" alt="banner-readme" src="../attachments/banner-readme.jpg" />
 </p>
